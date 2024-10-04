@@ -1,9 +1,9 @@
-# USE CASE: <number> <the name should be the goal as a short active verb phrase>
+# USE CASE: 11. Report showing all cities in a district
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-
+As a User, I want to be able to view different city reports, so that I can easily see which cities are the most populated within the specified area.
 
 
 ### Scope

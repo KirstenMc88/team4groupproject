@@ -1,9 +1,10 @@
-# USE CASE: <number> <the name should be the goal as a short active verb phrase>
+# USE CASE: 2. Report showing all countries in a continent
 
 ## CHARACTERISTIC INFORMATION
 
-### Goal in Context
 
+### Goal in Context
+As a User, I want to be able to view different country reports, so that I can easily see which countries are the most populated within the specified area.
 
 
 ### Scope
