@@ -1,9 +1,9 @@
-# USE CASE: <number> <the name should be the goal as a short active verb phrase>
+# USE CASE: 25. Report showing the population distribution in a country
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-
+As a User, I want to be able to view different population distribution reports, so that I can easily see how the population is distributed between living in cities and not living in cities within the specified area.
 
 
 ### Scope

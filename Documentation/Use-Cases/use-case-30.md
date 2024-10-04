@@ -1,9 +1,9 @@
-# USE CASE: <number> <the name should be the goal as a short active verb phrase>
+# USE CASE: 30. Population of a district
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-
+As a User, I want to be able to view the population of different areas, so that I can easily see specific population data when I need it.
 
 
 ### Scope
