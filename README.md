@@ -1,4 +1,4 @@
-# [Placeholder group name] Group Project Github
+# Team 4 Group Project Github
 
 ### Badges
 * Master build status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/k4netw/team4groupproject/main.yml?branch=master)
