@@ -9,7 +9,7 @@ public class Menu {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("------Main Menu------");
+            System.out.println("\n------Main Menu------");
             System.out.println("1 - Country reports.");
             System.out.println("2 - City reports.");
             System.out.println("3 - Capital city reports.");
