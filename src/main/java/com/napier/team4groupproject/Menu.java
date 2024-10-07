@@ -9,7 +9,7 @@ public class Menu {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\n------Main Menu------");
+            System.out.println("------Main Menu------");
             System.out.println("1 - Country reports.");
             System.out.println("2 - City reports.");
             System.out.println("3 - Capital city reports.");
@@ -52,7 +52,6 @@ public class Menu {
                 default:
                     System.out.println("Invalid choice. Please enter a valid number.");
             }
-            System.out.println();
         }
     }
 
