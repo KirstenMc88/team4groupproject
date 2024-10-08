@@ -140,7 +140,9 @@ rectangle "Population Application" {
     UC30 ..> UC33 : <<includes>>
     UC31 ..> UC33 : <<includes>>
     UC32 ..> UC33 : <<includes>>
-    UC33 ..> UC34 : <<includes>>
+    UC33 ..> UC34
+
+
     UC34 ..> UC35 : <<includes>>
 
     UC35 -- Database
