@@ -5,6 +5,8 @@
 ### Goal in Context
 As a User, I want to be able to view the amount of people speaking different languages, so that I can easily see which is spoken the most
 
+### Scope
+The Population Information System
 
 ### Level
 Primary Task

@@ -7,7 +7,7 @@ As a User, I want to be able to view different population distribution reports, 
 
 
 ### Scope
-Application
+The Population Information System
 
 
 ### Level

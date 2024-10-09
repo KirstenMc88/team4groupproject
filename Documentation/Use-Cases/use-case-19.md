@@ -7,7 +7,7 @@ As a User, I want to be able to view different capital city reports, so that I c
 
 
 ### Scope
-Application
+The Population Information System
 
 
 ### Level
