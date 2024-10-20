@@ -1,0 +1,152 @@
+@startuml
+actor User as "User"
+
+rectangle Database
+
+rectangle "Population Application" {
+    usecase UC01 as "Report showing all countries in the world"
+
+    usecase UC02 as "Report showing all countries in a continent"
+
+    usecase UC03 as "Report showing all countries in a region"
+
+    usecase UC04 as "Report showing top x populated countries in the world"
+
+    usecase UC05 as "Report showing top x populated countries in a continent"
+
+    usecase UC06 as "Report showing top x populated countries in a region"
+
+    usecase UC07 as "Report showing all cities in the world"
+
+    usecase UC08 as "Report showing all cities in a continent"
+
+    usecase UC09 as "Report showing all cities in a region"
+
+    usecase UC10 as "Report showing all cities in a country"
+
+    usecase UC11 as "Report showing all cities in a district"
+
+    usecase UC12 as "Report showing top x populated cities in the world"
+
+    usecase UC13 as "Report showing top x populated cities in a continent"
+
+    usecase UC14 as "Report showing top x populated cities in a region"
+
+    usecase UC15 as "Report showing top x populated cities in a country"
+
+    usecase UC16 as "Report showing top x populated cities in a district"
+
+    usecase UC17 as "Report showing all capital cities in the world"
+
+    usecase UC18 as "Report showing all capital cities in a continent"
+
+    usecase UC19 as "Report showing all capital cities in a region"
+
+    usecase UC20 as "Report showing top x populated capital cities in the world"
+
+    usecase UC21 as "Report showing top x populated capital cities in a continent"
+
+    usecase UC22 as "Report showing top x populated capital cities in a region"
+
+    usecase UC23 as "Report showing the population distribution in a continent"
+
+    usecase UC24 as "Report showing the population distribution in a region"
+
+    usecase UC25 as "Report showing the population distribution in a country"
+
+    usecase UC26 as "Population of the world"
+
+    usecase UC27 as "Population of a continent"
+
+    usecase UC28 as "Population of a region"
+
+    usecase UC29 as "Population of a country"
+
+    usecase UC30 as "Population of a district"
+
+    usecase UC31 as "Population of a city"
+
+    usecase UC32 as "Number of people in the world speaking Chinese, English, Hindi, Spanish and Arabic."
+
+    usecase UC33 as "Input Validation"
+
+    usecase UC34 as "Generate Report"
+
+    usecase UC35 as "Data Retrieval"
+
+
+    User ---> (UC01)
+    User ---> UC02
+    User ---> UC03
+    User ---> UC04
+    User ---> UC05
+    User ---> UC06
+    User ---> UC07
+    User ---> UC08
+    User ---> UC09
+    User ---> UC10
+    User ---> UC11
+    User ---> UC12
+    User ---> UC13
+    User ---> UC14
+    User ---> UC15
+    User ---> UC16
+    User ---> UC17
+    User ---> UC18
+    User ---> UC19
+    User ---> UC20
+    User ---> UC21
+    User ---> UC22
+    User ---> UC23
+    User ---> UC24
+    User ---> UC25
+    User ---> UC26
+    User ---> UC27
+    User ---> UC28
+    User ---> UC29
+    User ---> UC30
+    User ---> UC31
+    User ---> UC32
+
+    UC01 ..> UC33 : <<includes>>
+    UC02 ..> UC33 : <<includes>>
+    UC03 ..> UC33 : <<includes>>
+    UC04 ..> UC33 : <<includes>>
+    UC05 ..> UC33 : <<includes>>
+    UC06 ..> UC33 : <<includes>>
+    UC07 ..> UC33 : <<includes>>
+    UC08 ..> UC33 : <<includes>>
+    UC09 ..> UC33 : <<includes>>
+    UC10 ..> UC33 : <<includes>>
+    UC11 ..> UC33 : <<includes>>
+    UC12 ..> UC33 : <<includes>>
+    UC13 ..> UC33 : <<includes>>
+    UC14 ..> UC33 : <<includes>>
+    UC15 ..> UC33 : <<includes>>
+    UC16 ..> UC33 : <<includes>>
+    UC17 ..> UC33 : <<includes>>
+    UC18 ..> UC33 : <<includes>>
+    UC19 ..> UC33 : <<includes>>
+    UC20 ..> UC33 : <<includes>>
+    UC21 ..> UC33 : <<includes>>
+    UC22 ..> UC33 : <<includes>>
+    UC23 ..> UC33 : <<includes>>
+    UC24 ..> UC33 : <<includes>>
+    UC25 ..> UC33 : <<includes>>
+    UC26 ..> UC33 : <<includes>>
+    UC27 ..> UC33 : <<includes>>
+    UC28 ..> UC33 : <<includes>>
+    UC29 ..> UC33 : <<includes>>
+    UC30 ..> UC33 : <<includes>>
+    UC31 ..> UC33 : <<includes>>
+    UC32 ..> UC33 : <<includes>>
+    UC33 ..> UC34
+
+
+    UC34 ..> UC35 : <<includes>>
+
+    UC35 -- Database
+
+
+}
+@enduml
