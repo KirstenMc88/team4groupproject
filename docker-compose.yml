@@ -1,11 +1,12 @@
 version: '3'
 services:
-  # Application Dockerfile is in same folder which is .
+  # links to app dockerfile
   app:
     build: .
     depends_on:
-      - world-db
+      - world-db # ensures that database is started before starting app
 
+  # links to database dockerfile
   world-db:
     build: world-db/.
     command: --default-authentication-plugin=mysql_native_password
