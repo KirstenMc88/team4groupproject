@@ -6,11 +6,16 @@ public class App
 {
     /**
      * Connection to MySQL database.
+     *
+     * <p>This field is used by the connect() and disconnect() methods to create and close the connection to the MySQL database.</p>
      */
     private Connection con = null;
 
     /**
      * Connect to the MySQL database.
+     *
+     * <p>This method trys to connect to the MySQL database, it allows for 10 attempts and has a delay set up to give the database time to start. It deals with exceptions internally.</p>
+     *
      */
     public void connect()
     {
@@ -52,6 +57,9 @@ public class App
 
     /**
      * Disconnect from the MySQL database.
+     *
+     * <p>This method closes the connection to the MySQL database. It deals with exceptions internally.</p>
+     *
      */
     public void disconnect()
     {
@@ -69,7 +77,13 @@ public class App
         }
     }
 
-    // applications main method
+    /**
+     * Main method of the app
+     *
+     * <p>This is the main method of the app which is called when the app is executed.</p>
+     *
+     * @param args standard string array for java main class to receive command-line arguments
+     */
     public static void main(String[] args)
     {
         // prints "hello world", very basic for now, just to prove that everything is set up as it should be
