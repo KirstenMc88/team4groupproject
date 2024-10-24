@@ -2,8 +2,26 @@ package com.napier.team4groupproject;
 
 import java.util.Scanner;
 
+
+/**
+ * The {@code Menu} class provides the main menu and submenu structure
+ * to allow different reports to be generated
+ * such as country, city, region, population etc
+ * The user can easily navigate the menu using input to select and view specific reports
+ * They can also return to previous menus using 0
+ */
 public class Menu {
+    /**
+     A {@code Scanner} object to take in a user input form the cosnole
+     */
+
     private static Scanner input = new Scanner(System.in);
+
+    /**
+     * A {@code mainMenu} method which displays the main menu
+     * It allows for easy navigation to different reporting menus
+     * has built in validation
+     */
 
     public static void mainMenu() {
         boolean exit = false;
@@ -55,6 +73,12 @@ public class Menu {
         }
     }
 
+    /**
+     * A {@code countryReportsMenu} method which displays the sub menu for all country reports
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
+
     private static void countryReportsMenu() {
         boolean exit = false;
 
@@ -105,6 +129,12 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * A {@code cityReportsMenu} method which displays the sub menu for all city reports
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
 
     private static void cityReportsMenu() {
         boolean exit = false;
@@ -177,6 +207,12 @@ public class Menu {
         }
     }
 
+    /**
+     * A {@code capitalCityReportsMenu} method which displays the sub menu for all capital city reports
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
+
     private static void capitalCityReportsMenu() {
         boolean exit = false;
 
@@ -228,6 +264,12 @@ public class Menu {
         }
     }
 
+    /**
+     * A {@code populationAnalysisReportsMenu} method which displays the sub menu for all population reports
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
+
     private static void populationAnalysisReportsMenu() {
         boolean exit = false;
 
@@ -263,6 +305,13 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * A {@code generalInformationMenu} method which displays the sub menu for all population of XXX reports
+     * can display reports for populations of world, continent, region etc
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
 
     private static void generalInformationMenu() {
         boolean exit = false;
@@ -314,6 +363,13 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * A {@code languageReportsMenu} method which displays the sub menu for all language reports
+     * shows reports for how many people speak different languages in the world
+     * It allows for easy navigation to different reporting menus including back to previous menu
+     * has built in validation
+     */
 
     private static void languageReportsMenu() {
         boolean exit = false;
