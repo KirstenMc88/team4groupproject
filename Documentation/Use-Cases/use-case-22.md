@@ -3,7 +3,7 @@
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
-As a User, I want to be able to view different capital city reports, so that I can easily see which capital cities are the most populated within the specified area.
+As a Data Analyst, I want to be able to view different capital city reports, so that I can easily see which capital cities are the most populated within the specified area.
 
 
 ### Scope
@@ -15,13 +15,13 @@ Primary Task
 
 
 ### Preconditions
-User has access to the application.
+Data Analyst has access to the application.
 
 Database has upto date population data.
 
 
 ### Success End Condition
-Report is produced displaying population data to the user.
+Report is produced displaying population data to the Data Analyst.
 
 
 ### Failed End Condition
@@ -29,21 +29,21 @@ No report is produced.
 
 
 ### Primary Actor
-User
+Data Analyst
 
 
 ### Trigger
-User prompts application for population data of a user specified number of capital cities in a region.
+Data Analyst prompts application for population data of a specified number of capital cities in a region.
 
 
 ## MAIN SUCCESS SCENARIO
-1. User prompts application for population data.
-2. Data is returned to user in the form of a report from the highest population to smallest.
+1. Data Analyst prompts application for population data.
+2. Data is returned to Data Analyst in the form of a report from the highest population to smallest.
 
 
 ## EXTENSIONS
 #### 2. Database doesn't contain population data.
-Application returns error message to user informing them that the population data is not available.
+Application returns error message to Data Analyst informing them that the population data is not available.
 
 
 ## SUB-VARIATIONS

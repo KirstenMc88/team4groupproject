@@ -23,7 +23,7 @@ RUN mvn clean package
 FROM openjdk:11
 
 # copies the JAR files to the container
-COPY --from=builder /tmp/target/groupProject-1.0-SNAPSHOT.jar app.jar
+COPY --from=builder /tmp/target/groupProject-v0.1-Ash-jar-with-dependencies.jar app.jar
 COPY --from=builder /root/.m2/repository/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar /tmp/lib/mysql-connector-java-8.0.28.jar
 
 # runs the application

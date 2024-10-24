@@ -14,13 +14,18 @@ public class App
         // prints "hello world", very basic for now, just to prove that everything is set up as it should be
         System.out.println("Hello World!");
 
+        // Creates instance of DatabaseConnetion
         DatabaseConnection sql = new DatabaseConnection();
 
         // Connect to database
         sql.connect();
 
+        // Calls menu
+        Menu.mainMenu();
+
         // Disconnect from database
         sql.disconnect();
+
 
     }
 }
