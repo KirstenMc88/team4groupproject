@@ -18,7 +18,12 @@ public class App
         DatabaseConnection sql = new DatabaseConnection();
 
         // Connect to database
-        sql.connect();
+        if (args.length < 1) {
+            sql.connect("localhost:33060", 30000);
+        } else {
+            sql.connect(args[0], Integer.parseInt(args[1]));
+        }
+        //sql.connect("world-db:3306" ,30000);
 
         // Calls menu
         // Menu.mainMenu();

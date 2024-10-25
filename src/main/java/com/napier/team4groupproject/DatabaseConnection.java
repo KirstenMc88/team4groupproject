@@ -18,7 +18,7 @@ public class DatabaseConnection {
      * <p>This method trys to connect to the MySQL database, it allows for 10 attempts and has a delay set up to give the database time to start. It deals with exceptions internally.</p>
      *
      */
-    public void connect()
+    public void connect(String location, int delay)
     {
         try
         {
@@ -32,15 +32,18 @@ public class DatabaseConnection {
         }
 
         int retries = 10;
+        boolean shouldWait = false;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
             try
             {
-                // Wait a bit for db to start
-                Thread.sleep(30000);
+                if (shouldWait){
+                    // Wait a bit for db to start
+                    Thread.sleep(delay);
+                }
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://world-db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -48,6 +51,9 @@ public class DatabaseConnection {
             {
                 System.out.println("Failed to connect to database attempt " + Integer.toString(i));
                 System.out.println(sqle.getMessage());
+
+                // Let's wait before attempting to reconnect
+                shouldWait = true;
             }
             catch (InterruptedException ie)
             {

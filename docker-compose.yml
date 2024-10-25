@@ -1,3 +1,13 @@
+# to run fully in docker:
+# do NOT use the green arrows, it will throw an error because it can't accept user input!
+# instead go to the terminal (in intellij) and run: docker-compose run app
+# this will run it there and user input will work as normal :)
+
+# to run with a local port:
+# use the green arrow next to world-db
+# then go to App.java and use the green arrow next to the main method
+# this allows the database to stay up independently even after closing the app
+
 version: '3'
 services:
   # links to app dockerfile
@@ -5,9 +15,12 @@ services:
     build: .
     depends_on:
       - world-db # ensures that database is started before starting app
+    entrypoint: ["java", "-cp", "app.jar:/tmp/lib/*", "com.napier.team4groupproject.App", "world-db:3306", "30000"]
 
   # links to database dockerfile
   world-db:
     build: world-db/.
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - "33060:3306"
