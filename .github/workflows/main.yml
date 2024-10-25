@@ -16,7 +16,7 @@ jobs:
       - name: Build with Maven
         run: mvn package
       - name: Run docker compose
-        run: docker compose up --abort-on-container-exit
+        run: docker compose run app
       - name: Build Docker Image
         run: docker build -t semimage .
       - name: Run image
