@@ -21,7 +21,7 @@ public class App
         sql.connect();
 
         // Calls menu
-        Menu.mainMenu();
+        // Menu.mainMenu();
 
         // Disconnect from database
         sql.disconnect();
