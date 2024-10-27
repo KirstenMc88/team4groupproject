@@ -12,6 +12,10 @@ public class DatabaseConnection {
      */
     private Connection con = null;
 
+    public Connection getCon() {
+        return con;
+    }
+
     /**
      * Connect to the MySQL database.
      *

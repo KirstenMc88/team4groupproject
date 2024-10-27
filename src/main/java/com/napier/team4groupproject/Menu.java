@@ -23,7 +23,7 @@ public class Menu {
      * has built in validation
      */
 
-    public static void mainMenu() {
+    public static void mainMenu(CountryQueries countryQuery) {
         boolean exit = false;
 
         while (!exit) {
@@ -40,7 +40,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    countryReportsMenu();
+                    countryReportsMenu(countryQuery);
                     break;
 
                 case "2":
@@ -79,7 +79,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void countryReportsMenu() {
+    private static void countryReportsMenu(CountryQueries countryQuery) {
         boolean exit = false;
 
         while (!exit) {
@@ -97,7 +97,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    System.out.println(App.FormatOutput(countryQuery.CountriesInTheWorld()));
                     break;
 
                 case "2":
