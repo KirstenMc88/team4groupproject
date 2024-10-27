@@ -24,7 +24,8 @@ public class App
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        CapitalQueries.allInWorld();
+        CapitalQueries.allInWorld(sql);
+
         //sql.connect("world-db:3306" ,30000);
 
         // Calls menu
