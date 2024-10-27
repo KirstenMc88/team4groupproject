@@ -27,7 +27,7 @@ public class App
             }
 
             for (int i = 1; i <= columns; i++) {
-                output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnName(i)));
+                output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnLabel(i)));
             }
             output.append("\n");
 
