@@ -21,6 +21,7 @@ public class Menu {
      * A {@code mainMenu} method which displays the main menu
      * It allows for easy navigation to different reporting menus
      * has built in validation
+     * @param databaseConnection passes in object to connect to database
      */
 
     public static void mainMenu(DatabaseConnection databaseConnection) {
@@ -135,6 +136,7 @@ public class Menu {
      * A {@code cityReportsMenu} method which displays the sub menu for all city reports
      * It allows for easy navigation to different reporting menus including back to previous menu
      * has built in validation
+     *
      */
 
     private static void cityReportsMenu() {
@@ -212,6 +214,8 @@ public class Menu {
      * A {@code capitalCityReportsMenu} method which displays the sub menu for all capital city reports
      * It allows for easy navigation to different reporting menus including back to previous menu
      * has built in validation
+     * @param databaseConnection passes in object to connect to database
+     *
      */
 
     private static void capitalCityReportsMenu(DatabaseConnection databaseConnection) {
