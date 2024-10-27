@@ -73,11 +73,12 @@ public class App
         // Displays the result from the countries in the world query
         System.out.println(FormatOutput(countryQuery.CountriesInTheWorld()));
 
+        //Displays results of All Capital Cities In World Query
         System.out.println(CapitalQueries.allInWorld(sql));
 
         //sql.connect("world-db:3306" ,30000);
 
-        // Calls menu
+        // Calls menu passes DB connection as parameters
         //Menu.mainMenu(sql);
 
         // Disconnect from database
