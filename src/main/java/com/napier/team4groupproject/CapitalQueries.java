@@ -12,13 +12,15 @@ public class CapitalQueries {
 
         System.out.println("All Capital Cities in World");
         LocalDate today = LocalDate.now();
-        System.out.println("Now is: " + today);
+        System.out.println("Now is: " + today );
 
         // SQL query with a placeholder that doesn’t alter the results
         String query = "SELECT city.Name AS Name, country.Name AS Country, city.Population " +
-                "FROM city JOIN country ON city.CountryCode = country.Code " +
-                "WHERE ? = ? " + // Placeholder condition that always evaluates to true
+                "FROM city " +
+                "JOIN country ON city.ID = country.Capital " + // Filter to only capital cities
+                "WHERE ? = ? " + // Placeholder condition for future use
                 "ORDER BY city.Population DESC";
+
 
         try (PreparedStatement preparedStatement = sql.getConnection().prepareStatement(query)) {
 
