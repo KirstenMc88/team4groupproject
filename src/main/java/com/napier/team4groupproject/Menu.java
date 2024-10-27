@@ -23,7 +23,7 @@ public class Menu {
      * has built in validation
      */
 
-    public static void mainMenu(CountryQueries countryQuery) {
+    public static void mainMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -40,7 +40,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    countryReportsMenu(countryQuery);
+                    countryReportsMenu(databaseConnection);
                     break;
 
                 case "2":
@@ -48,7 +48,7 @@ public class Menu {
                     break;
 
                 case "3":
-                    capitalCityReportsMenu();
+                    capitalCityReportsMenu(databaseConnection);
                     break;
 
                 case "4":
@@ -79,7 +79,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void countryReportsMenu(CountryQueries countryQuery) {
+    private static void countryReportsMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -97,7 +97,8 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println(App.FormatOutput(countryQuery.CountriesInTheWorld()));
+                    //System.out.println(App.FormatOutput(countryQuery.CountriesInTheWorld()));
+                    // Directly call allInWorld and print the formatted output
                     break;
 
                 case "2":
@@ -213,7 +214,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void capitalCityReportsMenu() {
+    private static void capitalCityReportsMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -231,7 +232,8 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    // Directly call allInWorld and print the formatted output
+                    System.out.println(CapitalQueries.allInWorld(databaseConnection));
                     break;
 
                 case "2":
