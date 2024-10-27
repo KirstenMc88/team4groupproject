@@ -2,6 +2,7 @@ package com.napier.team4groupproject;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 public class App
 {
@@ -72,12 +73,12 @@ public class App
         // Displays the result from the countries in the world query
         System.out.println(FormatOutput(countryQuery.CountriesInTheWorld()));
 
-        CapitalQueries.allInWorld(sql);
+        System.out.println(CapitalQueries.allInWorld(sql));
 
         //sql.connect("world-db:3306" ,30000);
 
         // Calls menu
-        // Menu.mainMenu(countryQuery);
+        //Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();
