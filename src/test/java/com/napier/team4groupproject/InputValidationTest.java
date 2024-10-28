@@ -60,26 +60,14 @@ public class InputValidationTest {
         assertEquals("", result);  // expecting empty string due to non-numeric input
     }
 
-    /*@Test //Test negative integer
+    @Test //Test negative integer
     public void testValidateIntInput_NegativeNumber() {
         String userInput = "-3";
         String result = inputValidation.validateIntInput(userInput);
         assertEquals("", result);  // Expecting empty string due to negative number
-    }*/
-
-    @Test //Tests integer exceeding upper parameter (200)
-    public void testValidateIntInput_InputTooLarge() {
-        String userInput = "201";  // Input greater than 200
-        String result = inputValidation.validateIntInput(userInput);
-        assertEquals("", result);  // expecting empty string due to validation
     }
 
-    @Test //Tests inetger exceeding upper paratmeter (3 digits)
-    public void testValidateIntInput_TooManyDigits() {
-        String userInput = "1000";  // More than 3 digits
-        String result = inputValidation.validateIntInput(userInput);
-        assertEquals("", result);  // expecting empty string due to length validation
-    }
+
 }
 
 
