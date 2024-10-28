@@ -23,7 +23,7 @@ public class Menu {
      * has built in validation
      */
 
-    public static void mainMenu() {
+    public static void mainMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -40,7 +40,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    countryReportsMenu();
+                    countryReportsMenu(databaseConnection);
                     break;
 
                 case "2":
@@ -79,7 +79,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void countryReportsMenu() {
+    private static void countryReportsMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -97,7 +97,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    System.out.println(CountryQueries.CountriesInTheWorld(databaseConnection));
                     break;
 
                 case "2":
