@@ -67,6 +67,7 @@ public class InputValidation {
             return "";
         }
 
+
         // Returns user input
         return userInput;
     }
