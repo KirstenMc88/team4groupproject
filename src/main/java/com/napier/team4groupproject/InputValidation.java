@@ -61,11 +61,12 @@ public class InputValidation {
         }
 
 
-         //Checks if the input is > 3 characters or if parsed input is over 200
-        if (parsedInput > 200 || userInput.length() > 3) {
-            System.out.println("Sorry please choose a number between 1 - 200");
+         //Checks if the input is less than 0
+        if (parsedInput < 0) {
+            System.out.println("Sorry please choose a valid number");
             return "";
         }
+
 
         // Returns user input
         return userInput;
