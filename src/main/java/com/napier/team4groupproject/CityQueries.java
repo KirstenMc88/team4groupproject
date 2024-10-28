@@ -10,9 +10,9 @@ public class CityQueries {
 
       Statement stmt = databaseConnection.getCon().createStatement();
 
-      String cityQuery = "Select city.Name, city.CountryCode city.District, city.population, country.Name "
-              + "from city as city"
-              + " inner join country as country on country.CountryCode = country.Code"
+      String cityQuery = "Select city.Name AS City, country.Name AS Country, city.District, city.Population "
+              + "from city as city "
+              + " inner join country as country on city.CountryCode = country.Code "
               + " order by city.Population desc";
 
       ResultSet resultSet = stmt.executeQuery(cityQuery);

@@ -2,6 +2,7 @@ package com.napier.team4groupproject;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 public class App
 {
@@ -51,8 +52,7 @@ public class App
      *
      * @param args standard string array for java main class to receive command-line arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws SQLException {
         // prints "hello world", very basic for now, just to prove that everything is set up as it should be
         System.out.println("Hello World!");
 
@@ -65,13 +65,26 @@ public class App
         } else {
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
+        CityQueries query = new CityQueries();
+        System.out.println(query.allCitiesInTheWorld(sql));
+
+        // Creates instance of CountryQueries
+        //CountryQueries countryQuery = new CountryQueries(sql);
+
+        // Displays the result from the countries in the world query
+        //System.out.println(FormatOutput(countryQuery.CountriesInTheWorld()));
+
+        //Displays results of All Capital Cities In World Query
+        //System.out.println(CapitalQueries.allInWorld(sql));
+
         //sql.connect("world-db:3306" ,30000);
 
-        // Calls menu
-        // Menu.mainMenu();
+        // Calls menu passes DB connection as parameters
+        //Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();
+
 
 
     }
