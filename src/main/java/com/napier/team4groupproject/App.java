@@ -52,8 +52,7 @@ public class App
      *
      * @param args standard string array for java main class to receive command-line arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws SQLException {
         // prints "hello world", very basic for now, just to prove that everything is set up as it should be
         System.out.println("Hello World!");
 
