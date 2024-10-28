@@ -66,14 +66,11 @@ public class App
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        // Creates instance of CountryQueries
-        CountryQueries countryQuery = new CountryQueries(sql);
-
         // Displays the result from the countries in the world query
-        System.out.println(FormatOutput(countryQuery.CountriesInTheWorld()));
+        System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
         // Calls menu
-        // Menu.mainMenu(countryQuery);
+        // Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();
