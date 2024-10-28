@@ -65,8 +65,8 @@ public class App
         } else {
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
-        CityQueries query = new CityQueries();
-        System.out.println(query.allCitiesInTheWorld(sql));
+
+        System.out.println(CityQueries.allCitiesInTheWorld(sql));
 
         // Creates instance of CountryQueries
         //CountryQueries countryQuery = new CountryQueries(sql);

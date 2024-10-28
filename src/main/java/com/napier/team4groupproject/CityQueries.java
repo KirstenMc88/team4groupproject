@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class CityQueries {
 
-   public String allCitiesInTheWorld(DatabaseConnection databaseConnection) throws SQLException {
+   public static String allCitiesInTheWorld(DatabaseConnection databaseConnection) throws SQLException {
 
       Statement stmt = databaseConnection.getCon().createStatement();
 
