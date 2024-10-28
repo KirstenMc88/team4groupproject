@@ -54,7 +54,7 @@ public class App
      */
     public static void main(String[] args) throws SQLException {
         // prints "hello world", very basic for now, just to prove that everything is set up as it should be
-        System.out.println("Hello World!");
+        System.out.println("Population Information System");
 
         // Creates instance of DatabaseConnetion
         DatabaseConnection sql = new DatabaseConnection();

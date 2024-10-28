@@ -1,5 +1,6 @@
 package com.napier.team4groupproject;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -24,7 +25,7 @@ public class Menu {
      * @param databaseConnection passes in object to connect to database
      */
 
-    public static void mainMenu(DatabaseConnection databaseConnection) {
+    public static void mainMenu(DatabaseConnection databaseConnection) throws SQLException {
         boolean exit = false;
 
         while (!exit) {
@@ -45,7 +46,7 @@ public class Menu {
                     break;
 
                 case "2":
-                    cityReportsMenu();
+                    cityReportsMenu(databaseConnection);
                     break;
 
                 case "3":
@@ -137,7 +138,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void cityReportsMenu() {
+    private static void cityReportsMenu(DatabaseConnection databaseConnection) throws SQLException {
         boolean exit = false;
 
         while (!exit) {
@@ -159,7 +160,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    System.out.println(CityQueries.allCitiesInTheWorld(databaseConnection));
                     break;
 
                 case "2":
