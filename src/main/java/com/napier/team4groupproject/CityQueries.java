@@ -14,6 +14,7 @@ public class CityQueries {
     */
    public static String allCitiesInTheWorld(DatabaseConnection databaseConnection) throws SQLException {
 
+      System.out.println("All Cities in the World");
       Statement stmt = databaseConnection.getCon().createStatement();
 
       // query to retrieve the data from the database
@@ -22,8 +23,10 @@ public class CityQueries {
               + " inner join country as country on city.CountryCode = country.Code "
               + " order by city.Population desc";
 
+      //  runs the query and assigns the result to resultSet
       ResultSet resultSet = stmt.executeQuery(cityQuery);
 
+      // checks if a result has been returned from the query
       if (resultSet.next()) {
          return App.FormatOutput(resultSet);
       }// error message, if data hasn't been retrieved
