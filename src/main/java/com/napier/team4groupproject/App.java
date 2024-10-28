@@ -2,6 +2,7 @@ package com.napier.team4groupproject;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 public class App
 {
@@ -26,7 +27,7 @@ public class App
             }
 
             for (int i = 1; i <= columns; i++) {
-                output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnName(i)));
+                output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnLabel(i)));
             }
             output.append("\n");
 
@@ -69,8 +70,13 @@ public class App
         // Displays the result from the countries in the world query
         System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
-        // Calls menu
-        // Menu.mainMenu(sql);
+        //Displays results of All Capital Cities In World Query
+        System.out.println(CapitalQueries.allInWorld(sql));
+
+
+
+        // Calls menu passes DB connection as parameters
+        //Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();

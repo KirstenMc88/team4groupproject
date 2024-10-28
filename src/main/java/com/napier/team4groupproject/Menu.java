@@ -21,6 +21,7 @@ public class Menu {
      * A {@code mainMenu} method which displays the main menu
      * It allows for easy navigation to different reporting menus
      * has built in validation
+     * @param databaseConnection passes in object to connect to database
      */
 
     public static void mainMenu(DatabaseConnection databaseConnection) {
@@ -48,7 +49,7 @@ public class Menu {
                     break;
 
                 case "3":
-                    capitalCityReportsMenu();
+                    capitalCityReportsMenu(databaseConnection);
                     break;
 
                 case "4":
@@ -211,9 +212,11 @@ public class Menu {
      * A {@code capitalCityReportsMenu} method which displays the sub menu for all capital city reports
      * It allows for easy navigation to different reporting menus including back to previous menu
      * has built in validation
+     * @param databaseConnection passes in object to connect to database
+     *
      */
 
-    private static void capitalCityReportsMenu() {
+    private static void capitalCityReportsMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -231,7 +234,8 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    // Directly call allInWorld and print the formatted output
+                    System.out.println(CapitalQueries.allInWorld(databaseConnection));
                     break;
 
                 case "2":
