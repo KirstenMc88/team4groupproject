@@ -67,6 +67,9 @@ public class App
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
 
+        // displays all cities in the world
+        System.out.println(CityQueries.allCitiesInTheWorld(sql));
+
         // Displays the result from the countries in the world query
         System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
@@ -80,6 +83,7 @@ public class App
 
         // Disconnect from database
         sql.disconnect();
+
 
     }
 }
