@@ -6,7 +6,7 @@
 
     <groupId>com.napier.team4groupproject</groupId>
     <artifactId>groupProject</artifactId>
-    <version>v0.1-Ash</version>
+    <version>v0.2-Birch</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
