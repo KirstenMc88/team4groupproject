@@ -6,6 +6,9 @@ import java.sql.SQLException;
 
 public class App
 {
+    static String databaseLocation;
+    static int databaseDelay;
+
     /**
      * Formatting method for SQL query results
      *
@@ -68,34 +71,41 @@ public class App
      * @param args standard string array for java main class to receive command-line arguments
      */
     public static void main(String[] args) throws SQLException {
-        // prints "hello world", very basic for now, just to prove that everything is set up as it should be
+        // prints header
         System.out.println("Population Information System");
 
-        // Creates instance of DatabaseConnetion
+        // Creates instance of DatabaseConnection
         DatabaseConnection sql = new DatabaseConnection();
 
-        // Connect to database
-        if (args.length < 1) {
-            sql.connect("localhost:33060", 30000);
+        // Set database connection arguments
+        if (args.length <= 1) {
+            databaseLocation = "localhost:33060";
+            databaseDelay = 30000;
+
         } else {
-            sql.connect(args[0], Integer.parseInt(args[1]));
+            databaseLocation = args[0];
+            databaseDelay = Integer.parseInt(args[1]);
         }
 
+        // skips things using other classes if run in the unit test environment
+        if (!"UnitTest".equals(System.getProperty("Environment"))) {
+            // connects to database
+            sql.connect(databaseLocation, databaseDelay);
 
-        // Displays the result from the countries in the world query
-        System.out.println(CountryQueries.CountriesInTheWorld(sql));
+            // Displays the result from the countries in the world query
+            System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
-        // displays all cities in the world
-        System.out.println(CityQueries.allCitiesInTheWorld(sql));
+            // displays all cities in the world
+            System.out.println(CityQueries.allCitiesInTheWorld(sql));
 
-        //Displays results of All Capital Cities In World Query
-        System.out.println(CapitalQueries.allInWorld(sql));
+            //Displays results of All Capital Cities In World Query
+            System.out.println(CapitalQueries.allInWorld(sql));
 
-        // Calls menu passes DB connection as parameters
-        //Menu.mainMenu(sql);
+            // Calls menu passes DB connection as parameters
+            // Menu.mainMenu(sql);
 
-        // Disconnect from database
-        sql.disconnect();
-
+            // Disconnect from database
+            sql.disconnect();
+        }
     }
 }
