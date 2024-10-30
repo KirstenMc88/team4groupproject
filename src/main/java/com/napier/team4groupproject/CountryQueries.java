@@ -43,6 +43,10 @@ public class CountryQueries {
 
         // creates a prepared statement using the query
         try(PreparedStatement preparedStatement = databaseConnection.getCon().prepareStatement(query)){
+            // validates that the combination of not null arguments is valid
+            if ((attribute == null && whereParameter != null) || (attribute != null && whereParameter == null)) {
+                throw new IllegalArgumentException("attribute and whereParameter must either both be null or both not be null.");
+            }
 
             // if there is a where it is set
             if (whereParameter != null) {
