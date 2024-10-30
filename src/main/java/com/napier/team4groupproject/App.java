@@ -28,18 +28,18 @@ public class App
             ResultSetMetaData metaData = resultSet.getMetaData();
 
             // this gets the number of columns from metadata so we can loop through them
-            int columns = metaData.getColumnCount();
+            int columnCount = metaData.getColumnCount();
 
             // this will hold display widths for each column
-            int[] columnWidths = new int[columns];
+            int[] columnWidths = new int[columnCount];
 
             // get column width for each column, with a minimum width of 20 char
-            for (int i = 1; i <= columns; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 columnWidths[i-1] = Math.max(20, metaData.getColumnDisplaySize(i));
             }
 
             // get column label (not name, so it works with aliases) of all columns
-            for (int i = 1; i <= columns; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnLabel(i)));
             }
             // add line break
@@ -50,7 +50,7 @@ public class App
                 // add one to row count
                 rowCount++;
                 // get content of each column
-                for (int i = 1; i <= columns; i++) {
+                for (int i = 1; i <= columnCount; i++) {
                     output.append(String.format("%-" + columnWidths[i-1] + "s", resultSet.getString(i)));
                 }
                 // add line break
