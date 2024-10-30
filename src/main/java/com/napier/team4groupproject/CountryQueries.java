@@ -23,8 +23,6 @@ public class CountryQueries {
             query += "LIMIT ?";
         }
 
-        System.out.println(query);
-
         try(PreparedStatement preparedStatement = databaseConnection.getCon().prepareStatement(query)){
 
             if (whereParameter != null) {
