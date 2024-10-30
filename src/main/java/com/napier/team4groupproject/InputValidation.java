@@ -7,7 +7,7 @@ public class InputValidation {
      * @param userInput takes user defined input
      * @return returns user input after validation steps
      */
-    public String validateStringInput(String userInput) {
+    public static String validateStringInput(String userInput) {
 
          //Trims whitespace
         userInput = userInput.trim();
@@ -36,7 +36,7 @@ public class InputValidation {
      * @param userInput takes user defined input
      * @return returns user input after validation steps
      */
-    public String validateIntInput(String userInput) {
+    public static String validateIntInput(String userInput) {
 
 
         //Trims whitespace

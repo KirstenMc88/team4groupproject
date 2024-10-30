@@ -66,19 +66,27 @@ public class App
             sql.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        // displays all cities in the world
-        System.out.println(CityQueries.allCitiesInTheWorld(sql));
-
         // Displays the result from the countries in the world query
-        System.out.println(CountryQueries.CountriesInTheWorld(sql));
+        //System.out.println(CountryQueries.CountriesInTheWorld(sql));
+
+        // displays all cities in the world
+        //System.out.println(CityQueries.allCitiesInTheWorld(sql));
+
+        // displays all cities in a continent
+        //System.out.println(CityQueries.allCitiesInAContinent(sql, "asia"));
+
+        //System.out.println(CityQueries.allCitiesInARegion(sql, "Caribbean"));
+
+        System.out.println(CityQueries.allCitiesInACountry(sql, "United Arab Emirates"));
+
+        //System.out.println(CityQueries.allCitiesInADistrict(sql, "Gelderland"));
 
         //Displays results of All Capital Cities In World Query
-        System.out.println(CapitalQueries.allInWorld(sql));
-
-
+        //System.out.println(CapitalQueries.allInWorld(sql));
 
         // Calls menu passes DB connection as parameters
         //Menu.mainMenu(sql);
+
 
         // Disconnect from database
         sql.disconnect();
