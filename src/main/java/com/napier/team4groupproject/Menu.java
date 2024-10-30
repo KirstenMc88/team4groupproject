@@ -96,6 +96,8 @@ public class Menu {
             System.out.println("0 - Back to main menu.");
 
             String choice = input.nextLine();
+            String continent, region;
+            int limit;
 
             switch (choice) {
                 case "1":
@@ -103,24 +105,46 @@ public class Menu {
                     break;
 
                 case "2":
-                    System.out.println("Placeholder");
+                    System.out.println("Please enter continent");
+
+                    continent = input.nextLine();
+                    System.out.println(CountryQueries.CountriesInAContinent(databaseConnection, continent));
                     break;
 
                 case "3":
-                    System.out.println("Placeholder");
+                    System.out.println("Please enter region");
+
+                    region = input.nextLine();
+                    System.out.println(CountryQueries.CountriesInARegion(databaseConnection, region));
                     break;
 
                 case "4":
-                    System.out.println("Placeholder");
+                    System.out.println("Please enter N");
+                    limit = input.nextInt();
+
+                    System.out.println(CountryQueries.TopCountriesInTheWorld(databaseConnection, limit));
                     break;
 
                 case "5":
-                    System.out.println("Placeholder");
+                    System.out.println("Please enter continent");
+                    continent = input.nextLine();
+
+                    System.out.println("Please enter N");
+                    limit = input.nextInt();
+
+                    System.out.println(CountryQueries.TopCountriesInAContinent(databaseConnection, continent, limit));
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
+                    System.out.println("Please enter region");
+                    region = input.nextLine();
+
+                    System.out.println("Please enter N");
+                    limit = input.nextInt();
+
+                    System.out.println(CountryQueries.TopCountriesInARegion(databaseConnection, region, limit));
                     break;
+
 
                 case "0":
                     exit = true;
