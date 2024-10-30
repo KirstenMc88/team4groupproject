@@ -1,15 +1,55 @@
 package com.napier.team4groupproject;
 
 import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 
 public class AppTest {
+    private static ResultSet resultSet;
+    private static ResultSetMetaData metaData;
+    private boolean skipBeforeEach = false;
+
     @BeforeAll
     public static void init(){
         System.setProperty("Environment", "UnitTest");
     }
+
+    @BeforeEach
+    public void setUpMocks(){
+        if (skipBeforeEach){
+            return;
+        }
+        resultSet = mock(ResultSet.class);
+        metaData = mock(ResultSetMetaData.class);
+
+        try{
+            when(resultSet.getMetaData()).thenReturn(metaData);
+
+            when(resultSet.next()).thenReturn(true).thenReturn(false);
+
+            when(metaData.getColumnCount()).thenReturn(2);
+
+            when(metaData.getColumnDisplaySize(1)).thenReturn(18);
+            when(metaData.getColumnDisplaySize(2)).thenReturn(23);
+
+            when(metaData.getColumnLabel(1)).thenReturn("Test Column 1");
+            when(metaData.getColumnLabel(2)).thenReturn("Test Column 2");
+
+            when(resultSet.getString(1)).thenReturn("Test Row 1 Content");
+            when(resultSet.getString(2)).thenReturn("Long Test Row 1 Content");
+
+        } catch (SQLException e) {
+            // SQLException is unrelated to this test
+        }
+
+    }
+
+    // main method tests
 
     @Test
     public void main_zeroStringArgs() {
@@ -54,5 +94,51 @@ public class AppTest {
 
         assertEquals("world-db:3306", App.databaseLocation);
         assertEquals(10000, App.databaseDelay);
+    }
+
+    // FormatOutput method tests
+
+    @Test
+    public void FormatOutput_rowCountZero(){
+        skipBeforeEach = true;
+        reset(resultSet);
+
+        String result = App.FormatOutput(resultSet);
+
+        try{
+            when(resultSet.next()).thenReturn(false);
+        } catch (SQLException e) {
+            // SQLException is unrelated to this test
+        }
+
+        assertEquals("No matching data found. Please check your spelling and try again.", result);
+    }
+
+    @Test
+    public void FormatOutput_columnWidthUnder20Header(){
+        String result = App.FormatOutput(resultSet);
+
+        assertTrue(result.contains(String.format("%-20s", "Test Column 1")));
+    }
+
+    @Test
+    public void FormatOutput_columnWidthUnder20Row(){
+        String result = App.FormatOutput(resultSet);
+
+        assertTrue(result.contains(String.format("%-20s", "Test Row 1 Content")));
+    }
+
+    @Test
+    public void FormatOutput_columnWidthOver20Header(){
+        String result = App.FormatOutput(resultSet);
+
+        assertTrue(result.contains(String.format("%-23s", "Test Column 2")));
+    }
+
+    @Test
+    public void FormatOutput_columnWidthOver20Row(){
+        String result = App.FormatOutput(resultSet);
+
+        assertTrue(result.contains(String.format("%-23s", "Long Test Row 1 Content")));
     }
 }
