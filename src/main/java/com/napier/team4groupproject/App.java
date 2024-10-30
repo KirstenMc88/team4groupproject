@@ -19,6 +19,7 @@ public class App
      */
     public static String FormatOutput(ResultSet resultSet){
         StringBuilder output = new StringBuilder();
+        int rowCount = 0;
 
         // try in case of exceptions with ResultSet or ResultSetMetaData
         try{
@@ -46,6 +47,8 @@ public class App
 
             // get every row
             while(resultSet.next()){
+                // add one to row count
+                rowCount++;
                 // get content of each column
                 for (int i = 1; i <= columns; i++) {
                     output.append(String.format("%-" + columnWidths[i-1] + "s", resultSet.getString(i)));
@@ -59,6 +62,11 @@ public class App
             System.out.println(e.getMessage());
         }
 
+        // if the query does not return any results
+        if (rowCount == 0){
+            output.setLength(0);
+            output.append("No matching data found. Please check your spelling and try again.");
+        }
         // return formatted output as a string
         return output.toString();
     }
