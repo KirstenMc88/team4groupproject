@@ -11,8 +11,6 @@ import java.sql.ResultSetMetaData;
 
 public class AppTest {
     private static ResultSet resultSet;
-    private static ResultSetMetaData metaData;
-    private boolean skipBeforeEach = false;
 
     @BeforeAll
     public static void init(){
@@ -21,11 +19,8 @@ public class AppTest {
 
     @BeforeEach
     public void setUpMocks(){
-        if (skipBeforeEach){
-            return;
-        }
         resultSet = mock(ResultSet.class);
-        metaData = mock(ResultSetMetaData.class);
+        ResultSetMetaData metaData = mock(ResultSetMetaData.class);
 
         try{
             when(resultSet.getMetaData()).thenReturn(metaData);
@@ -46,7 +41,6 @@ public class AppTest {
         } catch (SQLException e) {
             // SQLException is unrelated to this test
         }
-
     }
 
     // main method tests
@@ -100,16 +94,13 @@ public class AppTest {
 
     @Test
     public void FormatOutput_rowCountZero(){
-        skipBeforeEach = true;
-        reset(resultSet);
-
-        String result = App.FormatOutput(resultSet);
-
         try{
             when(resultSet.next()).thenReturn(false);
         } catch (SQLException e) {
             // SQLException is unrelated to this test
         }
+
+        String result = App.FormatOutput(resultSet);
 
         assertEquals("No matching data found. Please check your spelling and try again.", result);
     }
