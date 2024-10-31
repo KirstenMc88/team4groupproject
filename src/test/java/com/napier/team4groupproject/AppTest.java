@@ -106,6 +106,29 @@ public class AppTest {
     }
 
     @Test
+    public void FormatOutput_oneRow(){
+        String result = App.FormatOutput(resultSet);
+
+        assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content"), result);
+    }
+
+    @Test
+    public void FormatOutput_twoRows(){
+        try {
+            when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+
+            when(resultSet.getString(1)).thenReturn("Test Row 1 Content").thenReturn("Test Row 2 Content");
+            when(resultSet.getString(2)).thenReturn("Long Test Row 1 Content").thenReturn("Long Test Row 2 Content");
+        } catch (SQLException e) {
+            // SQLException is unrelated to this test
+        }
+
+        String result = App.FormatOutput(resultSet);
+
+        assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content", "Test Row 2 Content", "Long Test Row 2 Content"), result);
+    }
+
+    @Test
     public void FormatOutput_columnWidthUnder20Header(){
         String result = App.FormatOutput(resultSet);
 
