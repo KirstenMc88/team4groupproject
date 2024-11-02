@@ -34,7 +34,7 @@ public class CapitalQueries {
                 "ORDER BY city.Population DESC"; //orders by population descending
 
         // Try-with-resources to handle PreparedStatement and ResultSet, closing after use
-        try (PreparedStatement preparedStatement = sql.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = sql.getCon().prepareStatement(query)) {
             //sets placeholders values to 1 = 1 again future proofing so can be used as basis for further queries
             preparedStatement.setInt(1, 1);
             preparedStatement.setInt(2, 1);
