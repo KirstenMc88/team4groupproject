@@ -97,10 +97,10 @@ public class App
         System.out.println(CityQueries.allCitiesInTheWorld(sql));
 
         //Displays results of All Capital Cities In World Query
-        System.out.println(CapitalQueries.allInWorld(sql));
+        System.out.println(CapitalQueries.AllCapitals(sql));
 
         // Calls menu passes DB connection as parameters
-        // Menu.mainMenu(sql);
+        //Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();
