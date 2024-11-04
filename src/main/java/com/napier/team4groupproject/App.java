@@ -35,6 +35,9 @@ public class App
                 columnWidths[i-1] = Math.max(20, metaData.getColumnDisplaySize(i));
             }
 
+            // add line break
+            output.append("\n");
+
             // get column label (not name, so it works with aliases) of all columns
             for (int i = 1; i <= columns; i++) {
                 output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnLabel(i)));
@@ -99,8 +102,11 @@ public class App
         //Displays results of All Capital Cities In World Query
         System.out.println(CapitalQueries.AllCapitals(sql));
 
+        // Display the result from the language query
+        System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
+
         // Calls menu passes DB connection as parameters
-        //Menu.mainMenu(sql);
+        // Menu.mainMenu(sql);
 
         // Disconnect from database
         sql.disconnect();

@@ -35,7 +35,7 @@ public class Menu {
             System.out.println("3 - Capital city reports.");
             System.out.println("4 - Population analysis reports.");
             System.out.println("5 - General information.");
-            System.out.println("6 - Language reports.");
+            System.out.println("6 - Language report.");
             System.out.println("0 - Exit");
 
             String choice = input.nextLine();
@@ -62,7 +62,7 @@ public class Menu {
                     break;
 
                 case "6":
-                    languageReportsMenu();
+                    System.out.println(LanguageQuery.LanguageDistributionInThWorld(databaseConnection));
                     break;
 
                 case "0":
@@ -453,59 +453,6 @@ public class Menu {
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "0":
-                    exit = true;
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please enter a valid number.");
-            }
-        }
-    }
-
-    /**
-     * A {@code languageReportsMenu} method which displays the sub menu for all language reports
-     * shows reports for how many people speak different languages in the world
-     * It allows for easy navigation to different reporting menus including back to previous menu
-     * has built in validation
-     */
-
-    private static void languageReportsMenu() {
-        boolean exit = false;
-
-        while (!exit) {
-            System.out.println("\n------Language Reports------");
-
-            System.out.println("1 - Chinese.");
-            System.out.println("2 - English.");
-            System.out.println("3 - Hindi.");
-            System.out.println("4 - Spanish.");
-            System.out.println("5 - Arabic.");
-            System.out.println("0 - Back to main menu.");
-
-            String choice = input.nextLine();
-
-            switch (choice) {
-                case "1":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "2":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "3":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "4":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "5":
                     System.out.println("Placeholder");
                     break;
 
