@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class App
 {
-    static String databaseLocation;
-    static int databaseDelay;
+    private static String databaseLocation = "localhost:33060";
+    private static int databaseDelay = 30000;
 
     /**
      * Formatting method for SQL query results
@@ -86,11 +86,7 @@ public class App
         DatabaseConnection sql = new DatabaseConnection();
 
         // Set database connection arguments
-        if (args.length <= 1) {
-            databaseLocation = "localhost:33060";
-            databaseDelay = 30000;
-
-        } else {
+        if (args.length > 1) {
             databaseLocation = args[0];
             databaseDelay = Integer.parseInt(args[1]);
         }
