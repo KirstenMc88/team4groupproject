@@ -2,7 +2,6 @@ package com.napier.team4groupproject;
 
 import org.junit.jupiter.api.*;
 
-import java.lang.reflect.*;
 import java.sql.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,29 +13,6 @@ public class DatabaseConnectionTest {
     private static DatabaseConnection testDB;
     private static Connection connection;
     private static ByteArrayOutputStream errorOutput;
-
-    public void setPrivateField(String fieldName, Object value) {
-        try {
-            Field field = DatabaseConnection.class.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            if (value == null){
-                if (!field.getType().isPrimitive()){
-                    field.set(testDB, value);
-                } else {
-                    throw new IllegalArgumentException("Field " + fieldName + " cannot be set to null as it is a primitive type.");
-                }
-            } else {
-                Class<?> argType = value.getClass();
-                if (field.getType().isAssignableFrom(argType)) {
-                    field.set(testDB, value);
-                } else {
-                    throw new IllegalArgumentException("Field " + fieldName + " is not of type " + argType);
-                }
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @BeforeAll
     public static void init(){
@@ -53,7 +29,7 @@ public class DatabaseConnectionTest {
 
     // connect method tests
     private String connect(String databaseDriver, int delay, boolean interrupt) {
-        setPrivateField("databaseDriver", databaseDriver);
+        Utilities.setPrivateField(DatabaseConnection.class,testDB,"databaseDriver", databaseDriver);
         Thread testThread = new Thread(() -> testDB.connect("irrelevant", delay));
 
         testThread.start();
@@ -105,7 +81,7 @@ public class DatabaseConnectionTest {
             }
         }
 
-        setPrivateField("con", con);
+        Utilities.setPrivateField(DatabaseConnection.class, testDB,"con", con);
 
         testDB.disconnect();
 
