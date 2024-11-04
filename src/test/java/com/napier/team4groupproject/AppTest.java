@@ -2,21 +2,33 @@ package com.napier.team4groupproject;
 
 import org.junit.jupiter.api.*;
 
+import java.sql.*;
+
+import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-
 public class AppTest {
     private static ResultSet resultSet;
+    private static final Object defaultDatabaseLocation = Utilities.getPrivateField(App.class, null,"databaseLocation");
+    private static final Object defaultDatabaseDelay = Utilities.getPrivateField(App.class, null,"databaseDelay");
 
+    /**
+     * Initialising environment
+     *
+     * <p>This method sets up the test environment by setting a System property 'Environment' to 'UnitTest'.
+     * This allows certain things in the App class to only be executed in a certain environment.</p>
+     */
     @BeforeAll
     public static void init(){
         System.setProperty("Environment", "UnitTest");
     }
 
+    /**
+     * Setting up mocks
+     *
+     * <p>This method sets up mocks for ResultSet and ResultSetMetaData to test with.</p>
+     */
     @BeforeEach
     public void setUpMocks(){
         resultSet = mock(ResultSet.class);
@@ -43,20 +55,49 @@ public class AppTest {
         }
     }
 
-    // main method tests
+    /**
+     * Reset method
+     *
+     * <p>This method resets the values for databaseLocation and databaseDelay between each test.</p>
+     */
+    @BeforeEach
+    public void reset(){
+        Utilities.setPrivateField(App.class, null,"databaseLocation", defaultDatabaseLocation);
+        Utilities.setPrivateField(App.class, null,"databaseDelay", defaultDatabaseDelay);
+    }
 
-    @Test
-    public void main_zeroStringArgs() {
-        String[] args = new String[0];
 
+    /**
+     * Main method tests
+     *
+     * <p>This method is used to test the logic of the main method of App.
+     * It ensures that the passed arguments are correctly used. It is used by multiple unit tests which pass a
+     * different number of arguments for each test.</p>
+     *
+     * @param args arguments which are passed onto the App main, containing test data
+     */
+    private void main(String [] args){
         try{
             App.main(args);
         } catch (SQLException e) {
             // SQLException is unrelated to this test
         }
 
-        assertEquals("localhost:33060", App.databaseLocation);
-        assertEquals(30000, App.databaseDelay);
+        if (args.length <= 1) {
+            assertEquals(defaultDatabaseLocation, Utilities.getPrivateField(App.class, null,"databaseLocation"));
+            assertEquals(defaultDatabaseDelay, Utilities.getPrivateField(App.class, null,"databaseDelay"));
+
+        } else {
+            assertEquals(args[0], Utilities.getPrivateField(App.class, null,"databaseLocation"));
+            assertEquals(parseInt(args[1]), Utilities.getPrivateField(App.class, null,"databaseDelay"));
+        }
+    }
+
+    @Test
+    public void main_zeroStringArgs() {
+        String[] args = new String[0];
+
+        main(args);
     }
 
     @Test
@@ -64,14 +105,7 @@ public class AppTest {
         String[] args = new String[1];
         args[0] = "test";
 
-        try{
-            App.main(args);
-        } catch (SQLException e) {
-            // SQLException is unrelated to this test
-        }
-
-        assertEquals("localhost:33060", App.databaseLocation);
-        assertEquals(30000, App.databaseDelay);
+        main(args);
     }
 
     @Test
@@ -80,15 +114,9 @@ public class AppTest {
         args[0] = "world-db:3306";
         args[1] = "10000";
 
-        try{
-            App.main(args);
-        } catch (SQLException e) {
-            // SQLException is unrelated to this test
-        }
-
-        assertEquals("world-db:3306", App.databaseLocation);
-        assertEquals(10000, App.databaseDelay);
+        main(args);
     }
+
 
     // FormatOutput method tests
 
