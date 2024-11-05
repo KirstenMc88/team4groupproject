@@ -70,14 +70,16 @@ public class App
         //System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
         // displays all cities in the world
-        //System.out.println(CityQueries.allCitiesInTheWorld(sql));
+        System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
 
         // displays all cities in a continent
         //System.out.println(CityQueries.allCitiesInAContinent(sql, "asia"));
 
         //System.out.println(CityQueries.allCitiesInARegion(sql, "Caribbean"));
 
-        System.out.println(CityQueries.allCitiesInACountry(sql, "United Arab Emirates"));
+        //System.out.println(CityQueries.allCitiesInACountry(sql, "United Arab Emirates"));
+
+        //System.out.println(CityQueries.topXCitiesInADistrict(sql, "Gelderland", 2));
 
         //System.out.println(CityQueries.allCitiesInADistrict(sql, "Gelderland"));
 

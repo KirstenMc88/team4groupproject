@@ -160,7 +160,7 @@ public class Menu {
 
             switch (choice) {
                 case "1":
-                    System.out.println(CityQueries.allCitiesInTheWorld(databaseConnection));
+                    System.out.println(CityQueries.allCitiesInTheWorld(databaseConnection, null));
                     break;
 
                 case "2":
