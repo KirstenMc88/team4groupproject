@@ -45,6 +45,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
+                    <finalName>groupProject</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.napier.team4groupproject.App</mainClass>
