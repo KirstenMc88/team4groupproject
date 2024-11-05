@@ -20,7 +20,7 @@ public class Menu {
 
     /**
      * A {@code mainMenu} method which displays the main menu
-     * It allows for easy navigation to different reporting menus
+     * It allows for easy navigation to different reporting menus and reports
      * has built in validation
      * @param databaseConnection passes in object to connect to database
      */

@@ -21,6 +21,8 @@ public class DatabaseConnection {
      *
      * <p>This method trys to connect to the MySQL database, it allows for 10 attempts and has a delay set up to give the database time to start. It deals with exceptions internally.</p>
      *
+     * @param location is the name of the sql file that holds the database, which is inserted in the url
+     * @param delay is the number of milliseconds which the connect method will wait before retrying to connect
      */
     public void connect(String location, int delay)
     {

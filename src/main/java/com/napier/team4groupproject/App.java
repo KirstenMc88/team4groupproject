@@ -10,9 +10,12 @@ public class App
      * Formatting method for SQL query results
      *
      * <p>This method formats the SQL query result, using metadata to find the number of columns, the needed width for
-     * each column (with a minimum of 20 char), and the names of each column. <p/>
+     * each column (with a minimum of 20 char), and the names of each column. If there are no rows it displays
+     * 'No matching data found. Please check your spelling and try again.' since it will be caused by a user input
+     * which was passed to the query.<p/>
      *
      * @param resultSet is the result of the SQL query
+     * @return a formatted string containing the data from the resultSet
      */
     public static String FormatOutput(ResultSet resultSet){
         StringBuilder output = new StringBuilder();
