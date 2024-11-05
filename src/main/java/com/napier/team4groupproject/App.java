@@ -6,7 +6,19 @@ import java.sql.SQLException;
 
 public class App
 {
+
+    /**
+     * Default database host
+     *
+     * <p>This fields holds the partial address of the database host which will be used by default.</p>
+     */
     private static String databaseLocation = "localhost:33060";
+
+    /**
+     * Default connection delay
+     *
+     * <p>This field holds the number in milliseconds for which the database connection retries will be delayed.</p>
+     */
     private static int databaseDelay = 30000;
 
     /**

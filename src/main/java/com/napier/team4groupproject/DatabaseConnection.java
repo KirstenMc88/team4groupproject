@@ -6,12 +6,18 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     /**
+     * Name of the database driver
+     *
+     * <p>This field holds the name of the used database driver.</p>
+     */
+    private String databaseDriver = "com.mysql.cj.jdbc.Driver";
+
+    /**
      * Connection to MySQL database.
      *
      * <p>This field is used by the connect() and disconnect() methods to create and close the connection to the MySQL database.</p>
      */
     private Connection con = null;
-    private String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
     public Connection getCon() {
         return con;
@@ -22,7 +28,7 @@ public class DatabaseConnection {
      *
      * <p>This method trys to connect to the MySQL database, it allows for 10 attempts and has a delay set up to give the database time to start. It deals with exceptions internally.</p>
      *
-     * @param location is the name of the sql file that holds the database, which is inserted in the url
+     * @param location is the partial database host url
      * @param delay is the number of milliseconds which the connect method will wait before retrying to connect
      */
     public void connect(String location, int delay)
@@ -32,10 +38,12 @@ public class DatabaseConnection {
             // Load Database driver
             int retries;
             Class.forName(databaseDriver);
-            if (!"UnitTest".equals(System.getProperty("Environment"))) {
-                retries = 10;
-            } else {
+
+            // reduce the number of retries if run in the unit test environment
+            if ("UnitTest".equals(System.getProperty("Environment"))) {
                 retries = 3;
+            } else {
+                retries = 10;
             }
 
             boolean shouldWait = false;
@@ -44,6 +52,7 @@ public class DatabaseConnection {
                 System.out.println("Connecting to database...");
                 try
                 {
+                    // skips actually attempting to connect if run in the unit test environment
                     if (!"UnitTest".equals(System.getProperty("Environment"))) {
                         if (shouldWait){
                             // Wait a bit for db to start
@@ -59,7 +68,7 @@ public class DatabaseConnection {
                 }
                 catch (SQLException sqle)
                 {
-                    System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                    System.out.println("Failed to connect to database attempt " + i);
                     System.err.println("SQLException: " + sqle.getMessage());
 
                     // Let's wait before attempting to reconnect
@@ -97,9 +106,9 @@ public class DatabaseConnection {
                 System.err.println("SQLException: " + e.getMessage());
             }
             finally {
+                // remove access to connection even if it failed to close
                 con = null;
             }
         }
     }
-
 }

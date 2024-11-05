@@ -13,6 +13,7 @@ public class AppTest {
     private static final Object defaultDatabaseLocation = Utilities.getPrivateField(App.class, null,"databaseLocation");
     private static final Object defaultDatabaseDelay = Utilities.getPrivateField(App.class, null,"databaseDelay");
 
+
     /**
      * Initialising environment
      *
@@ -83,6 +84,7 @@ public class AppTest {
             // SQLException is unrelated to this test
         }
 
+        // assert if the right values were assigned
         if (args.length <= 1) {
             assertEquals(defaultDatabaseLocation, Utilities.getPrivateField(App.class, null,"databaseLocation"));
             assertEquals(defaultDatabaseDelay, Utilities.getPrivateField(App.class, null,"databaseDelay"));
@@ -93,6 +95,11 @@ public class AppTest {
         }
     }
 
+    /**
+     * Main method with zero arguments being passed
+     *
+     * <p>Checks if databaseLocation and databaseDelay are still the default.</p>
+     */
     @Test
     public void main_zeroStringArgs() {
         String[] args = new String[0];
@@ -100,6 +107,11 @@ public class AppTest {
         main(args);
     }
 
+    /**
+     * Main method with one argument being passed
+     *
+     * <p>Checks if databaseLocation and databaseDelay are still the default.</p>
+     */
     @Test
     public void main_oneStringArgs() {
         String[] args = new String[1];
@@ -108,6 +120,11 @@ public class AppTest {
         main(args);
     }
 
+    /**
+     * Main method with two arguments being passed
+     *
+     * <p>Checks if databaseLocation and databaseDelay have been set to the passed values.</p>
+     */
     @Test
     public void main_twoStringArgs() {
         String[] args = new String[2];
@@ -120,6 +137,11 @@ public class AppTest {
 
     // FormatOutput method tests
 
+    /**
+     * Format zero rows correctly
+     *
+     * <p>Checks if defined message is displayed.</p>
+     */
     @Test
     public void FormatOutput_rowCountZero(){
         try{
@@ -133,6 +155,11 @@ public class AppTest {
         assertEquals("No matching data found. Please check your spelling and try again.", result);
     }
 
+    /**
+     * Format one row correctly
+     *
+     * <p>Checks if header and row have been formatted correctly.</p>
+     */
     @Test
     public void FormatOutput_oneRow(){
         String result = App.FormatOutput(resultSet);
@@ -140,6 +167,11 @@ public class AppTest {
         assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content"), result);
     }
 
+    /**
+     * Format two rows correctly
+     *
+     * <p>Checks if header and rows have been formatted correctly.</p>
+     */
     @Test
     public void FormatOutput_twoRows(){
         try {
@@ -156,6 +188,11 @@ public class AppTest {
         assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content", "Test Row 2 Content", "Long Test Row 2 Content"), result);
     }
 
+    /**
+     * Format narrow column header
+     *
+     * <p>Checks if narrow column header is formatted correctly as 20 char wide.</p>
+     */
     @Test
     public void FormatOutput_columnWidthUnder20Header(){
         String result = App.FormatOutput(resultSet);
@@ -163,6 +200,11 @@ public class AppTest {
         assertTrue(result.contains(String.format("%-20s", "Test Column 1")));
     }
 
+    /**
+     * Format narrow column row
+     *
+     * <p>Checks if narrow column header is formatted correctly as 20 char wide.</p>
+     */
     @Test
     public void FormatOutput_columnWidthUnder20Row(){
         String result = App.FormatOutput(resultSet);
@@ -170,6 +212,11 @@ public class AppTest {
         assertTrue(result.contains(String.format("%-20s", "Test Row 1 Content")));
     }
 
+    /**
+     * Format wide column header
+     *
+     * <p>Checks if wide column header is formatted correctly as its number of char long.</p>
+     */
     @Test
     public void FormatOutput_columnWidthOver20Header(){
         String result = App.FormatOutput(resultSet);
@@ -177,6 +224,11 @@ public class AppTest {
         assertTrue(result.contains(String.format("%-23s", "Test Column 2")));
     }
 
+    /**
+     * Format wide column row
+     *
+     * <p>Checks if wide column row is formatted correctly as its number of char long.</p>
+     */
     @Test
     public void FormatOutput_columnWidthOver20Row(){
         String result = App.FormatOutput(resultSet);
