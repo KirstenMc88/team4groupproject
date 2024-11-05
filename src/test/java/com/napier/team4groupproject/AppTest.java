@@ -164,7 +164,7 @@ public class AppTest {
     public void FormatOutput_oneRow(){
         String result = App.FormatOutput(resultSet);
 
-        assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content"), result);
+        assertEquals(String.format("\n%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content"), result);
     }
 
     /**
@@ -185,7 +185,7 @@ public class AppTest {
 
         String result = App.FormatOutput(resultSet);
 
-        assertEquals(String.format("%-20s%-23s\n%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content", "Test Row 2 Content", "Long Test Row 2 Content"), result);
+        assertEquals(String.format("\n%-20s%-23s\n%-20s%-23s\n%-20s%-23s\n", "Test Column 1", "Test Column 2", "Test Row 1 Content", "Long Test Row 1 Content", "Test Row 2 Content", "Long Test Row 2 Content"), result);
     }
 
     /**
