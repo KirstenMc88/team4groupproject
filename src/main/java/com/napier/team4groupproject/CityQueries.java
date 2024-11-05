@@ -21,7 +21,13 @@ public class CityQueries {
     */
    public static String allCitiesInTheWorld(DatabaseConnection databaseConnection, Integer topX) throws SQLException {
 
-      System.out.println("All Cities in the World");
+      if(topX != null) {
+         System.out.println("Top " + topX + " Cities in the World");
+      } else {
+         System.out.println("All Cities in the World");
+      }
+
+
       Statement stmt = databaseConnection.getCon().createStatement();
 
       // query to retrieve the data from the database
@@ -39,10 +45,9 @@ public class CityQueries {
       ResultSet resultSet = stmt.executeQuery(cityQuery);
 
       // checks if a result has been returned from the query
-      if (resultSet.next()) {
-         return App.FormatOutput(resultSet);
-      }// error message, if data hasn't been retrieved
-      return "System Error, couldn't retrieve the data.";
+
+      return App.FormatOutput(resultSet);
+
    }
 
 
@@ -91,10 +96,9 @@ public class CityQueries {
          //  runs the query and assigns the result to resultSet
          ResultSet resultSet = pstmt.executeQuery();
 
-         // checks if a result has been returned from the query
-         if (resultSet.next()) {
-            return App.FormatOutput(resultSet);
-         }
+         // returns formatted query output
+         return App.FormatOutput(resultSet);
+
 
       }
       catch (SQLException e) {
@@ -112,13 +116,15 @@ public class CityQueries {
     *
     * @param databaseConnection passes in the database connection class as parameter to allow access.
     *
-    * @param userInput Takes user input to use in filtering the database
+    * @param userInput Takes user input to use in filtering the database.
     *
     * @return returns the statementBuilder method output based on provided data.
     *
     * @throws SQLException throws SQL exception.
     */
    public static String allCitiesInAContinent(DatabaseConnection databaseConnection, String userInput) throws SQLException {
+
+      System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Continent", null);
@@ -137,6 +143,8 @@ public class CityQueries {
     */
    public static String allCitiesInARegion(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
+      System.out.println("All Cities in " + userInput + ".");
+
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Region", null);
 
@@ -154,6 +162,8 @@ public class CityQueries {
     */
    public static String allCitiesInACountry(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
+      System.out.println("All Cities in " + userInput + ".");
+
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Name", null);
 
@@ -170,6 +180,8 @@ public class CityQueries {
     * @throws SQLException throws SQL exception.
     */
    public static String allCitiesInADistrict(DatabaseConnection databaseConnection, String userInput) throws SQLException {
+
+      System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "city.District", null);
@@ -192,6 +204,9 @@ public class CityQueries {
     */
    public static String topXCitiesInAContinent(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
+
+      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
+
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Continent", userTopX);
 
@@ -210,6 +225,8 @@ public class CityQueries {
     * @throws SQLException throws SQL exception.
     */
    public static String topXCitiesInARegion(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
+
+      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Region", userTopX);
@@ -230,6 +247,8 @@ public class CityQueries {
     */
    public static String topXCitiesInACountry(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
+      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
+
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "country.Name", userTopX);
 
@@ -248,6 +267,8 @@ public class CityQueries {
     * @throws SQLException throws SQL exception.
     */
    public static String topXCitiesInADistrict(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
+
+      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
       return statementBuilder(databaseConnection, userInput, "city.District", userTopX);
