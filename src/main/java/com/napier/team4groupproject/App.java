@@ -13,9 +13,12 @@ public class App
      * Formatting method for SQL query results
      *
      * <p>This method formats the SQL query result, using metadata to find the number of columns, the needed width for
-     * each column (with a minimum of 20 char), and the names of each column. <p/>
+     * each column (with a minimum of 20 char), and the names of each column. If there are no rows it displays
+     * 'No matching data found. Please check your spelling and try again.' since it will be caused by a user input
+     * which was passed to the query.<p/>
      *
      * @param resultSet is the result of the SQL query
+     * @return a formatted string containing the data from the resultSet
      */
     public static String FormatOutput(ResultSet resultSet){
         StringBuilder output = new StringBuilder();
@@ -37,6 +40,9 @@ public class App
             for (int i = 1; i <= columnCount; i++) {
                 columnWidths[i-1] = Math.max(20, metaData.getColumnDisplaySize(i));
             }
+
+            // add line break
+            output.append("\n");
 
             // get column label (not name, so it works with aliases) of all columns
             for (int i = 1; i <= columnCount; i++) {
@@ -103,7 +109,10 @@ public class App
             System.out.println(CityQueries.allCitiesInTheWorld(sql));
 
             //Displays results of All Capital Cities In World Query
-            System.out.println(CapitalQueries.allInWorld(sql));
+            System.out.println(CapitalQueries.AllCapitals(sql));
+
+            // Display the result from the language query
+            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
             // Calls menu passes DB connection as parameters
             // Menu.mainMenu(sql);
