@@ -6,13 +6,31 @@ import java.sql.SQLException;
 
 public class App
 {
+
+    /**
+     * Default database host
+     *
+     * <p>This fields holds the partial address of the database host which will be used by default.</p>
+     */
+    private static String databaseLocation = "localhost:33060";
+
+    /**
+     * Default connection delay
+     *
+     * <p>This field holds the number in milliseconds for which the database connection retries will be delayed.</p>
+     */
+    private static int databaseDelay = 30000;
+
     /**
      * Formatting method for SQL query results
      *
      * <p>This method formats the SQL query result, using metadata to find the number of columns, the needed width for
-     * each column (with a minimum of 20 char), and the names of each column. <p/>
+     * each column (with a minimum of 20 char), and the names of each column. If there are no rows it displays
+     * 'No matching data found. Please check your spelling and try again.' since it will be caused by a user input
+     * which was passed to the query.<p/>
      *
      * @param resultSet is the result of the SQL query
+     * @return a formatted string containing the data from the resultSet
      */
     public static String FormatOutput(ResultSet resultSet){
         StringBuilder output = new StringBuilder();
@@ -25,18 +43,21 @@ public class App
             ResultSetMetaData metaData = resultSet.getMetaData();
 
             // this gets the number of columns from metadata so we can loop through them
-            int columns = metaData.getColumnCount();
+            int columnCount = metaData.getColumnCount();
 
             // this will hold display widths for each column
-            int[] columnWidths = new int[columns];
+            int[] columnWidths = new int[columnCount];
 
             // get column width for each column, with a minimum width of 20 char
-            for (int i = 1; i <= columns; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 columnWidths[i-1] = Math.max(20, metaData.getColumnDisplaySize(i));
             }
 
+            // add line break
+            output.append("\n");
+
             // get column label (not name, so it works with aliases) of all columns
-            for (int i = 1; i <= columns; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 output.append(String.format("%-" + columnWidths[i-1] + "s", metaData.getColumnLabel(i)));
             }
             // add line break
@@ -47,7 +68,7 @@ public class App
                 // add one to row count
                 rowCount++;
                 // get content of each column
-                for (int i = 1; i <= columns; i++) {
+                for (int i = 1; i <= columnCount; i++) {
                     output.append(String.format("%-" + columnWidths[i-1] + "s", resultSet.getString(i)));
                 }
                 // add line break
@@ -76,34 +97,40 @@ public class App
      * @param args standard string array for java main class to receive command-line arguments
      */
     public static void main(String[] args) throws SQLException {
-        // prints "hello world", very basic for now, just to prove that everything is set up as it should be
+        // prints header
         System.out.println("Population Information System");
 
-        // Creates instance of DatabaseConnetion
+        // Creates instance of DatabaseConnection
         DatabaseConnection sql = new DatabaseConnection();
 
-        // Connect to database
-        if (args.length < 1) {
-            sql.connect("localhost:33060", 30000);
-        } else {
-            sql.connect(args[0], Integer.parseInt(args[1]));
+        // Set database connection arguments
+        if (args.length > 1) {
+            databaseLocation = args[0];
+            databaseDelay = Integer.parseInt(args[1]);
         }
 
+        // skips things using other classes if run in the unit test environment
+        if (!"UnitTest".equals(System.getProperty("Environment"))) {
+            // connects to database
+            sql.connect(databaseLocation, databaseDelay);
 
-        // Displays the result from the countries in the world query
-        System.out.println(CountryQueries.CountriesInTheWorld(sql));
+            // Displays the result from the countries in the world query
+            System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
         // displays all cities in the world
         System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
 
-        //Displays results of All Capital Cities In World Query
-        System.out.println(CapitalQueries.allInWorld(sql));
+            //Displays results of All Capital Cities In World Query
+            System.out.println(CapitalQueries.AllCapitals(sql));
 
-        // Calls menu passes DB connection as parameters
-        // Menu.mainMenu(sql);
+            // Display the result from the language query
+            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
-        // Disconnect from database
-        sql.disconnect();
+            // Calls menu passes DB connection as parameters
+            // Menu.mainMenu(sql);
 
+            // Disconnect from database
+            sql.disconnect();
+        }
     }
 }

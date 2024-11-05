@@ -94,6 +94,7 @@ public class CountryQueries {
      * form of a string output.<p/>
      *
      * @param databaseConnection connects to the world database
+     * @param continent is the name of the requested continent
      * @return a report showing all countries in the requested continent
      */
     public static String CountriesInAContinent(DatabaseConnection databaseConnection, String continent){
@@ -108,6 +109,7 @@ public class CountryQueries {
      * form of a string output.<p/>
      *
      * @param databaseConnection connects to the world database
+     * @param region is the name of the requested region
      * @return a report showing all countries in the requested region
      */
     public static String CountriesInARegion(DatabaseConnection databaseConnection, String region){
@@ -121,6 +123,7 @@ public class CountryQueries {
      * connection and the requested amount (limit), to return the requested report in the form of a string output.<p/>
      *
      * @param databaseConnection connects to the world database
+     * @param limitParameter is the requested amount
      * @return a report showing the requested amount of most populated countries in the world
      */
     public static String TopCountriesInTheWorld(DatabaseConnection databaseConnection, int limitParameter){
@@ -135,6 +138,8 @@ public class CountryQueries {
      * the requested report in the form of a string output.<p/>
      *
      * @param databaseConnection connects to the world database
+     * @param continent is the name of the requested continent
+     * @param limitParameter is the requested amount
      * @return a report showing the requested amount of most populated countries in the requested continent
      */
     public static String TopCountriesInAContinent(DatabaseConnection databaseConnection, String continent, int limitParameter){
@@ -149,6 +154,8 @@ public class CountryQueries {
      * requested report in the form of a string output.<p/>
      *
      * @param databaseConnection connects to the world database
+     * @param region is the name of the requested region
+     * @param limitParameter is the requested amount
      * @return a report showing the requested amount of most populated countries in the requested region
      */
     public static String TopCountriesInARegion(DatabaseConnection databaseConnection, String region, int limitParameter){

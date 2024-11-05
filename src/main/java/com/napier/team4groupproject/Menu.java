@@ -20,7 +20,7 @@ public class Menu {
 
     /**
      * A {@code mainMenu} method which displays the main menu
-     * It allows for easy navigation to different reporting menus
+     * It allows for easy navigation to different reporting menus and reports
      * has built in validation
      * @param databaseConnection passes in object to connect to database
      */
@@ -35,7 +35,7 @@ public class Menu {
             System.out.println("3 - Capital city reports.");
             System.out.println("4 - Population analysis reports.");
             System.out.println("5 - General information.");
-            System.out.println("6 - Language reports.");
+            System.out.println("6 - Language report.");
             System.out.println("0 - Exit");
 
             String choice = input.nextLine();
@@ -62,7 +62,7 @@ public class Menu {
                     break;
 
                 case "6":
-                    languageReportsMenu();
+                    System.out.println(LanguageQuery.LanguageDistributionInThWorld(databaseConnection));
                     break;
 
                 case "0":
@@ -121,6 +121,7 @@ public class Menu {
                 case "4":
                     System.out.println("Please enter N");
                     limit = input.nextInt();
+                    input.nextLine();
 
                     System.out.println(CountryQueries.TopCountriesInTheWorld(databaseConnection, limit));
                     break;
@@ -131,7 +132,7 @@ public class Menu {
 
                     System.out.println("Please enter N");
                     limit = input.nextInt();
-
+                    input.nextLine();
                     System.out.println(CountryQueries.TopCountriesInAContinent(databaseConnection, continent, limit));
                     break;
 
@@ -141,7 +142,7 @@ public class Menu {
 
                     System.out.println("Please enter N");
                     limit = input.nextInt();
-
+                    input.nextLine();
                     System.out.println(CountryQueries.TopCountriesInARegion(databaseConnection, region, limit));
                     break;
 
@@ -237,13 +238,16 @@ public class Menu {
      * A {@code capitalCityReportsMenu} method which displays the sub menu for all capital city reports
      * It allows for easy navigation to different reporting menus including back to previous menu
      * has built in validation
-     * @param databaseConnection passes in object to connect to database
+     * Each menu option retrieves and displays capital city reports for a variety of condiotons
+     * can be filtered by continent and region as well as limiting the amount of data returned
+     * @param databaseConnection passes in object to connect to database so that queries can be executed
      *
      */
 
     private static void capitalCityReportsMenu(DatabaseConnection databaseConnection) {
-        boolean exit = false;
+        boolean exit = false; //control for the menu loop
 
+        //menu loop
         while (!exit) {
             System.out.println("\n------Capital City Reports------");
 
@@ -255,39 +259,108 @@ public class Menu {
             System.out.println("6 - The top N populated capital cities in a region where N is provided by the user.");
             System.out.println("0 - Back to main menu.");
 
+            //captures users menu choice
             String choice = input.nextLine();
+
+            //local variables to pass parameters into CapitalQueries class
+            String continent = null; // variable to store continent input from user
+            String region = null; // varaiable to store region input from  user
+            int limit ; //variable to store user input to limit entries to view
+
 
             switch (choice) {
                 case "1":
-                    // Directly call allInWorld and print the formatted output
-                    System.out.println(CapitalQueries.allInWorld(databaseConnection));
+                    // Displays Report Header & retrieves all capital cities in world report
+                    System.out.println("All Capital cities in world");
+                    System.out.println("Organised by largest population to smallest");
+                    System.out.println(CapitalQueries.AllCapitals(databaseConnection));
                     break;
 
                 case "2":
-                    System.out.println("Placeholder");
+                    // prompts user for continent
+                    System.out.println("Please enter which Continent to view");
+                    continent = input.nextLine();
+                    try {
+                        // Displays report header and capitals report for chosen continent
+                        System.out.println("All Capital Cities in " + continent + " continent");
+                        System.out.println("Organised by largest population to smallest");
+                        System.out.println(CapitalQueries.AllCapitalsContinent(databaseConnection, continent));
+                    } catch (Exception e) {
+                        // catches exception if there are any runitme errors
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "3":
-                    System.out.println("Placeholder");
+                    // Prompts user for region
+                    System.out.println("Please enter which Region to view");
+                    region = input.nextLine();
+                    try {
+                        // Displays report header and capitals report for chosen region
+                        System.out.println("All Capital Cities in " + region + " region");
+                        System.out.println("Organised by largest population to smallest");
+                        System.out.println(CapitalQueries.AllCapitalsRegion(databaseConnection, region));
+                    } catch (Exception e) {
+                        // catches any runtime exceptions
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "4":
-                    System.out.println("Placeholder");
+                    // prompts users for number of capital cities to view
+                    System.out.println("Please enter how many capital cities to view");
+                    limit = input.nextInt();
+                    input.nextLine(); //clears the nextline from the buffer - causes invalid choice bug if not present
+                    try {
+                        // Displays report header and capitals report for user chosen number
+                        System.out.println("Top " + limit + " Capital Cities in World ");
+                        System.out.println("Organised by largest population to smallest");
+                        System.out.println(CapitalQueries.XCapitalsWorld(databaseConnection, limit));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "5":
-                    System.out.println("Placeholder");
+                    // prompts user for continent choice and number of entries to view
+                    System.out.println("Please enter which Continent to view");
+                    continent = input.nextLine();
+                    System.out.println("Please enter how many capital cities to view");
+                    limit = input.nextInt();
+                    input.nextLine();  //clears the nextline from the buffer - causes invalid choice bug if not present
+                    try {
+                        //Prints report header & capitals report for user chosen continent and number of entries
+                        System.out.println("Top " + limit + " Capital Cities in " + continent + " Continent ");
+                        System.out.println("Organised by largest population to smallest");
+                        System.out.println(CapitalQueries.XCapitalsContinent(databaseConnection, continent, limit));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
+                    //prompts user for region and number of entries input
+                    System.out.println("Please enter which Region to view");
+                    region = input.nextLine();
+                    System.out.println("Please enter how many capital cities to view");
+                    limit = input.nextInt();
+                    input.nextLine();  //clears the nextline from the buffer - causes invalid choice bug if not present
+                    try {
+                        // displays header and capital reports for chose region and number of entries
+                        System.out.println("Top " + limit + " Capital Cities in " + region + " Region ");
+                        System.out.println("Organised by largest population to smallest");
+                        System.out.println(CapitalQueries.XCapitalsRegion(databaseConnection, region, limit));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
-                case "0":
+                case "0": // changes control to 0 to exit menu
                     exit = true;
                     break;
 
                 default:
+                    // handles menu choices out of range
                     System.out.println("Invalid choice. Please enter a valid number.");
             }
         }
@@ -380,59 +453,6 @@ public class Menu {
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "0":
-                    exit = true;
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please enter a valid number.");
-            }
-        }
-    }
-
-    /**
-     * A {@code languageReportsMenu} method which displays the sub menu for all language reports
-     * shows reports for how many people speak different languages in the world
-     * It allows for easy navigation to different reporting menus including back to previous menu
-     * has built in validation
-     */
-
-    private static void languageReportsMenu() {
-        boolean exit = false;
-
-        while (!exit) {
-            System.out.println("\n------Language Reports------");
-
-            System.out.println("1 - Chinese.");
-            System.out.println("2 - English.");
-            System.out.println("3 - Hindi.");
-            System.out.println("4 - Spanish.");
-            System.out.println("5 - Arabic.");
-            System.out.println("0 - Back to main menu.");
-
-            String choice = input.nextLine();
-
-            switch (choice) {
-                case "1":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "2":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "3":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "4":
-                    System.out.println("Placeholder");
-                    break;
-
-                case "5":
                     System.out.println("Placeholder");
                     break;
 
