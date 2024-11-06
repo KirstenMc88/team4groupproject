@@ -4,6 +4,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+/**
+ * App class provides main entry point to app
+ * has calls to individual reports for testing this will not be in release
+ * has commented call to menu which will be user interface
+ */
+
 public class App
 {
     /**
