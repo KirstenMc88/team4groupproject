@@ -6,7 +6,7 @@
 
     <groupId>com.napier.team4groupproject</groupId>
     <artifactId>groupProject</artifactId>
-    <version>v0.2-Birch</version>
+    <version>v0.3-Cedar</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -27,6 +27,14 @@
             <version>5.1.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
