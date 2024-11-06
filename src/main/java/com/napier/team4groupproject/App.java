@@ -5,7 +5,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
- * App class provides main entry point to app
+ * The {@code App} class provides main entry point to app
+ * calls methods to connect and disconnect from database
  * has calls to individual reports for testing this will not be in release
  * has commented call to menu which will be user interface
  */

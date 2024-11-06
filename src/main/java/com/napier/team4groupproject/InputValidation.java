@@ -1,5 +1,9 @@
 package com.napier.team4groupproject;
 
+
+/**
+ * The {@code InputValidation} class contains methods to validate user inputs both integers and strings
+ */
 public class InputValidation {
     /**
      * validates user input for queries by carrying out

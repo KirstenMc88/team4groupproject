@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * the GeneralInfoQueries class provides methods to display each report listed under the general info submenu.
+ * The {@code GeneralInfoQueries} class provides methods to retrieve and display each report listed under the general info submenu.
  */
 
 public class GeneralInfoQueries {

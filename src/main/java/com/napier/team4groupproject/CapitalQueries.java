@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * CapitalQueries class provides methods to display each report related to worlds capital cities
+ * The {@code CapitalQueries} class provides methods to retrieve and display each report related to worlds capital cities
  */
 public class CapitalQueries {
 

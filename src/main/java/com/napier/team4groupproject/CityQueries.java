@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The {@code CityQueries} class provides methods to retrieve and display each of the city reports
+ */
+
 public class CityQueries {
 
    /**

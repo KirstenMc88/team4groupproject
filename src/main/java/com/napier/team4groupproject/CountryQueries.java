@@ -2,6 +2,9 @@ package com.napier.team4groupproject;
 
 import java.sql.*;
 
+/**
+ * The {@code CountryQueries} class provides methods to retrieve and display country reports
+ */
 public class CountryQueries {
 
     /**

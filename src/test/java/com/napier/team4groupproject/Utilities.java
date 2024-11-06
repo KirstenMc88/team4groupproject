@@ -2,6 +2,11 @@ package com.napier.team4groupproject;
 
 import java.lang.reflect.Field;
 
+/**
+ * The {@code Utilities} contains methods so that java unit tests and integration tests can be run
+ * contains methods to access class attributes, field and methods that would normally not be exposed
+ */
+
 public class Utilities {
 
     /**
