@@ -54,7 +54,7 @@ public class Menu {
                     break;
 
                 case "4":
-                    populationAnalysisReportsMenu();
+                    populationAnalysisReportsMenu(databaseConnection);
                     break;
 
                 case "5":
@@ -372,7 +372,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void populationAnalysisReportsMenu() {
+    private static void populationAnalysisReportsMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -383,19 +383,61 @@ public class Menu {
             System.out.println("3 - The population of people, people living in cities, and people not living in cities in each country.");
             System.out.println("0 - Back to main menu.");
 
+            //captures users menu choice
             String choice = input.nextLine();
+
+            //local variables to pass parameters into CapitalQueries class
+            String continent = null; // variable to store continent input from user
+            String region = null; // variable to store region input from  user
+            String country = null; // variable to store country input from user
 
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    // prompts user for continent
+                    System.out.println("Please enter which Continent to view population distribution");
+                    continent = input.nextLine();
+
+                    try {
+                        // Displays report header and capitals report for chosen continent
+                        System.out.println("Population Distribution in " + continent + " continent");
+                        //System.out.println("Organised by largest population to smallest");
+                        System.out.println(PopDistributionQueries.ContinentPopulation(databaseConnection, continent));
+                    } catch (Exception e) {
+                        // catches exception if there are any runtime errors
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "2":
-                    System.out.println("Placeholder");
+                    // prompts user for continent
+                    System.out.println("Please enter which region to view population distribution");
+                    region = input.nextLine();
+
+                    try {
+                        // Displays report header and capitals report for chosen continent
+                        System.out.println("Population Distribution in " + region + " region");
+                        //System.out.println("Organised by largest population to smallest");
+                        System.out.println(PopDistributionQueries.RegionPopulation(databaseConnection, region));
+                    } catch (Exception e) {
+                        // catches exception if there are any runtime errors
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "3":
-                    System.out.println("Placeholder");
+                    // prompts user for continent
+                    System.out.println("Please enter which country to view population distribution");
+                    country = input.nextLine();
+
+                    try {
+                        // Displays report header and capitals report for chosen continent
+                        System.out.println("Population Distribution in " + country + " country");
+                        //System.out.println("Organised by largest population to smallest");
+                        System.out.println(PopDistributionQueries.CountryPopulation(databaseConnection, country));
+                    } catch (Exception e) {
+                        // catches exception if there are any runtime errors
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "0":
