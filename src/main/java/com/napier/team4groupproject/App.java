@@ -126,6 +126,10 @@ public class App
             // Display the result from the language query
             System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
+            //Displays output result from population distribution queries
+            System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
+            System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
+            System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
             // Calls menu passes DB connection as parameters
             // Menu.mainMenu(sql);
 
