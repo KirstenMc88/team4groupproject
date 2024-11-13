@@ -79,7 +79,7 @@ public class CityQueries {
                  + "from city as city "
                  + "inner join country as country on city.CountryCode = country.Code "
                  + "WHERE " + queryWhere + " = ?"
-                 + " order by city.Population desc";
+                 + " order by city.Population desc";//.replace()
 
          // checks if topX has a value, if it does it is added to the query.
          if(topX != null) {

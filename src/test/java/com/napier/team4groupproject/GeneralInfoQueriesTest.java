@@ -36,12 +36,12 @@ public class GeneralInfoQueriesTest {
 
     @BeforeEach
     public void setUp() {
-       // System.setOut(new PrintStream(outputStream));
+        //System.setOut(new PrintStream(outputStream));
     }
 
     @AfterEach
     public void restoreSystemOut() {
-        //System.setOut(printStream);  // Restore the original System.out
+      //  System.setOut(printStream);  // Restore the original System.out
     }
 
 
@@ -71,10 +71,13 @@ public class GeneralInfoQueriesTest {
             mockedApp.when(() -> App.FormatOutput(resultSet)).thenReturn("6078749450");
         }
 
+        String result = GeneralInfoQueries.populationOfTheWorld(databaseConnection);
+
+        assertTrue(result != null && result.contains("6078749450"));
 
         // checks if the output contains the population
-        System.out.println(GeneralInfoQueries.populationOfTheWorld(databaseConnection));
-        assertTrue(outputStream.toString().contains("6078749450"));
+        //System.out.println(GeneralInfoQueries.populationOfTheWorld(databaseConnection));
+        //assertTrue(outputStream.toString().contains("6078749450"));
 
     }
 
@@ -246,7 +249,6 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the city population
         when(resultSet.getString(1)).thenReturn("116675");
-
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {

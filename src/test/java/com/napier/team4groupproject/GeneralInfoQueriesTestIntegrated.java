@@ -34,6 +34,9 @@ public class GeneralInfoQueriesTestIntegrated {
         assertNotNull(worldPopReport);
     }
 
+    // check column
+    //
+
     @Test
     public void testGetPopulationOfTheWorldContainPopulation() throws SQLException {
         String worldPopReport = GeneralInfoQueries.populationOfTheWorld(connection);
