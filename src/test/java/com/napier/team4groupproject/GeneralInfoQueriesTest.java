@@ -36,13 +36,14 @@ public class GeneralInfoQueriesTest {
 
     @BeforeEach
     public void setUp() {
-        System.setOut(new PrintStream(outputStream));
+       // System.setOut(new PrintStream(outputStream));
     }
 
     @AfterEach
     public void restoreSystemOut() {
-        System.setOut(printStream);  // Restore the original System.out
+        //System.setOut(printStream);  // Restore the original System.out
     }
+
 
     // unit tests
     @Test
@@ -63,7 +64,7 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the world population
         when(resultSet.getString(1)).thenReturn("6078749450");
-        System.out.println(resultSet.getString(1));
+        //System.out.println(resultSet.getString(1));
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {
@@ -102,7 +103,7 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the continent population
         when(resultSet.getString(1)).thenReturn("3705025700");
-        System.out.println(resultSet.getString(1));
+
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {
@@ -173,7 +174,7 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the country population
         when(resultSet.getString(1)).thenReturn("22720000");
-        System.out.println(resultSet.getString(1));
+
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {
@@ -209,7 +210,7 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the district population
         when(resultSet.getString(1)).thenReturn("1780000");
-        System.out.println(resultSet.getString(1));
+
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {
@@ -245,7 +246,7 @@ public class GeneralInfoQueriesTest {
         when(resultSet.next()).thenReturn(true).thenReturn(false);
         // sets result set to contain the city population
         when(resultSet.getString(1)).thenReturn("116675");
-        System.out.println(resultSet.getString(1));
+
 
         // mocks static method
         try (MockedStatic<App> mockedApp = mockStatic(App.class)) {
