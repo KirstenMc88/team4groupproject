@@ -91,30 +91,6 @@ public class PopDistributionTest {
         }
     }
 
-    // tests for null inputs
-    @Test
-    @Disabled
-    public void testPopulationDistributionQuery_nullDatabase() {
-        try {
-            callPopulationDistributionQuery(null, "continent", exampleContinent);
-            fail("Should have thrown an exception due to null database connection.");
-        } catch (NullPointerException e) {
-            assertTrue(true);
-        } catch (Exception e) {
-            fail("Unexpected exception type thrown: " + e.getMessage());
-        }
-    }
-
-    @Test
-    @Disabled
-    public void testPopulationDistributionQuery_nullWhereValidAttribute() {
-        try {
-            String result = callPopulationDistributionQuery(worldDB, "continent", null);
-            assertNotNull(result, "The result should not be null even when the where clause is null.");
-        } catch (Exception e) {
-            fail("The test should not have thrown an exception: " + e.getMessage());
-        }
-    }
 
     // test for invalid attribute or where
     @Test
