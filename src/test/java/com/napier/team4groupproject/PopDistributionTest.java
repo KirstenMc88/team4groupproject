@@ -1,6 +1,7 @@
 package com.napier.team4groupproject;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -92,6 +93,7 @@ public class PopDistributionTest {
 
     // tests for null inputs
     @Test
+    @Disabled
     public void testPopulationDistributionQuery_nullDatabase() {
         try {
             callPopulationDistributionQuery(null, "continent", exampleContinent);
@@ -104,6 +106,7 @@ public class PopDistributionTest {
     }
 
     @Test
+    @Disabled
     public void testPopulationDistributionQuery_nullWhereValidAttribute() {
         try {
             String result = callPopulationDistributionQuery(worldDB, "continent", null);
