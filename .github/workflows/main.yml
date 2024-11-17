@@ -34,7 +34,7 @@ jobs:
       - name: Integration Tests
         run: |
           docker compose up -d world-db
-          mvn -Dtest=**/*IntegrationTest test
+          mvn -Dtest=**/*IntTest test
           docker compose down
 
   build:
