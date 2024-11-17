@@ -8,7 +8,7 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AppTest {
+public class AppUnitTest {
     private static ResultSet resultSet;
     private static final Object defaultDatabaseLocation = Utilities.getPrivateField(App.class, null,"databaseLocation");
     private static final Object defaultDatabaseDelay = Utilities.getPrivateField(App.class, null,"databaseDelay");

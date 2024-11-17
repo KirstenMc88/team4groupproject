@@ -1,13 +1,14 @@
 package com.napier.team4groupproject;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CityQueriesTest {
+public class CityQueriesIntTest {
     private static DatabaseConnection worldDB;
     private static DatabaseConnection nullDB;
     private static ByteArrayOutputStream output;
@@ -35,81 +36,7 @@ public class CityQueriesTest {
         exampleInvalid = "Invalid";
     }
 
-
-    // new structure
-    // statement builder unit tests
-
-    @Test
-    public void statementBuilder_nullDatabase() {
-        try {
-            CityQueries.statementBuilder(null, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("DatabaseConnection is null")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_nullDatabaseConnection() {
-        try {
-            CityQueries.statementBuilder(nullDB, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_negativeTopX() {
-        try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", -exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Top X cannot be negative")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_zeroTopX() {
-        try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", 0);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Top X cannot be 0")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_emptyUserInput() {
-        try {
-            CityQueries.statementBuilder(worldDB, "", "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("User input cannot be empty")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_invalidWhere() {
-        try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, exampleInvalid, exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Invalid where filter.")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void statementBuilder_emptyWhere() {
-        try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "", exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Where filter cannot be empty.")); // or similar string :)
-        }
-    }
-
-    // statement builder integration tests
+    // statement builder
 
     @Test
     public void statementBuilder_successfulNullTopX() {
@@ -195,51 +122,7 @@ public class CityQueriesTest {
         }
     }
 
-    // allCitiesInTheWorld unit tests
-
-    @Test
-    public void allCitiesInTheWorld_nullDatabase() {
-        System.setOut(new PrintStream(output));
-        try {
-            String report = CityQueries.allCitiesInTheWorld(null, null);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Database Connection is null")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void allCitiesInTheWorld_nullDatabaseConnection() {
-        System.setOut(new PrintStream(output));
-        try {
-            String report = CityQueries.allCitiesInTheWorld(nullDB, null);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void allCitiesInTheWorld_negativeTopX() {
-        try {
-            CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Top X cannot be negative")); // or similar string :)
-        }
-    }
-
-    @Test
-    public void allCitiesInTheWorld_zeroTopX() {
-        try {
-            CityQueries.allCitiesInTheWorld(worldDB, 0);
-            fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("Top X cannot be 0")); // or similar string :)
-        }
-    }
-
-    // allCitiesInTheWorld integration tests
+    // allCitiesInTheWorld
 
     @Test
     public void allCitiesInTheWorld_successfulNullTopX() {
@@ -281,8 +164,6 @@ public class CityQueriesTest {
         // change output!
         assertFalse(output.toString().contains("Top 4080 Cities in the World"));
     }
-
-    // other integration tests
 
     // allCitiesInAContinent
 

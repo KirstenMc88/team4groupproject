@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class DatabaseConnectionTest {
+public class DatabaseConnectionUnitTest {
     private static DatabaseConnection testDB;
     private static Connection connection;
     private static ByteArrayOutputStream errorOutput;

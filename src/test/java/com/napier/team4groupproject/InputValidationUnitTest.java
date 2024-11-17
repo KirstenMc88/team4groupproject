@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 
-public class InputValidationTest {
+public class InputValidationUnitTest {
 
     InputValidation inputValidation = new InputValidation();
 
