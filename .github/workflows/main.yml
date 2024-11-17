@@ -33,7 +33,7 @@ jobs:
           distribution: 'adopt'
       - name: Integration Tests
         run: |
-          docker compose up -d db
+          docker compose up -d world-db
           mvn -Dtest=**/*IntegrationTest test
           docker compose down
 
