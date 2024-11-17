@@ -33,9 +33,9 @@ jobs:
           distribution: 'adopt'
       - name: Integration Tests
         run: |
-          docker-compose up -d db
+          docker compose up -d db
           mvn -Dtest=**/*IntegrationTest test
-          docker-compose down
+          docker compose down
 
   build:
     name: Build and Start Using docker compose
