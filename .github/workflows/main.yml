@@ -51,6 +51,4 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Package and Run docker compose
-        run: |
-          mvn package -DskipTests
-          docker compose up --abort-on-container-exit
+        run: docker compose up --abort-on-container-exit
