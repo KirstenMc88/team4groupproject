@@ -4,12 +4,15 @@ import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class CityQueriesUnitTest {
-    private static DatabaseConnection worldDB;
     private static DatabaseConnection nullDB;
+    private static DatabaseConnection testDB;
+    private static Connection connection;
     private static ByteArrayOutputStream output;
     private static String exampleContinent;
     private static String exampleCountry;
@@ -21,9 +24,9 @@ public class CityQueriesUnitTest {
 
     @BeforeAll
     public static void setUp() {
-        worldDB = new DatabaseConnection();
         nullDB = new DatabaseConnection();
-        worldDB.connect("localhost:33060", 10000);
+        testDB = new DatabaseConnection();
+        connection = mock(Connection.class);
         output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
         exampleContinent = "Asia";
@@ -60,7 +63,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_negativeTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", -exampleTopX);
+            CityQueries.statementBuilder(testDB, exampleContinent, "Continent", -exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Top X cannot be negative")); // or similar string :)
@@ -70,7 +73,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_zeroTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", 0);
+            CityQueries.statementBuilder(testDB, exampleContinent, "Continent", 0);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Top X cannot be 0")); // or similar string :)
@@ -80,7 +83,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_emptyUserInput() {
         try {
-            CityQueries.statementBuilder(worldDB, "", "Continent", exampleTopX);
+            CityQueries.statementBuilder(testDB, "", "Continent", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("User input cannot be empty")); // or similar string :)
@@ -90,7 +93,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_invalidWhere() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, exampleInvalid, exampleTopX);
+            CityQueries.statementBuilder(testDB, exampleContinent, exampleInvalid, exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Invalid where filter.")); // or similar string :)
@@ -100,7 +103,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_emptyWhere() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "", exampleTopX);
+            CityQueries.statementBuilder(testDB, exampleContinent, "", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Where filter cannot be empty.")); // or similar string :)
@@ -134,7 +137,7 @@ public class CityQueriesUnitTest {
     @Test
     public void allCitiesInTheWorld_negativeTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
+            CityQueries.allCitiesInTheWorld(testDB, -exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Top X cannot be negative")); // or similar string :)
@@ -144,7 +147,7 @@ public class CityQueriesUnitTest {
     @Test
     public void allCitiesInTheWorld_zeroTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, 0);
+            CityQueries.allCitiesInTheWorld(testDB, 0);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("Top X cannot be 0")); // or similar string :)
