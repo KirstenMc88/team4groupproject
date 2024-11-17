@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CityQueriesIntTest {
     private static DatabaseConnection worldDB;
-    private static DatabaseConnection nullDB;
     private static ByteArrayOutputStream output;
     private static String exampleContinent;
     private static String exampleCountry;
@@ -23,7 +22,6 @@ public class CityQueriesIntTest {
     @BeforeAll
     public static void setUp() {
         worldDB = new DatabaseConnection();
-        nullDB = new DatabaseConnection();
         worldDB.connect("localhost:33060", 10000);
         output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
