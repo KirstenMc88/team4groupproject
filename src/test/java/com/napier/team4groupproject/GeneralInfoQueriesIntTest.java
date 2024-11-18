@@ -25,7 +25,10 @@ public class GeneralInfoQueriesIntTest {
 
     // integration tests
     @BeforeAll
-    public static void connect() {
+    public static void setUp() {
+
+        System.setProperty("Environment", "IntegrationTest");
+
         connection = new DatabaseConnection();
         connection.connect("localhost:33060", 60000);
 
@@ -57,7 +60,7 @@ public class GeneralInfoQueriesIntTest {
     @Test
     public void testGetPopulationOfTheWorldReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfTheWorld(connection);
-
+        System.out.println(result);
         assertNotNull(result);
     }
 
