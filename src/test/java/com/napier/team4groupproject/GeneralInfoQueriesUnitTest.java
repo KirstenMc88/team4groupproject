@@ -10,7 +10,7 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class GeneralInfoQueriesTest {
+public class GeneralInfoQueriesUnitTest {
 
     private final PrintStream printStream = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -43,6 +43,30 @@ public class GeneralInfoQueriesTest {
     public void restoreSystemOut() {
       //  System.setOut(printStream);  // Restore the original System.out
     }
+
+    @Test
+    public void testGetPopulationOfTheWorlds() throws SQLException {
+        String query =  "SELECT SUM(Population) FROM country";
+
+        // mocks the connection to the database
+        when(databaseConnection.getCon()).thenReturn(mockConnection);
+        // mocks the prepared statement
+        when(mockConnection.prepareStatement(query)).thenReturn(preparedStatement);
+        when(preparedStatement.executeQuery()).thenReturn(resultSet);
+        when(resultSet.getMetaData()).thenReturn(metaData);
+        when(metaData.getColumnLabel(1)).thenReturn("Population");
+
+
+        String result = GeneralInfoQueries.populationOfTheWorld(databaseConnection);
+
+        assertTrue(result.contains("Population"));
+
+        // checks if the output contains the population
+        //System.out.println(GeneralInfoQueries.populationOfTheWorld(databaseConnection));
+        //assertTrue(outputStream.toString().contains("6078749450"));
+
+    }
+
 
 
     // unit tests

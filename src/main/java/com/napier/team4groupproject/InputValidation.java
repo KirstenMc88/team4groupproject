@@ -11,27 +11,30 @@ public class InputValidation {
      * @param userInput takes user defined input
      * @return returns user input after validation steps
      */
+
     public static String validateStringInput(String userInput) {
 
-         //Trims whitespace
-        userInput = userInput.trim();
+        if (userInput != null) {
+            //Trims whitespace
+            userInput = userInput.trim();
 
 
-         //Checks if the input is empty
-        if (userInput.isEmpty()) {
-            System.out.println("Field cannot be empty");
-            return "";
+            //Checks if the input is empty
+            if (userInput.isEmpty()) {
+                System.out.println("Field cannot be empty");
+                return "";
+            }
+
+            //Checks if the input is > 50 characters
+            else if (userInput.length() > 50) {
+                System.out.println("Field cannot be over 50 characters.");
+                return "";
+            }
         }
 
-         //Checks if the input is > 50 characters
-        else if (userInput.length() > 50) {
-            System.out.println("Field cannot be over 50 characters.");
-            return "";
+            //Returns user input
+            return userInput;
         }
-
-        //Returns user input
-        return userInput;
-    }
 
 
     /**
