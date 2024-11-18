@@ -21,6 +21,7 @@ public class CityQueriesIntTest {
 
     @BeforeAll
     public static void setUp() {
+        System.setProperty("Environment", "IntegrationTest");
         worldDB = new DatabaseConnection();
         worldDB.connect("localhost:33060", 10000);
         output = new ByteArrayOutputStream();

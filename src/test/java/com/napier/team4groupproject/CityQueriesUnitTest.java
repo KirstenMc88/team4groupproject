@@ -24,6 +24,7 @@ public class CityQueriesUnitTest {
 
     @BeforeAll
     public static void setUp() {
+        System.setProperty("Environment", "UnitTest");
         nullDB = new DatabaseConnection();
         testDB = new DatabaseConnection();
         connection = mock(Connection.class);
