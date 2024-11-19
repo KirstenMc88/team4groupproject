@@ -9,6 +9,12 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+/**
+ * The {@test DatabaseConnection} contains java unit tests and integration tests along with the mock environment needed to run them
+ * Junit tests that the correct messages are being shown for various scenarios
+ */
+
 public class DatabaseConnectionUnitTest {
     private static DatabaseConnection testDB;
     private static Connection connection;

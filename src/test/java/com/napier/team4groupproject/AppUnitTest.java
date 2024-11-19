@@ -8,6 +8,11 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * The {@test AppTest} contains java unit tests and integration tests along with the mock environment needed to run them
+ * Junit tests for format output on various data scenarios
+ */
+
 public class AppUnitTest {
     private static ResultSet resultSet;
     private static final Object defaultDatabaseLocation = Utilities.getPrivateField(App.class, null,"databaseLocation");
