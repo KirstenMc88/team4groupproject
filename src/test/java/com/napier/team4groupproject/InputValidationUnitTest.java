@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * The {@test InputValidation} contains java unit tests to test that it handles outputs correctly
  */
 
-public class InputValidationTest {
+public class InputValidationUnitTest {
 
     InputValidation inputValidation = new InputValidation();
 
