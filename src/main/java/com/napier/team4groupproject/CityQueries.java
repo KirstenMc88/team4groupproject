@@ -26,7 +26,7 @@ public class CityQueries {
    public static String allCitiesInTheWorld(DatabaseConnection databaseConnection, Integer topX) throws SQLException {
 
       if(topX != null) {
-         System.out.println("Top " + topX + " Cities in the World");
+         System.out.println("Top Cities in the World");
       } else {
          System.out.println("All Cities in the World");
       }
@@ -72,8 +72,24 @@ public class CityQueries {
     */
    public static String queryResults(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
 
+      // validates user input
+      userInput = InputValidation.validateStringInput(userInput);
+      String intError = "";
 
-      PreparedStatement pstmt = null;
+      if (topX != null) {
+         intError = String.valueOf(topX);
+         intError = InputValidation.validateIntInput(intError);
+      }
+
+      if (userInput.equals("Field cannot be empty") && topX == null || userInput.equals("Field cannot be over 50 characters.") && topX == null) { // if user input returns an error
+         return userInput;
+      } else if (userInput.equals("Field cannot be empty") && intError != null || userInput.equals("Field cannot be over 50 characters.") && intError == null) { // if user input and top x returns an error
+         return "Input Errors:\n" + userInput + " and topX " + intError;
+      } else if(intError.equals("Please enter a valid number") || intError.equals("Sorry please choose a valid number, numbers cannot be negative")) {
+         return "Input Errors:\n" + intError;
+      } else {
+
+         PreparedStatement pstmt = null;
       try {
          String cityQuery = "Select city.Name AS City, country.Name AS Country, city.District, city.Population "
                  + "from city as city "
@@ -82,7 +98,7 @@ public class CityQueries {
                  + " order by city.Population desc";
 
          // checks if topX has a value, if it does it is added to the query.
-         if(topX != null) {
+         if (topX != null) {
             cityQuery += " LIMIT ? ";
          }
 
@@ -93,7 +109,7 @@ public class CityQueries {
          // sets the ? parameters for the query to corresponding input
          pstmt.setString(1, userInput);
 
-         if(topX != null) {
+         if (topX != null) {
             pstmt.setInt(2, topX);
          }
 
@@ -104,16 +120,16 @@ public class CityQueries {
          return App.FormatOutput(resultSet);
 
 
-      }
-      catch (SQLException e) {
+      } catch (SQLException e) {
          System.out.println(e.getMessage());
-      }
-      finally {
+      } finally {
          pstmt.close();
       }
 
       // error message, if data hasn't been retrieved
       return "System Error, couldn't retrieve data.";
+
+   }
    }
 
    /**
