@@ -50,17 +50,17 @@ public class CityQueriesIntTest {
     }
 
 
-    // tests for the statementBuilder method
+    // tests for the queryResults method
 
 
     /**
-     * Testing the statementBuilder method, with correct input and a null topX
+     * Testing the queryResults method, with correct input and a null topX
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulNullTopX() {
+    public void queryResults_successfulNullTopX() {
         try {
             output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with correct input and an example topX
+     * Testing the queryResults method, with correct input and an example topX
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulTopX() {
+    public void queryResults_successfulTopX() {
         try {
             output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
@@ -94,13 +94,13 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with correct input and filtering by continent
+     * Testing the queryResults method, with correct input and filtering by continent
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulContinent() {
+    public void queryResults_successfulContinent() {
         try {
             output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
@@ -114,13 +114,13 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with correct input and filtering by region
+     * Testing the queryResults method, with correct input and filtering by region
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulRegion() {
+    public void queryResults_successfulRegion() {
         try {
             output = CityQueries.queryResults(worldDB, exampleRegion, "Region", null);
         } catch (Exception e) {
@@ -134,13 +134,13 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with correct input and filtering by country
+     * Testing the queryResults method, with correct input and filtering by country
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulCountry() {
+    public void queryResults_successfulCountry() {
         try {
             output = CityQueries.queryResults(worldDB, exampleCountry, "Country", null);
         } catch (Exception e) {
@@ -154,13 +154,13 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with correct input and filtering by district
+     * Testing the queryResults method, with correct input and filtering by district
      *
      * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
      * as expected.</p>
      */
     @Test
-    public void statementBuilder_successfulDistrict() {
+    public void queryResults_successfulDistrict() {
         try {
             output = CityQueries.queryResults(worldDB, exampleDistrict, "District", null);
         } catch (Exception e) {
@@ -174,29 +174,29 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with an invalid column
+     * Testing the queryResults method, with an invalid column
      *
      * <p>This test checks that if an invalid column is passed into the method to be used as a where
      * filter it handles it appropriately.</p>
      */
     @Test
-    public void statementBuilder_invalidWhere() {
+    public void queryResults_invalidWhere() {
         try {
             CityQueries.queryResults(worldDB, exampleContinent, exampleInvalid, exampleTopX);
-            fail("Should have thrown an exception.");
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
     }
 
     /**
-     * Testing the statementBuilder method, with a topX larger than the amount of rows matching the query
+     * Testing the queryResults method, with a topX larger than the amount of rows matching the query
      *
      * <p>This test checks that if a topX which is higher than the number of results is passed into the method
      * it adjusts the header appropriately.</p>
      */
     @Test
-    public void statementBuilder_tooHighTopX() {
+    public void queryResults_tooHighTopX() {
         try {
             CityQueries.queryResults(worldDB, exampleDistrict, "District", exampleTooHighTopX);
         } catch (Exception e) {
@@ -208,72 +208,71 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the statementBuilder method, with a negative topX
+     * Testing the queryResults method, with a negative topX
      *
      * <p>This test checks that if a negative topX is passed into the method it is handled appropriately.
      * The string used to assert is from the inputValidation class, as calling a validation method would be
      * the easiest way of handling this.</p>
      */
     @Test
-    public void statementBuilder_negativeTopX() {
+    public void queryResults_negativeTopX() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "Continent", -exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", -exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
-     * Testing the statementBuilder method, with topX = 0
+     * Testing the queryResults method, with topX = 0
      *
      * <p>This test checks that if topX = 0 is passed into the method it is handled appropriately.
      * The string used to assert is from the inputValidation class, as calling a validation method would be
      * the easiest way of handling this.</p>
      */
     @Test
-    public void statementBuilder_zeroTopX() {
+    public void queryResults_zeroTopX() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "Continent", 0);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", 0);
         } catch (Exception e) {
-            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
-     * Testing the statementBuilder method, with an empty userInput
+     * Testing the queryResults method, with an empty userInput
      *
      * <p>This test checks that if an empty userInput is passed into the method it is handled appropriately.
      * The string used to assert is from the inputValidation class, as calling a validation method would be
      * the easiest way of handling this.</p>
      */
     @Test
-    public void statementBuilder_emptyUserInput() {
+    public void queryResults_emptyUserInput() {
         try {
-            CityQueries.queryResults(worldDB, "", "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, "", "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Field cannot be empty"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Field cannot be empty"));
     }
 
     /**
-     * Testing the statementBuilder method, with an empty queryWhere
+     * Testing the queryResults method, with an empty queryWhere
      *
      * <p>This test checks that if an empty queryWhere is passed into the method it is handled appropriately.
      * The string used to assert is from the inputValidation class, as calling a validation method would be
      * the easiest way of handling this.</p>
      */
     @Test
-    public void statementBuilder_emptyWhere() {
+    public void queryResults_emptyWhere() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Field cannot be empty")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Field cannot be empty")); // or similar string :)
     }
 
 
@@ -349,11 +348,11 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInTheWorld_negativeTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
@@ -366,12 +365,11 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInTheWorld_zeroTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, 0);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(worldDB, 0);
         } catch (Exception e) {
-            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
