@@ -83,7 +83,7 @@ public class GeneralInfoQueries {
                         // header for clarity
                         System.out.println("Population of a continent");
                         // return formatted population
-                        return "Total population of " + validatedContinent + ": " + population;
+                        return "SUM(Population) \n" + population;
                     } else {
                         // no rows found for the continent
                         return "No matching data found. Please check your spelling and try again.";
@@ -140,7 +140,7 @@ public class GeneralInfoQueries {
                         // header for clarity
                         System.out.println("Population of a region");
                         // return formatted population
-                        return "Total population of " + validatedRegion + ": " + population;
+                        return "SUM(Population) \n" + population;
                     } else {
                         // no rows found for the region
                         return "No matching data found. Please check your spelling and try again.";
@@ -196,7 +196,7 @@ public class GeneralInfoQueries {
                         // header for clarity
                         System.out.println("Population of a country");
                         // return formatted population
-                        return "Total population of " + validatedCountry + ": " + population;
+                        return "SUM(Population) \n" + population;
                     } else {
                         // no rows found for the country
                         return "No matching data found. Please check your spelling and try again.";
@@ -251,7 +251,7 @@ public class GeneralInfoQueries {
                         // header for clarity
                         System.out.println("Population of a district");
                         // return formatted population
-                        return "Total population of " + validatedDistrict + ": " + population;
+                        return "SUM(Population) \n" + population;
                     } else {
                         // no rows found for the district
                         return "No matching data found. Please check your spelling and try again.";
@@ -307,7 +307,7 @@ public class GeneralInfoQueries {
                         // header for clarity
                         System.out.println("Population of a city");
                         // return formatted population
-                        return "Total population of " + validatedCity + ": " + population;
+                        return "SUM(Population) \n" + population;
                     } else {
                         // no rows found for the city
                         return "No matching data found. Please check your spelling and try again.";

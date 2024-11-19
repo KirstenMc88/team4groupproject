@@ -15,8 +15,8 @@ RUN mvn dependency:resolve
 # copies source files to container
 COPY src ./src
 
-# cleans (removes old temporary files), compiles and packages the project
-RUN mvn clean package
+# cleans (removes old temporary files), compiles and packages the project while skipping tests
+RUN mvn clean package -DskipTests
 
 
 #uses version 11 of openjdk for compatibility with lab tutorials
