@@ -51,7 +51,7 @@ public class CityQueriesUnitTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        assertTrue(output.contains("DatabaseConnection is null")); // or similar string :)
+        assertTrue(output.contains("Sorry database doesn't have a connection")); // or similar string :)
     }
 
     /**
@@ -86,7 +86,7 @@ public class CityQueriesUnitTest {
         } catch (Exception e) {
            fail(e.getMessage());
         }
-        assertTrue(output.contains("Database Connection is null")); // or similar string :)
+        assertTrue(output.contains("Sorry database doesn't have a connection")); // or similar string :)
     }
 
     /**
