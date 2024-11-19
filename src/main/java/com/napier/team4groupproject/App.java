@@ -122,21 +122,33 @@ public class App
             sql.connect(databaseLocation, databaseDelay);
 
             // Displays the result from the countries in the world query
-            System.out.println(CountryQueries.CountriesInTheWorld(sql));
+            //System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
         // displays all cities in the world
-        System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
+        //System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
 
             //Displays results of All Capital Cities In World Query
-            System.out.println(CapitalQueries.AllCapitals(sql));
+            //System.out.println(CapitalQueries.AllCapitals(sql));
 
             // Display the result from the language query
-            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
+            //System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
+
+            System.out.println(" ");
+            System.out.println(GeneralInfoQueries.populationOfARegion(sql, "Middle East"));
+
+            System.out.println(" ");
+            System.out.println(GeneralInfoQueries.populationOfARegion(sql, ""));
+
+            System.out.println(" ");
+            System.out.println(GeneralInfoQueries.populationOfARegion(sql, null));
+
+            System.out.println(" ");
+            System.out.println(GeneralInfoQueries.populationOfARegion(sql, "yeeeeeytr5"));
 
             //Displays output result from population distribution queries
-            System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
-            System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
-            System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
+            //System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
+            //System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
+            //System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
             // Calls menu passes DB connection as parameters
             // Menu.mainMenu(sql);
 
