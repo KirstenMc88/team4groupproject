@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CityQueriesUnitTest {
     private static DatabaseConnection nullDB;
-    private static ByteArrayOutputStream output;
+    private static String output;
+    private static ByteArrayOutputStream printOutput;
     private static String exampleContinent;
     private static Integer exampleTopX;
 
@@ -29,43 +30,44 @@ public class CityQueriesUnitTest {
     public static void setUp() {
         System.setProperty("Environment", "UnitTest");
         nullDB = new DatabaseConnection();
-        output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
+        printOutput = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(printOutput));
         exampleContinent = "Asia";
         exampleTopX = 3;
     }
 
-    // tests for the statementBuilder method
+    // tests for the queryResults method
 
     /**
-     * Testing the statementBuilder method, passing null instead of a databaseConnection object
+     * Testing the queryResults method, passing null instead of a databaseConnection object
      *
      * <p>This test checks that if null is passed into the method in place of a databaseConnection object
      * the method handles it appropriately.</p>
      */
     @Test
-    public void statementBuilder_nullDatabase() {
+    public void queryResults_nullDatabase() {
         try {
-            CityQueries.statementBuilder(null, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(null, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("DatabaseConnection is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("DatabaseConnection is null")); // or similar string :)
     }
 
     /**
-     * Testing the statementBuilder method, using a databaseConnection object which has a null connection
+     * Testing the queryResults method, using a databaseConnection object which has a null connection
      *
      * <p>This test checks that if the connection is null the method handles it appropriately.</p>
      */
     @Test
-    public void statementBuilder_nullDatabaseConnection() {
+    public void queryResults_nullDatabaseConnection() {
         try {
-            CityQueries.statementBuilder(nullDB, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(nullDB, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry database doesn't have a connection"));
+
     }
 
 
@@ -79,13 +81,12 @@ public class CityQueriesUnitTest {
      */
     @Test
     public void allCitiesInTheWorld_nullDatabase() {
-        System.setOut(new PrintStream(output));
         try {
-            CityQueries.allCitiesInTheWorld(null, null);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(null, null);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("Database Connection is null")); // or similar string :)
+           fail(e.getMessage());
         }
+        assertTrue(output.contains("Database Connection is null")); // or similar string :)
     }
 
     /**
@@ -95,12 +96,12 @@ public class CityQueriesUnitTest {
      */
     @Test
     public void allCitiesInTheWorld_nullDatabaseConnection() {
-        System.setOut(new PrintStream(output));
         try {
-            CityQueries.allCitiesInTheWorld(nullDB, null);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(nullDB, null);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry database doesn't have a connection"));
+
     }
 }

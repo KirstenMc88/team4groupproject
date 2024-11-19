@@ -19,8 +19,10 @@ public class GeneralInfoQueries {
 
     public static String populationOfTheWorld(DatabaseConnection databaseConnection) throws SQLException {
 
-        // header for clarity
-        System.out.println("Population of the world");
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
 
         // sql query to add all the countries' populations
         String query = "SELECT SUM(Population) FROM country";
@@ -30,6 +32,8 @@ public class GeneralInfoQueries {
 
             // executes the query and stores the result in resultSet
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // header for clarity
+                System.out.println("Population of the world");
                 // returns formatted result set
                 return App.FormatOutput(resultSet);
             }
@@ -54,6 +58,11 @@ public class GeneralInfoQueries {
      */
 
     public static String populationOfAContinent(DatabaseConnection databaseConnection, String continent) throws SQLException {
+
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
 
         // validates the user input
         String validatedContinent = InputValidation.validateStringInput(continent);
@@ -112,6 +121,11 @@ public class GeneralInfoQueries {
 
     public static String populationOfARegion(DatabaseConnection databaseConnection, String region) throws SQLException {
 
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
+
         // validates the user input
         String validatedRegion = InputValidation.validateStringInput(region);
 
@@ -168,6 +182,11 @@ public class GeneralInfoQueries {
 
     public static String populationOfACountry(DatabaseConnection databaseConnection, String country) throws SQLException {
 
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
+
         // validates the user input
         String validatedCountry = InputValidation.validateStringInput(country);
 
@@ -222,6 +241,11 @@ public class GeneralInfoQueries {
      */
 
     public static String populationOfADistrict(DatabaseConnection databaseConnection, String district) throws SQLException {
+
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
 
         // validates the user input
         String validatedDistrict = InputValidation.validateStringInput(district);
@@ -278,6 +302,11 @@ public class GeneralInfoQueries {
      */
 
     public static String populationOfACity(DatabaseConnection databaseConnection, String city) throws SQLException {
+
+        // check if there is a valid database connection
+        if (databaseConnection == null || databaseConnection.getCon() == null) {
+            return "Sorry database doesn't have a connection";
+        }
 
         // validates the user input
         String validatedCity = InputValidation.validateStringInput(city);

@@ -25,33 +25,51 @@ public class CityQueries {
     */
    public static String allCitiesInTheWorld(DatabaseConnection databaseConnection, Integer topX) throws SQLException {
 
+      // check that there is a valid database connection
+      if(databaseConnection.getCon() == null) {
+         return "Sorry database doesn't have a connection";
+      }
+
+      String intError = "";
+
+      // checks if topX has a value
       if(topX != null) {
-         System.out.println("Top " + topX + " Cities in the World");
+         intError = String.valueOf(topX);
+         intError = InputValidation.validateIntInput(intError);
+      }
+
+      // checks what error messages have been returned and outputs them to the user
+       if(intError.equals("Please enter a valid number") || intError.equals("Sorry please choose a valid number, numbers cannot be negative or 0")) {
+         return "Input Errors:\n" + intError;
       } else {
-         System.out.println("All Cities in the World");
-      }
 
+          if (topX != null) {
+             System.out.println("Top Cities in the World");
+          } else {
+             System.out.println("All Cities in the World");
 
-      Statement stmt = databaseConnection.getCon().createStatement();
+          }
 
-      // query to retrieve the data from the database
-      String cityQuery = "Select city.Name AS City, country.Name AS Country, city.District, city.Population "
-              + "from city as city "
-              + " inner join country as country on city.CountryCode = country.Code "
-              + " order by city.Population desc";
+          Statement stmt = databaseConnection.getCon().createStatement();
 
-      // checks to ensure a value has been passed before setting a limit
-      if(topX != null) {
-         cityQuery += " LIMIT " + topX;
-      }
+          // query to retrieve the data from the database
+          String cityQuery = "Select city.Name AS City, country.Name AS Country, city.District, city.Population "
+                  + "from city as city "
+                  + " inner join country as country on city.CountryCode = country.Code "
+                  + " order by city.Population desc";
 
-      //  runs the query and assigns the result to resultSet
-      ResultSet resultSet = stmt.executeQuery(cityQuery);
+          // checks to ensure a value has been passed before setting a limit
+          if (topX != null) {
+             cityQuery += " LIMIT " + topX;
+          }
 
-      // checks if a result has been returned from the query
+          //  runs the query and assigns the result to resultSet
+          ResultSet resultSet = stmt.executeQuery(cityQuery);
 
-      return App.FormatOutput(resultSet);
+          // checks if a result has been returned from the query
 
+          return App.FormatOutput(resultSet);
+       }
    }
 
 
@@ -70,10 +88,43 @@ public class CityQueries {
     *
     * @throws SQLException
     */
-   public static String statementBuilder(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
+   public static String queryResults(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
+
+      // check that there is a valid database connection
+      if(databaseConnection.getCon() == null) {
+         return "Sorry database doesn't have a connection";
+      }
+
+      // validates user input
+      userInput = InputValidation.validateStringInput(userInput);
+      String intError = "";
+
+      // checks if topX has a value
+      if (topX != null) {
+         intError = String.valueOf(topX);
+         intError = InputValidation.validateIntInput(intError);
+      }
+
+      // checks what error messages have been returned and outputs them to the user
+      if (userInput.equals("Field cannot be empty") && topX == null || userInput.equals("Field cannot be over 50 characters.") && topX == null) { // if user input returns an error
+         return userInput;
+      } else if (userInput.equals("Field cannot be empty") && intError != null || userInput.equals("Field cannot be over 50 characters.") && intError == null) { // if user input and top x returns an error
+         return "Input Errors:\nQuery Input: " + userInput + "\nTop X: " + intError;
+      } else if(intError.equals("Please enter a valid number") || intError.equals("Sorry please choose a valid number, numbers cannot be negative or 0")) {
+         return "Input Errors:\n" + intError;
+      } else {
+
+         if (topX != null) {
+            System.out.println("Top Cities in " + userInput + ".");
+         } else {
+            System.out.println("All Cities in " + userInput + ".");
+
+         }
 
 
-      PreparedStatement pstmt = null;
+
+
+         PreparedStatement pstmt = null;
       try {
          String cityQuery = "Select city.Name AS City, country.Name AS Country, city.District, city.Population "
                  + "from city as city "
@@ -82,7 +133,7 @@ public class CityQueries {
                  + " order by city.Population desc";//.replace()
 
          // checks if topX has a value, if it does it is added to the query.
-         if(topX != null) {
+         if (topX != null) {
             cityQuery += " LIMIT ? ";
          }
 
@@ -93,7 +144,7 @@ public class CityQueries {
          // sets the ? parameters for the query to corresponding input
          pstmt.setString(1, userInput);
 
-         if(topX != null) {
+         if (topX != null) {
             pstmt.setInt(2, topX);
          }
 
@@ -104,16 +155,16 @@ public class CityQueries {
          return App.FormatOutput(resultSet);
 
 
-      }
-      catch (SQLException e) {
+      } catch (SQLException e) {
          System.out.println(e.getMessage());
-      }
-      finally {
+      } finally {
          pstmt.close();
       }
 
       // error message, if data hasn't been retrieved
-      return "System Error, couldn't retrieve data.";
+      return "Error, couldn't retrieve data.";
+
+   }
    }
 
    /**
@@ -128,10 +179,8 @@ public class CityQueries {
     */
    public static String allCitiesInAContinent(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
-      System.out.println("All Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Continent", null);
+      return queryResults(databaseConnection, userInput, "country.Continent", null);
 
    }
 
@@ -147,10 +196,8 @@ public class CityQueries {
     */
    public static String allCitiesInARegion(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
-      System.out.println("All Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Region", null);
+      return queryResults(databaseConnection, userInput, "country.Region", null);
 
    }
 
@@ -166,10 +213,8 @@ public class CityQueries {
     */
    public static String allCitiesInACountry(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
-      System.out.println("All Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Name", null);
+      return queryResults(databaseConnection, userInput, "country.Name", null);
 
    }
 
@@ -185,10 +230,8 @@ public class CityQueries {
     */
    public static String allCitiesInADistrict(DatabaseConnection databaseConnection, String userInput) throws SQLException {
 
-      System.out.println("All Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "city.District", null);
+      return queryResults(databaseConnection, userInput, "city.District", null);
 
    }
 
@@ -208,11 +251,8 @@ public class CityQueries {
     */
    public static String topXCitiesInAContinent(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
-
-      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Continent", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Continent", userTopX);
 
    }
 
@@ -230,10 +270,8 @@ public class CityQueries {
     */
    public static String topXCitiesInARegion(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
-      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Region", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Region", userTopX);
 
    }
 
@@ -251,10 +289,8 @@ public class CityQueries {
     */
    public static String topXCitiesInACountry(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
-      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Name", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Name", userTopX);
 
    }
 
@@ -272,10 +308,8 @@ public class CityQueries {
     */
    public static String topXCitiesInADistrict(DatabaseConnection databaseConnection, String userInput, int userTopX) throws SQLException {
 
-      System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
-
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "city.District", userTopX);
+      return queryResults(databaseConnection, userInput, "city.District", userTopX);
    }
 
 
