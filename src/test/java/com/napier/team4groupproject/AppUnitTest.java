@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
  * Junit tests for format output on various data scenarios
  */
 
-public class AppTest {
+public class AppUnitTest {
     private static ResultSet resultSet;
     private static final Object defaultDatabaseLocation = Utilities.getPrivateField(App.class, null,"databaseLocation");
     private static final Object defaultDatabaseDelay = Utilities.getPrivateField(App.class, null,"databaseDelay");
