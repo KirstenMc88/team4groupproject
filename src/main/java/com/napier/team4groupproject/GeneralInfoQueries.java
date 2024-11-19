@@ -61,9 +61,6 @@ public class GeneralInfoQueries {
         if (validatedContinent.equals("Field cannot be empty") || validatedContinent.equals("Field cannot be over 50 characters.")) {
             return validatedContinent;
         } else {
-            // header for clarity
-            System.out.println("Population of a continent");
-
             // sql query to add all the countries' populations which are part of a specific continent
             String query = "SELECT SUM(Population) AS Population FROM country WHERE Continent = ?";
 
@@ -75,21 +72,35 @@ public class GeneralInfoQueries {
 
                 // executes the query and stores the result in resultSet
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    // returns formatted result set
-                    return App.FormatOutput(resultSet);
+                    if (resultSet.next()) {
+                        // retrieve the population value
+                        Long population = resultSet.getLong("Population");
 
+                        // check for null or zero population
+                        if (resultSet.wasNull() || population == 0) {
+                            return "No population data available for the given continent.";
+                        }
+                        // header for clarity
+                        System.out.println("Population of a continent");
+                        // return formatted population
+                        return "Total population of " + validatedContinent + ": " + population;
+                    } else {
+                        // no rows found for the continent
+                        return "No matching data found. Please check your spelling and try again.";
+                    }
                 }
 
             }
-
             // catches any exceptions which may occur during the query, execution or formatting
             // then prints the exceptions
             catch (Exception e) {
-                System.out.println(e.getMessage());
-                return null;
+                System.out.println("Error: " + e.getMessage());
+                return "An error occurred while retrieving data.";
             }
         }
     }
+
+
 
     /**
      * Method to query the database, returns the sum of the selected region's population.
@@ -107,9 +118,6 @@ public class GeneralInfoQueries {
         if (validatedRegion.equals("Field cannot be empty") || validatedRegion.equals("Field cannot be over 50 characters.")) {
             return validatedRegion;
         } else {
-            // header for clarity
-            System.out.println("Population of a region");
-
             // sql query to add all the countries' populations which are part of a specific region
             String query = "SELECT SUM(Population) AS Population FROM country WHERE Region = ?";
 
@@ -121,8 +129,22 @@ public class GeneralInfoQueries {
 
                 // executes the query and stores the result in resultSet
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    // returns formatted result set
-                    return App.FormatOutput(resultSet);
+                    if (resultSet.next()) {
+                        // retrieve the population value
+                        Long population = resultSet.getLong("Population");
+
+                        // check for null or zero population
+                        if (resultSet.wasNull() || population == 0) {
+                            return "No population data available for the given region.";
+                        }
+                        // header for clarity
+                        System.out.println("Population of a region");
+                        // return formatted population
+                        return "Total population of " + validatedRegion + ": " + population;
+                    } else {
+                        // no rows found for the region
+                        return "No matching data found. Please check your spelling and try again.";
+                    }
                 }
 
             }
@@ -152,9 +174,6 @@ public class GeneralInfoQueries {
         if (validatedCountry.equals("Field cannot be empty") || validatedCountry.equals("Field cannot be over 50 characters.")) {
             return validatedCountry;
         } else {
-            // header for clarity
-            System.out.println("Population of a country");
-
             // sql query to select the country's population
             String query = "SELECT Population FROM country WHERE Name = ?";
 
@@ -166,10 +185,23 @@ public class GeneralInfoQueries {
 
                 // executes the query and stores the result in resultSet
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    // returns formatted result set
-                    return App.FormatOutput(resultSet);
-                }
+                    if (resultSet.next()) {
+                        // retrieve the population value
+                        Long population = resultSet.getLong("Population");
 
+                        // check for null or zero population
+                        if (resultSet.wasNull() || population == 0) {
+                            return "No population data available for the given country.";
+                        }
+                        // header for clarity
+                        System.out.println("Population of a country");
+                        // return formatted population
+                        return "Total population of " + validatedCountry + ": " + population;
+                    } else {
+                        // no rows found for the country
+                        return "No matching data found. Please check your spelling and try again.";
+                    }
+                }
             }
             // catches any exceptions which may occur during the query, execution or formatting
             // then prints the exceptions
@@ -197,9 +229,6 @@ public class GeneralInfoQueries {
         if (validatedDistrict.equals("Field cannot be empty") || validatedDistrict.equals("Field cannot be over 50 characters.")) {
             return validatedDistrict;
         } else {
-            // header for clarity
-            System.out.println("Population of a district");
-
             // sql query to add all the city's populations which are part of a specific district
             String query = "SELECT SUM(Population) AS Population FROM city WHERE District = ?";
 
@@ -211,8 +240,22 @@ public class GeneralInfoQueries {
 
                 // executes the query and stores the result in resultSet
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    // returns formatted result set
-                    return App.FormatOutput(resultSet);
+                    if (resultSet.next()) {
+                        // retrieve the population value
+                        Long population = resultSet.getLong("Population");
+
+                        // check for null or zero population
+                        if (resultSet.wasNull() || population == 0) {
+                            return "No population data available for the given district.";
+                        }
+                        // header for clarity
+                        System.out.println("Population of a district");
+                        // return formatted population
+                        return "Total population of " + validatedDistrict + ": " + population;
+                    } else {
+                        // no rows found for the district
+                        return "No matching data found. Please check your spelling and try again.";
+                    }
                 }
 
             }
@@ -242,9 +285,6 @@ public class GeneralInfoQueries {
         if (validatedCity.equals("Field cannot be empty") || validatedCity.equals("Field cannot be over 50 characters.")) {
             return validatedCity;
         } else {
-            // header for clarity
-            System.out.println("Population of a city");
-
             // sql query to get the population of a specific city
             String query = "SELECT Population FROM city WHERE Name = ?";
 
@@ -256,8 +296,22 @@ public class GeneralInfoQueries {
 
                 // executes the query and stores the result in resultSet
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    // returns formatted result set
-                    return App.FormatOutput(resultSet);
+                    if (resultSet.next()) {
+                        // retrieve the population value
+                        Long population = resultSet.getLong("Population");
+
+                        // check for null or zero population
+                        if (resultSet.wasNull() || population == 0) {
+                            return "No population data available for the given city.";
+                        }
+                        // header for clarity
+                        System.out.println("Population of a city");
+                        // return formatted population
+                        return "Total population of " + validatedCity + ": " + population;
+                    } else {
+                        // no rows found for the city
+                        return "No matching data found. Please check your spelling and try again.";
+                    }
                 }
 
             }
