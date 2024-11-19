@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CityQueriesIntTest {
     private static DatabaseConnection worldDB;
-    private static ByteArrayOutputStream output;
+    private static String output;
+    private static ByteArrayOutputStream printOutput;
     private static String exampleContinent;
     private static String exampleCountry;
     private static String exampleRegion;
@@ -24,8 +25,8 @@ public class CityQueriesIntTest {
         System.setProperty("Environment", "IntegrationTest");
         worldDB = new DatabaseConnection();
         worldDB.connect("localhost:33060", 10000);
-        output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
+        printOutput = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(printOutput));
         exampleContinent = "Asia";
         exampleCountry = "Spain";
         exampleRegion = "Caribbean";
@@ -35,70 +36,101 @@ public class CityQueriesIntTest {
         exampleInvalid = "Invalid";
     }
 
-    // statement builder
+    // statement builder & database & format output
 
     @Test
     public void statementBuilder_successfulNullTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
+            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        //System.err.println(output.replace("\n", "\\n\n"));
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("Bandar Seri Begawan"));
         }
     }
 
     @Test
     public void statementBuilder_successfulTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", exampleTopX);
+            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai"));
+            assertTrue(lines[lines.length-1].contains("Shanghai"));
         }
     }
 
     @Test
     public void statementBuilder_successfulContinent() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
+            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("Bandar Seri Begawan"));
         }
     }
 
     @Test
     public void statementBuilder_successfulRegion() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleRegion, "Region", null);
+            output = CityQueries.statementBuilder(worldDB, exampleRegion, "Region", null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Habana"));
+            assertTrue(lines[lines.length-1].contains("The Valley"));
         }
     }
 
     @Test
     public void statementBuilder_successfulCountry() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleCountry, "Country", null);
+            output = CityQueries.statementBuilder(worldDB, exampleCountry, "Country", null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Madrid"));
+            assertTrue(lines[lines.length-1].contains("Torrejón de Ardoz"));
         }
     }
 
     @Test
     public void statementBuilder_successfulDistrict() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleDistrict, "District", null);
+            output = CityQueries.statementBuilder(worldDB, exampleDistrict, "District", null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Matanza"));
+            assertTrue(lines[lines.length-1].contains("Tandil"));
         }
     }
 
     @Test
-    public void statementBuilder_wrongDatabase() {
-        // TODO set up a second, wrong, database
-    }
-
-    @Test
-    public void statementBuilder_withException() {
-        // TODO fake exception - is this needed?
+    public void statementBuilder_invalidWhere() {
+        try {
+            CityQueries.statementBuilder(worldDB, exampleContinent, exampleInvalid, exampleTopX);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
+        }
     }
 
     @Test
@@ -107,71 +139,133 @@ public class CityQueriesIntTest {
             CityQueries.statementBuilder(worldDB, exampleDistrict, "District", exampleTooHighTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
-            assertTrue(output.toString().contains("Top X cannot be higher than total rows returned by where filter.")); // or similar string :)
+            assertTrue(printOutput.toString().contains("Top X cannot be higher than total rows returned by where filter.")); // or similar string :)
+        }
+    }
+
+    // statement builder & input validation
+    // strings here used from input validation
+
+    @Test
+    public void statementBuilder_negativeTopX() {
+        try {
+            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", -exampleTopX);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
         }
     }
 
     @Test
-    public void statementBuilder_invalidUserInput() {
+    public void statementBuilder_zeroTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleInvalid, "District", null);
+            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", 0);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
-            assertTrue(output.toString().contains("User input does not return anything with where filter.")); // or similar string :)
+            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
+            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
         }
     }
 
-    // allCitiesInTheWorld
+    @Test
+    public void statementBuilder_emptyUserInput() {
+        try {
+            CityQueries.statementBuilder(worldDB, "", "Continent", exampleTopX);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            assertTrue(printOutput.toString().contains("Field cannot be empty"));
+        }
+    }
+
+    @Test
+    public void statementBuilder_emptyWhere() {
+        try {
+            CityQueries.statementBuilder(worldDB, exampleContinent, "", exampleTopX);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            assertTrue(printOutput.toString().contains("Field cannot be empty")); // or similar string :)
+        }
+    }
+
+    // allCitiesInTheWorld & database & formatoutput
 
     @Test
     public void allCitiesInTheWorld_successfulNullTopX() {
         try {
-            String report = CityQueries.allCitiesInTheWorld(worldDB, null);
+            output = CityQueries.allCitiesInTheWorld(worldDB, null);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("Adamstown"));
         }
     }
 
     @Test
     public void allCitiesInTheWorld_successfulTopX() {
         try {
-            String report = CityQueries.allCitiesInTheWorld(worldDB, exampleTopX);
+            output = CityQueries.allCitiesInTheWorld(worldDB, exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
         }
-    }
-
-    @Test
-    public void allCitiesInTheWorld_wrongDatabase() {
-        // TODO set up a second, wrong, database
-    }
-
-    @Test
-    public void allCitiesInTheWorld_withException() {
-        // TODO fake exception - is this needed?
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("São Paulo"));
+        }
     }
 
     @Test
     public void allCitiesInTheWorld_tooHighTopX() {
-        System.setOut(new PrintStream(output));
         // total cities in world is 4079
         try {
-            String report = CityQueries.allCitiesInTheWorld(worldDB, 4080);
+            output = CityQueries.allCitiesInTheWorld(worldDB, 4080);
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        // change output!
-        assertFalse(output.toString().contains("Top 4080 Cities in the World"));
+        assertFalse(printOutput.toString().contains("Top 4080 Cities in the World"));
     }
 
-    // allCitiesInAContinent
+
+    // allCitiesInTheWorld & input validation
+
+    @Test
+    public void allCitiesInTheWorld_negativeTopX() {
+        try {
+            CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+        }
+    }
+
+    @Test
+    public void allCitiesInTheWorld_zeroTopX() {
+        try {
+            CityQueries.allCitiesInTheWorld(worldDB, 0);
+            fail("Should have thrown an exception.");
+        } catch (Exception e) {
+            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
+            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+        }
+    }
+
+
+    // allCitiesInAContinent & database & format output
 
     @Test
     public void allCitiesInAContinent_successful() {
         try {
-            CityQueries.allCitiesInAContinent(worldDB, exampleContinent);
+            output = CityQueries.allCitiesInAContinent(worldDB, exampleContinent);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("Bandar Seri Begawan"));
         }
     }
 
@@ -180,9 +274,14 @@ public class CityQueriesIntTest {
     @Test
     public void topXCitiesInAContinent_successful() {
         try {
-            CityQueries.topXCitiesInAContinent(worldDB, exampleContinent, exampleTopX);
+            output = CityQueries.topXCitiesInAContinent(worldDB, exampleContinent, exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Mumbai (Bombay)"));
+            assertTrue(lines[lines.length-1].contains("Shanghai"));
         }
     }
 
@@ -191,9 +290,14 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInARegion_successful() {
         try {
-            CityQueries.allCitiesInARegion(worldDB, exampleRegion);
+            output = CityQueries.allCitiesInARegion(worldDB, exampleRegion);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Habana"));
+            assertTrue(lines[lines.length-1].contains("The Valley"));
         }
     }
 
@@ -202,9 +306,14 @@ public class CityQueriesIntTest {
     @Test
     public void topXCitiesInARegion_successful() {
         try {
-            CityQueries.topXCitiesInARegion(worldDB, exampleRegion, exampleTopX);
+            output = CityQueries.topXCitiesInARegion(worldDB, exampleRegion, exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Habana"));
+            assertTrue(lines[lines.length-1].contains("Port-au-Prince"));
         }
     }
 
@@ -213,9 +322,14 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInACountry_successful() {
         try {
-            CityQueries.allCitiesInACountry(worldDB, exampleCountry);
+            output = CityQueries.allCitiesInACountry(worldDB, exampleCountry);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Madrid"));
+            assertTrue(lines[lines.length-1].contains("Torrejón de Ardoz"));
         }
     }
 
@@ -224,9 +338,14 @@ public class CityQueriesIntTest {
     @Test
     public void topXCitiesInACountry_successful() {
         try {
-            CityQueries.topXCitiesInACountry(worldDB, exampleCountry, exampleTopX);
+            output = CityQueries.topXCitiesInACountry(worldDB, exampleCountry, exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("Madrid"));
+            assertTrue(lines[lines.length-1].contains("Valencia"));
         }
     }
 
@@ -235,9 +354,14 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInADistrict_successful() {
         try {
-            CityQueries.allCitiesInADistrict(worldDB, exampleDistrict);
+            output = CityQueries.allCitiesInADistrict(worldDB, exampleDistrict);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Matanza"));
+            assertTrue(lines[lines.length-1].contains("Tandil"));
         }
     }
 
@@ -246,9 +370,14 @@ public class CityQueriesIntTest {
     @Test
     public void topXCitiesInADistrict_successful() {
         try {
-            CityQueries.topXCitiesInADistrict(worldDB, exampleDistrict, exampleTopX);
+            output = CityQueries.topXCitiesInADistrict(worldDB, exampleDistrict, exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+        String[] lines = output.split("\n");
+        if (lines.length > 2) {
+            assertTrue(lines[2].contains("La Matanza"));
+            assertTrue(lines[lines.length-1].contains("Quilmes"));
         }
     }
 
