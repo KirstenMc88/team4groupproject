@@ -46,7 +46,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_nullDatabase() {
         try {
-            CityQueries.statementBuilder(null, exampleContinent, "Continent", exampleTopX);
+            CityQueries.queryResults(null, exampleContinent, "Continent", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("DatabaseConnection is null")); // or similar string :)
@@ -61,7 +61,7 @@ public class CityQueriesUnitTest {
     @Test
     public void statementBuilder_nullDatabaseConnection() {
         try {
-            CityQueries.statementBuilder(nullDB, exampleContinent, "Continent", exampleTopX);
+            CityQueries.queryResults(nullDB, exampleContinent, "Continent", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)

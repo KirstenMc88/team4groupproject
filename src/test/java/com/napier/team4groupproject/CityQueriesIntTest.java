@@ -62,7 +62,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulNullTopX() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulTopX() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", exampleTopX);
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -102,7 +102,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulContinent() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", null);
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", null);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -122,7 +122,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulRegion() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleRegion, "Region", null);
+            output = CityQueries.queryResults(worldDB, exampleRegion, "Region", null);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -142,7 +142,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulCountry() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleCountry, "Country", null);
+            output = CityQueries.queryResults(worldDB, exampleCountry, "Country", null);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -162,7 +162,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_successfulDistrict() {
         try {
-            output = CityQueries.statementBuilder(worldDB, exampleDistrict, "District", null);
+            output = CityQueries.queryResults(worldDB, exampleDistrict, "District", null);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -182,7 +182,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_invalidWhere() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, exampleInvalid, exampleTopX);
+            CityQueries.queryResults(worldDB, exampleContinent, exampleInvalid, exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
@@ -198,7 +198,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_tooHighTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleDistrict, "District", exampleTooHighTopX);
+            CityQueries.queryResults(worldDB, exampleDistrict, "District", exampleTooHighTopX);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -217,7 +217,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_negativeTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", -exampleTopX);
+            CityQueries.queryResults(worldDB, exampleContinent, "Continent", -exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
@@ -234,7 +234,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_zeroTopX() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "Continent", 0);
+            CityQueries.queryResults(worldDB, exampleContinent, "Continent", 0);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
@@ -252,7 +252,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_emptyUserInput() {
         try {
-            CityQueries.statementBuilder(worldDB, "", "Continent", exampleTopX);
+            CityQueries.queryResults(worldDB, "", "Continent", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(printOutput.toString().contains("Field cannot be empty"));
@@ -269,7 +269,7 @@ public class CityQueriesIntTest {
     @Test
     public void statementBuilder_emptyWhere() {
         try {
-            CityQueries.statementBuilder(worldDB, exampleContinent, "", exampleTopX);
+            CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
             fail("Should have thrown an exception.");
         } catch (Exception e) {
             assertTrue(printOutput.toString().contains("Field cannot be empty")); // or similar string :)
