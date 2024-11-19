@@ -121,22 +121,47 @@ public class App
             // connects to database
             sql.connect(databaseLocation, databaseDelay);
 
+            System.out.println(" ");
+            System.out.println(CityQueries.topXCitiesInARegion(sql, "", 0));
+
+            System.out.println(" ");
+            System.out.println(CityQueries.topXCitiesInARegion(sql, "gkjkg", 0));
+
+            System.out.println(" ");
+            System.out.println(CityQueries.topXCitiesInARegion(sql, "gkjkg", 5));
+
+            System.out.println(" ");
+            System.out.println(CityQueries.topXCitiesInARegion(sql, "Eastern Asia", 3));
+
+            System.out.println(" ");
+            System.out.println(CityQueries.topXCitiesInARegion(sql, "gkjkg", -2));
+
+            System.out.println(" ");
+            int inte = -5;
+            String intErr = String.valueOf(inte);
+            String validated = InputValidation.validateIntInput(intErr);
+
+            System.out.println(intErr);
+            System.out.println(" ");
+            System.out.println(validated);
+
+
             // Displays the result from the countries in the world query
-            System.out.println(CountryQueries.CountriesInTheWorld(sql));
+           // System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
         // displays all cities in the world
-        System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
+        //System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
 
             //Displays results of All Capital Cities In World Query
-            System.out.println(CapitalQueries.AllCapitals(sql));
+            //System.out.println(CapitalQueries.AllCapitals(sql));
 
             // Display the result from the language query
-            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
+            //System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
             //Displays output result from population distribution queries
-            System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
-            System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
-            System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
+            //System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
+            //System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
+           // System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
             // Calls menu passes DB connection as parameters
             // Menu.mainMenu(sql);
 
