@@ -26,7 +26,7 @@ public class CityQueries {
    public static String allCitiesInTheWorld(DatabaseConnection databaseConnection, Integer topX) throws SQLException {
 
       // check that there is a valid database connection
-      if(databaseConnection.getCon() == null) {
+      if(databaseConnection == null || databaseConnection.getCon() == null) {
          return "Sorry database doesn't have a connection";
       }
 
@@ -91,7 +91,7 @@ public class CityQueries {
    public static String queryResults(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
 
       // check that there is a valid database connection
-      if(databaseConnection.getCon() == null) {
+      if(databaseConnection == null || databaseConnection.getCon() == null) {
          return "Sorry database doesn't have a connection";
       }
 
