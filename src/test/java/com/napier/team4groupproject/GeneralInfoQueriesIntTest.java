@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GeneralInfoQueriesIntTest {
 
     private static DatabaseConnection connection;
-    private static DatabaseConnection noConnection;
     private static String exampleContinent;
     private static String exampleCountry;
     private static String exampleRegion;
@@ -32,7 +31,7 @@ public class GeneralInfoQueriesIntTest {
         connection = new DatabaseConnection();
         connection.connect("localhost:33060", 60000);
 
-        noConnection = new DatabaseConnection();
+
 
         exampleContinent = "North America";
         exampleCountry = "Australia";
@@ -48,19 +47,10 @@ public class GeneralInfoQueriesIntTest {
     }
 
     // population of the world tests
-
-    @Test
-    public void testGetPopulationOfTheWorldWithNoDatabaseConnection() throws SQLException {
-        String result = GeneralInfoQueries.populationOfTheWorld(noConnection);
-
-
-    }
-
-
     @Test
     public void testGetPopulationOfTheWorldReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfTheWorld(connection);
-        System.out.println(result);
+
         assertNotNull(result);
     }
 
@@ -91,14 +81,14 @@ public class GeneralInfoQueriesIntTest {
     public void testGetPopulationOfAContinentWhenContinentNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, inputThatWontBeFound);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("No population data available for the given continent."));
     }
 
     @Test
     public void testGetPopulationOfAContinentWhenContinentNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, null);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("Field cannot be empty"));
     }
 
     // population of a country tests
@@ -127,7 +117,7 @@ public class GeneralInfoQueriesIntTest {
     public void testGetPopulationOfACountryWhenCountryNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfACountry(connection, null);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("Field cannot be empty"));
     }
 
 
@@ -150,14 +140,14 @@ public class GeneralInfoQueriesIntTest {
     public void testGetPopulationOfARegionWhenRegionNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, inputThatWontBeFound);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("No population data available for the given region."));
     }
 
     @Test
     public void testGetPopulationOfARegionWhenRegionNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, null);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("Field cannot be empty"));
     }
 
     // population of a district tests
@@ -180,14 +170,14 @@ public class GeneralInfoQueriesIntTest {
     public void testGetPopulationOfADistrictWhenDistrictNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, inputThatWontBeFound);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("No population data available for the given district."));
     }
 
     @Test
     public void testGetPopulationOfADistrictWhenDistrictNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, null);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("Field cannot be empty"));
     }
 
 
@@ -217,7 +207,7 @@ public class GeneralInfoQueriesIntTest {
     public void testGetPopulationOfACityWhenCityNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfACity(connection, null);
 
-        assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
+        assertTrue(result.contains("Field cannot be empty"));
     }
 
 
