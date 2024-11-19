@@ -69,7 +69,7 @@ public class InputValidation {
 
             //Checks if the input is less than 0
             if (parsedInput <= 0) {
-                userInput = "Sorry please choose a valid number, numbers cannot be negative";
+                userInput = "Sorry please choose a valid number, numbers cannot be negative or 0";
                 return userInput;
             }
         } else {
