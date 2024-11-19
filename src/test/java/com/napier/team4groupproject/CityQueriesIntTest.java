@@ -8,6 +8,12 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Integration tests for CityQueries class
+ *
+ * <p>This class contains integration tests using JUnit to test that all methods in CityQueries behave
+ * as expected when interacting with several other classes and methods.</p>
+ */
 public class CityQueriesIntTest {
     private static DatabaseConnection worldDB;
     private static String output;
@@ -20,6 +26,13 @@ public class CityQueriesIntTest {
     private static Integer exampleTooHighTopX;
     private static String exampleInvalid;
 
+    /**
+     * Setting up environment
+     *
+     * <p>This method sets up the test environment by setting a System property 'Environment' to 'IntegrationTest'.
+     * This allows certain things in the App class to only be executed in a certain environment.
+     * It also sets up the database connection and different example variables.</p>
+     */
     @BeforeAll
     public static void setUp() {
         System.setProperty("Environment", "IntegrationTest");
@@ -36,8 +49,16 @@ public class CityQueriesIntTest {
         exampleInvalid = "Invalid";
     }
 
-    // statement builder & database & format output
 
+    // tests for the statementBuilder method
+
+
+    /**
+     * Testing the statementBuilder method, with correct input and a null topX
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulNullTopX() {
         try {
@@ -45,7 +66,6 @@ public class CityQueriesIntTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        //System.err.println(output.replace("\n", "\\n\n"));
         String[] lines = output.split("\n");
         if (lines.length > 2) {
             assertTrue(lines[2].contains("Mumbai (Bombay)"));
@@ -53,6 +73,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with correct input and an example topX
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulTopX() {
         try {
@@ -67,6 +93,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with correct input and filtering by continent
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulContinent() {
         try {
@@ -81,6 +113,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with correct input and filtering by region
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulRegion() {
         try {
@@ -95,6 +133,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with correct input and filtering by country
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulCountry() {
         try {
@@ -109,6 +153,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with correct input and filtering by district
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void statementBuilder_successfulDistrict() {
         try {
@@ -123,6 +173,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with an invalid column
+     *
+     * <p>This test checks that if an invalid column is passed into the method to be used as a where
+     * filter it handles it appropriately.</p>
+     */
     @Test
     public void statementBuilder_invalidWhere() {
         try {
@@ -133,19 +189,31 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with a topX larger than the amount of rows matching the query
+     *
+     * <p>This test checks that if a topX which is higher than the number of results is passed into the method
+     * it adjusts the header appropriately.</p>
+     */
     @Test
     public void statementBuilder_tooHighTopX() {
         try {
             CityQueries.statementBuilder(worldDB, exampleDistrict, "District", exampleTooHighTopX);
-            fail("Should have thrown an exception.");
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Top X cannot be higher than total rows returned by where filter.")); // or similar string :)
+            fail(e.getMessage());
         }
+        // the string is an example of a message that could be displayed, if a different one is used please amend here
+        assertTrue(printOutput.toString().contains(exampleDistrict + " has less than " + exampleTooHighTopX + " cities."));
+        // i'd say still print the output, just point out the fact that its less than the user requested
     }
 
-    // statement builder & input validation
-    // strings here used from input validation
-
+    /**
+     * Testing the statementBuilder method, with a negative topX
+     *
+     * <p>This test checks that if a negative topX is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void statementBuilder_negativeTopX() {
         try {
@@ -156,6 +224,13 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with topX = 0
+     *
+     * <p>This test checks that if topX = 0 is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void statementBuilder_zeroTopX() {
         try {
@@ -167,6 +242,13 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with an empty userInput
+     *
+     * <p>This test checks that if an empty userInput is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void statementBuilder_emptyUserInput() {
         try {
@@ -177,6 +259,13 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the statementBuilder method, with an empty queryWhere
+     *
+     * <p>This test checks that if an empty queryWhere is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void statementBuilder_emptyWhere() {
         try {
@@ -187,8 +276,16 @@ public class CityQueriesIntTest {
         }
     }
 
-    // allCitiesInTheWorld & database & formatoutput
 
+    // tests for the allCitiesInTheWorld method
+
+
+    /**
+     * Testing the allCitiesInTheWorld method, with correct input and a null topX
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInTheWorld_successfulNullTopX() {
         try {
@@ -203,6 +300,12 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the allCitiesInTheWorld method, with correct input and an example topX
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInTheWorld_successfulTopX() {
         try {
@@ -217,20 +320,32 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the allCitiesInTheWorld method, with a topX larger than the amount of rows matching the query
+     *
+     * <p>This test checks that if a topX which is higher than the number of results is passed into the method
+     * it adjusts the header appropriately.</p>
+     */
     @Test
     public void allCitiesInTheWorld_tooHighTopX() {
-        // total cities in world is 4079
         try {
-            output = CityQueries.allCitiesInTheWorld(worldDB, 4080);
+            output = CityQueries.allCitiesInTheWorld(worldDB, 4080); // total cities in world is 4079
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        assertFalse(printOutput.toString().contains("Top 4080 Cities in the World"));
+        // the string is an example of a message that could be displayed, if a different one is used please amend here
+        assertTrue(printOutput.toString().contains(" There are less than 4080 cities in the world."));
+        // i'd say still print the output, just point out the fact that its less than the user requested
+
     }
 
-
-    // allCitiesInTheWorld & input validation
-
+    /**
+     * Testing the allCitiesInTheWorld method, with a negative topX
+     *
+     * <p>This test checks that if a negative topX is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void allCitiesInTheWorld_negativeTopX() {
         try {
@@ -241,6 +356,13 @@ public class CityQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the allCitiesInTheWorld method, with topX = 0
+     *
+     * <p>This test checks that if topX = 0 is passed into the method it is handled appropriately.
+     * The string used to assert is from the inputValidation class, as calling a validation method would be
+     * the easiest way of handling this.</p>
+     */
     @Test
     public void allCitiesInTheWorld_zeroTopX() {
         try {
@@ -252,9 +374,12 @@ public class CityQueriesIntTest {
         }
     }
 
-
-    // allCitiesInAContinent & database & format output
-
+    /**
+     * Testing the allCitiesInTheContinent method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInAContinent_successful() {
         try {
@@ -269,8 +394,16 @@ public class CityQueriesIntTest {
         }
     }
 
-    // topXCitiesInAContinent
 
+    // tests for all other methods
+
+
+    /**
+     * Testing the topXCitiesInTheContinent method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void topXCitiesInAContinent_successful() {
         try {
@@ -285,8 +418,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // allCitiesInARegion
-
+    /**
+     * Testing the allCitiesInTheRegion method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInARegion_successful() {
         try {
@@ -301,8 +438,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // topXCitiesInARegion
-
+    /**
+     * Testing the topXCitiesInTheRegion method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void topXCitiesInARegion_successful() {
         try {
@@ -317,8 +458,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // allCitiesInACountry
-
+    /**
+     * Testing the allCitiesInTheCountry method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInACountry_successful() {
         try {
@@ -333,8 +478,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // topXCitiesInACountry
-
+    /**
+     * Testing the topXCitiesInACountry method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void topXCitiesInACountry_successful() {
         try {
@@ -349,8 +498,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // allCitiesInADistrict
-
+    /**
+     * Testing the allCitiesInADistrict method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void allCitiesInADistrict_successful() {
         try {
@@ -365,8 +518,12 @@ public class CityQueriesIntTest {
         }
     }
 
-    // topXCitiesInADistrict
-
+    /**
+     * Testing the topXCitiesInADistrict method with example input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the first and last cities returned are
+     * as expected.</p>
+     */
     @Test
     public void topXCitiesInADistrict_successful() {
         try {
