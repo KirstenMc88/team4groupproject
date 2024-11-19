@@ -183,10 +183,10 @@ public class CityQueriesIntTest {
     public void queryResults_invalidWhere() {
         try {
             CityQueries.queryResults(worldDB, exampleContinent, exampleInvalid, exampleTopX);
-            fail("Should have thrown an exception.");
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
     }
 
     /**
@@ -217,11 +217,12 @@ public class CityQueriesIntTest {
     @Test
     public void queryResults_negativeTopX() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "Continent", -exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", -exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        //System.err.println(output);
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
@@ -234,12 +235,11 @@ public class CityQueriesIntTest {
     @Test
     public void queryResults_zeroTopX() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "Continent", 0);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "Continent", 0);
         } catch (Exception e) {
-            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
@@ -252,11 +252,11 @@ public class CityQueriesIntTest {
     @Test
     public void queryResults_emptyUserInput() {
         try {
-            CityQueries.queryResults(worldDB, "", "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, "", "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Field cannot be empty"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Field cannot be empty"));
     }
 
     /**
@@ -269,11 +269,11 @@ public class CityQueriesIntTest {
     @Test
     public void queryResults_emptyWhere() {
         try {
-            CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Field cannot be empty")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Field cannot be empty")); // or similar string :)
     }
 
 
@@ -349,11 +349,11 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInTheWorld_negativeTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(worldDB, -exampleTopX);
         } catch (Exception e) {
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
@@ -366,12 +366,11 @@ public class CityQueriesIntTest {
     @Test
     public void allCitiesInTheWorld_zeroTopX() {
         try {
-            CityQueries.allCitiesInTheWorld(worldDB, 0);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(worldDB, 0);
         } catch (Exception e) {
-            // string used here is for below 0, exactly 0 can be a different string just needs to be amended here as well
-            assertTrue(printOutput.toString().contains("Sorry please choose a valid number"));
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
     /**
