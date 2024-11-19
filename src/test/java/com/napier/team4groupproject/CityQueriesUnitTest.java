@@ -35,16 +35,16 @@ public class CityQueriesUnitTest {
         exampleTopX = 3;
     }
 
-    // tests for the statementBuilder method
+    // tests for the queryResults method
 
     /**
-     * Testing the statementBuilder method, passing null instead of a databaseConnection object
+     * Testing the queryResults method, passing null instead of a databaseConnection object
      *
      * <p>This test checks that if null is passed into the method in place of a databaseConnection object
      * the method handles it appropriately.</p>
      */
     @Test
-    public void statementBuilder_nullDatabase() {
+    public void queryResults_nullDatabase() {
         try {
             CityQueries.queryResults(null, exampleContinent, "Continent", exampleTopX);
             fail("Should have thrown an exception.");
@@ -54,12 +54,12 @@ public class CityQueriesUnitTest {
     }
 
     /**
-     * Testing the statementBuilder method, using a databaseConnection object which has a null connection
+     * Testing the queryResults method, using a databaseConnection object which has a null connection
      *
      * <p>This test checks that if the connection is null the method handles it appropriately.</p>
      */
     @Test
-    public void statementBuilder_nullDatabaseConnection() {
+    public void queryResults_nullDatabaseConnection() {
         try {
             CityQueries.queryResults(nullDB, exampleContinent, "Continent", exampleTopX);
             fail("Should have thrown an exception.");
