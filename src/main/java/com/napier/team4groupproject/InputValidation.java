@@ -9,7 +9,7 @@ public class InputValidation {
      * validates user input for queries by carrying out
      * various actions and checks
      * @param userInput takes user defined input
-     * @return returns user input after validation steps
+     * @return returns user input or an error message if a validation step fails
      */
     public static String validateStringInput(String userInput) {
 
@@ -41,7 +41,7 @@ public class InputValidation {
          * validates user input for queries by carrying out
          * various actions and checks
          * @param userInput takes user defined input
-         * @return returns user input after validation steps
+         * @return returns error message if a validation step fails
          */
     public static String validateIntInput(String userInput) {
 
