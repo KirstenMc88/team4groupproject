@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CityQueriesUnitTest {
     private static DatabaseConnection nullDB;
-    private static ByteArrayOutputStream output;
+    private static String output;
+    private static ByteArrayOutputStream printOutput;
     private static String exampleContinent;
     private static Integer exampleTopX;
 
@@ -29,8 +30,8 @@ public class CityQueriesUnitTest {
     public static void setUp() {
         System.setProperty("Environment", "UnitTest");
         nullDB = new DatabaseConnection();
-        output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
+        printOutput = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(printOutput));
         exampleContinent = "Asia";
         exampleTopX = 3;
     }
@@ -46,11 +47,11 @@ public class CityQueriesUnitTest {
     @Test
     public void queryResults_nullDatabase() {
         try {
-            CityQueries.queryResults(null, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(null, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("DatabaseConnection is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("DatabaseConnection is null")); // or similar string :)
     }
 
     /**
@@ -61,11 +62,12 @@ public class CityQueriesUnitTest {
     @Test
     public void queryResults_nullDatabaseConnection() {
         try {
-            CityQueries.queryResults(nullDB, exampleContinent, "Continent", exampleTopX);
-            fail("Should have thrown an exception.");
+            output = CityQueries.queryResults(nullDB, exampleContinent, "Continent", exampleTopX);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry database doesn't have a connection"));
+
     }
 
 
@@ -79,13 +81,12 @@ public class CityQueriesUnitTest {
      */
     @Test
     public void allCitiesInTheWorld_nullDatabase() {
-        System.setOut(new PrintStream(output));
         try {
-            CityQueries.allCitiesInTheWorld(null, null);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(null, null);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("Database Connection is null")); // or similar string :)
+           fail(e.getMessage());
         }
+        assertTrue(output.contains("Database Connection is null")); // or similar string :)
     }
 
     /**
@@ -95,12 +96,12 @@ public class CityQueriesUnitTest {
      */
     @Test
     public void allCitiesInTheWorld_nullDatabaseConnection() {
-        System.setOut(new PrintStream(output));
         try {
-            CityQueries.allCitiesInTheWorld(nullDB, null);
-            fail("Should have thrown an exception.");
+            output = CityQueries.allCitiesInTheWorld(nullDB, null);
         } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null")); // or similar string :)
+            fail(e.getMessage());
         }
+        assertTrue(output.contains("Sorry database doesn't have a connection"));
+
     }
 }

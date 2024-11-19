@@ -221,7 +221,6 @@ public class CityQueriesIntTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        //System.err.println(output);
         assertTrue(output.contains("Sorry please choose a valid number"));
     }
 
