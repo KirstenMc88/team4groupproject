@@ -121,7 +121,6 @@ public class App
             // connects to database
             sql.connect(databaseLocation, databaseDelay);
 
-
             // Displays the result from the countries in the world query
             System.out.println(CountryQueries.CountriesInTheWorld(sql));
 
@@ -132,7 +131,7 @@ public class App
             System.out.println(CapitalQueries.AllCapitals(sql));
 
             // Display the result from the language query
-            //System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
+            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
             //Displays output result from population distribution queries
             System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
