@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * The {@code DatabaseConnection} class provides variables and methods to connect and disconnect to the world database
+ */
+
 public class DatabaseConnection {
     /**
      * Name of the database driver

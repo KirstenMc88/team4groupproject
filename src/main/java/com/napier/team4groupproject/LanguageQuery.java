@@ -3,6 +3,10 @@ package com.napier.team4groupproject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * The {@code LanguageQuery} class provides methods to retrieve and display reports relating to Languages
+ */
+
 public class LanguageQuery {
     /**
      * Method to create language report

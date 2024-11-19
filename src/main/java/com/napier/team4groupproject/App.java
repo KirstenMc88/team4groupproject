@@ -4,6 +4,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+/**
+ * The {@code App} class provides main entry point to app
+ * calls methods to connect and disconnect from database
+ * has calls to individual reports for testing this will not be in release
+ * has commented call to menu which will be user interface
+ */
+
 public class App
 {
 
@@ -126,6 +133,10 @@ public class App
             // Display the result from the language query
             System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
 
+            //Displays output result from population distribution queries
+            System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
+            System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
+            System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
             // Calls menu passes DB connection as parameters
             // Menu.mainMenu(sql);
 
