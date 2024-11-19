@@ -84,7 +84,7 @@ public class CityQueries {
       if (userInput.equals("Field cannot be empty") && topX == null || userInput.equals("Field cannot be over 50 characters.") && topX == null) { // if user input returns an error
          return userInput;
       } else if (userInput.equals("Field cannot be empty") && intError != null || userInput.equals("Field cannot be over 50 characters.") && intError == null) { // if user input and top x returns an error
-         return "Input Errors:\n" + userInput + " and topX " + intError;
+         return "Input Errors:\nQuery Input: " + userInput + "\nTop X: " + intError;
       } else if(intError.equals("Please enter a valid number") || intError.equals("Sorry please choose a valid number, numbers cannot be negative")) {
          return "Input Errors:\n" + intError;
       } else {
