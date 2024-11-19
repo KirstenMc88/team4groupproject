@@ -70,7 +70,7 @@ public class CityQueries {
     *
     * @throws SQLException
     */
-   public static String statementBuilder(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
+   public static String queryResults(DatabaseConnection databaseConnection, String userInput, String queryWhere, Integer topX) throws SQLException {
 
 
       PreparedStatement pstmt = null;
@@ -131,7 +131,7 @@ public class CityQueries {
       System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Continent", null);
+      return queryResults(databaseConnection, userInput, "country.Continent", null);
 
    }
 
@@ -150,7 +150,7 @@ public class CityQueries {
       System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Region", null);
+      return queryResults(databaseConnection, userInput, "country.Region", null);
 
    }
 
@@ -169,7 +169,7 @@ public class CityQueries {
       System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Name", null);
+      return queryResults(databaseConnection, userInput, "country.Name", null);
 
    }
 
@@ -188,7 +188,7 @@ public class CityQueries {
       System.out.println("All Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "city.District", null);
+      return queryResults(databaseConnection, userInput, "city.District", null);
 
    }
 
@@ -212,7 +212,7 @@ public class CityQueries {
       System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Continent", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Continent", userTopX);
 
    }
 
@@ -233,7 +233,7 @@ public class CityQueries {
       System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Region", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Region", userTopX);
 
    }
 
@@ -254,7 +254,7 @@ public class CityQueries {
       System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "country.Name", userTopX);
+      return queryResults(databaseConnection, userInput, "country.Name", userTopX);
 
    }
 
@@ -275,7 +275,7 @@ public class CityQueries {
       System.out.println("Top " + userTopX + " Cities in " + userInput + ".");
 
       //userInput = InputValidation.validateStringInput(userInput);
-      return statementBuilder(databaseConnection, userInput, "city.District", userTopX);
+      return queryResults(databaseConnection, userInput, "city.District", userTopX);
    }
 
 
