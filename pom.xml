@@ -6,7 +6,7 @@
 
     <groupId>com.napier.team4groupproject</groupId>
     <artifactId>groupProject</artifactId>
-    <version>v0.3-Cedar</version>
+    <version>v0.4-Willow</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
