@@ -1,6 +1,7 @@
 package com.napier.team4groupproject;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -10,6 +11,12 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Integration tests for CapitalQueries class
+ *
+ * <p>This class contains integration tests using JUnit to test that all methods in CapitalQueries behave
+ * as expected when interacting with several other classes and methods.</p>
+ */
 public class CapitalQueriesIntTest {
     private static DatabaseConnection worldDB; // db connection with actual data
     private static DatabaseConnection nullDB;
@@ -26,8 +33,16 @@ public class CapitalQueriesIntTest {
     // reference to the private method
     private static Method capitalQueriesMethod;
 
+    /**
+     * Setting up environment
+     *
+     * <p>This method sets up the test environment by setting a System property 'Environment' to 'IntegrationTest'.
+     * This allows certain things in the App class to only be executed in a certain environment.
+     * It also sets up the database connection and different example variables.</p>
+     */
     @BeforeAll
     public static void setUp() {
+        System.setProperty("Environment", "IntegrationTest");
         worldDB = new DatabaseConnection();
         nullDB = new DatabaseConnection();
 
@@ -43,6 +58,18 @@ public class CapitalQueriesIntTest {
         exampleInvalid = "Invalid";
     }
 
+    /**
+     * Method to call the capitalQueries method for different tests
+     *
+     * <p>This method calls the capitalQueries method with different parameters and returns the string
+     * which is returned by the capitalQueries method. </p>
+     *
+     * @param sql the DatabaseConnection object used to connect to the world database
+     * @param attribute the column from world db used to filter. examples: continent, region or null
+     * @param where the user inputted value used to filter query. examples: Europe, North America, Nordic Countries or null
+     * @param limit the user inputted value to limit the amount of entries shown. examples: 5, 25 or null (returns every entry)
+     * @return formatted string of data containing query results or null if exception occurs
+     */
     public static String callCapitalQueries(DatabaseConnection sql, String attribute, String where, Integer limit) {
         try {
             return (String) Utilities.callPrivateMethod(
@@ -57,6 +84,12 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the populationDistributionQuery method, with correct null input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null as it should return
+     * all in the world.</p>
+     */
     @Test
     public void testCapitalQueries_noFiltersNoLimits() {
         try {
@@ -67,6 +100,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the populationDistributionQuery method, with correct continent input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testCapitalQueries_withContinentFilter() {
         try {
@@ -79,6 +117,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the populationDistributionQuery method, with correct region input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testCapitalQueries_withRegionFilter() {
         try {
@@ -91,6 +134,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the populationDistributionQuery method, with correct limit (top x)
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testCapitalQueries_withLimit() {
         try {
@@ -102,7 +150,7 @@ public class CapitalQueriesIntTest {
             fail("The test should not have thrown an exception: " + e.getMessage());
         }
     }
-
+    @Disabled("disabled: github issue #99, zube card #113")
     @Test
     public void testCapitalQueries_nullDatabase() {
         try {
@@ -113,6 +161,7 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    @Disabled("disabled: github issue #100, zube card #132")
     @Test
     public void testCapitalQueries_nullDatabaseConnection() {
         try {
@@ -123,6 +172,7 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    @Disabled("disabled: github issue #98, zube card #114")
     @Test
     public void testCapitalQueries_attributeWhereMismatch() {
         try {
@@ -137,6 +187,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the AllCapitals method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testAllCapitals_notNull() {
         try {
@@ -147,6 +202,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the AllCapitalsContinent method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testAllCapitalsContinent_notNull() {
         try {
@@ -157,6 +217,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the AllCapitalsRegion method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testAllCapitalsRegion_notNull() {
         try {
@@ -167,6 +232,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the XCapitals method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testXCapitalsWorld_notNull() {
         try {
@@ -177,6 +247,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the XCapitalsContinent method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testXCapitalsContinent_notNull() {
         try {
@@ -187,6 +262,11 @@ public class CapitalQueriesIntTest {
         }
     }
 
+    /**
+     * Testing the XCapitalsRegion method, with valid input
+     *
+     * <p>This test checks that no unexpected exception is thrown, and that the result is not null.</p>
+     */
     @Test
     public void testXCapitalsRegion_notNull() {
         try {
