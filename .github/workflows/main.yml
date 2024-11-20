@@ -18,6 +18,15 @@ jobs:
       - name: Unit Tests
         run: mvn -Dtest=**/*UnitTest test
 
+      - name: CodeCov Unit Tests
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
+          directory: ./target/site/jacoco
+          flags: Unit Tests # optional
+          verbose: true # optional (default = false)
+          slug: KirstenMc88/team4groupproject
+
   IntegrationTests:
     name: Integration Tests
     runs-on: ubuntu-20.04
@@ -37,7 +46,7 @@ jobs:
           mvn -Dtest=**/*IntTest test
           docker compose down
 
-      - name: CodeCov
+      - name: CodeCov Integration Tests
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
