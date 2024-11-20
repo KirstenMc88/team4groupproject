@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-
+/**
+ * GeneralInfoQueriesIntTest Class provides tests for the GeneralInfoQueries to ensure they are working as expected.
+ */
 public class GeneralInfoQueriesIntTest {
 
     private static DatabaseConnection connection;
@@ -47,6 +49,12 @@ public class GeneralInfoQueriesIntTest {
     }
 
     // population of the world tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfTheWorldReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfTheWorld(connection);
@@ -54,6 +62,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfTheWorldContainPopulationColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfTheWorld(connection);
@@ -63,6 +76,12 @@ public class GeneralInfoQueriesIntTest {
 
 
     // population of a continent tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfAContinentReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, exampleContinent);
@@ -70,6 +89,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfAContinentReturnsCorrectColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, exampleContinent);
@@ -77,6 +101,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("Population"));
     }
 
+    /**
+     * Test checks the error message out is output to the user when their search doesn't return a result.
+     * Test passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfAContinentWhenContinentNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, inputThatWontBeFound);
@@ -84,6 +113,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("No population data available for the given continent."));
     }
 
+    /**
+     * Tests what happens when an empty input is entered.
+     * Tests passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfAContinentWhenContinentNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfAContinent(connection, null);
@@ -92,6 +126,12 @@ public class GeneralInfoQueriesIntTest {
     }
 
     // population of a country tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACountryReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfACountry(connection, exampleCountry);
@@ -99,6 +139,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACountryReturnsCorrectColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfACountry(connection, exampleCountry);
@@ -106,6 +151,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("Population"));
     }
 
+    /**
+     * Test checks the error message out is output to the user when their search doesn't return a result.
+     * Test passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACountryWhenCountryNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfACountry(connection, inputThatWontBeFound);
@@ -113,6 +163,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
     }
 
+    /**
+     * Tests what happens when an empty input is entered.
+     * Tests passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACountryWhenCountryNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfACountry(connection, null);
@@ -122,6 +177,12 @@ public class GeneralInfoQueriesIntTest {
 
 
     // population of a region tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfARegionReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, exampleRegion);
@@ -129,6 +190,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfARegionReturnsCorrectColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, exampleRegion);
@@ -136,6 +202,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("Population"));
     }
 
+    /**
+     * Test checks the error message out is output to the user when their search doesn't return a result.
+     * Test passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfARegionWhenRegionNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, inputThatWontBeFound);
@@ -143,6 +214,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("No population data available for the given region."));
     }
 
+    /**
+     * Tests what happens when an empty input is entered.
+     * Tests passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfARegionWhenRegionNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfARegion(connection, null);
@@ -151,6 +227,12 @@ public class GeneralInfoQueriesIntTest {
     }
 
     // population of a district tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfDistrictReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, exampleDistrict);
@@ -158,6 +240,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfADistrictReturnsCorrectColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, exampleDistrict);
@@ -166,6 +253,11 @@ public class GeneralInfoQueriesIntTest {
     }
 
 
+    /**
+     * Test checks the error message out is output to the user when their search doesn't return a result.
+     * Test passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfADistrictWhenDistrictNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, inputThatWontBeFound);
@@ -173,6 +265,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("No population data available for the given district."));
     }
 
+    /**
+     * Tests what happens when an empty input is entered.
+     * Tests passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfADistrictWhenDistrictNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfADistrict(connection, null);
@@ -182,6 +279,12 @@ public class GeneralInfoQueriesIntTest {
 
 
     // population of a city tests
+
+    /**
+     * Tests whether a value is returned when querying the database.
+     * Test passes if a value was returned from the database.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfCityReturnsValue() throws SQLException {
         String result = GeneralInfoQueries.populationOfACity(connection, exampleCity);
@@ -189,6 +292,11 @@ public class GeneralInfoQueriesIntTest {
         assertNotNull(result);
     }
 
+    /**
+     * Tests whether the correct column header is returned during the query.
+     * Test passes if the Population header is present in the results.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACityReturnsCorrectColumnHeader() throws SQLException {
         String result = GeneralInfoQueries.populationOfACity(connection, exampleCity);
@@ -196,6 +304,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("Population"));
     }
 
+    /**
+     * Test checks the error message out is output to the user when their search doesn't return a result.
+     * Test passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACityWhenCityNotFound() throws SQLException {
         String result = GeneralInfoQueries.populationOfACity(connection, inputThatWontBeFound);
@@ -203,6 +316,11 @@ public class GeneralInfoQueriesIntTest {
         assertTrue(result.contains("No matching data found. Please check your spelling and try again."));
     }
 
+    /**
+     * Tests what happens when an empty input is entered.
+     * Tests passes if the correct error message is output to the user.
+     * @throws SQLException
+     */
     @Test
     public void testGetPopulationOfACityWhenCityNull() throws SQLException {
         String result = GeneralInfoQueries.populationOfACity(connection, null);
