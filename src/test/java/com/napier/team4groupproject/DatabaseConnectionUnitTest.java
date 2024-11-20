@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
  * Junit tests that the correct messages are being shown for various scenarios
  */
 
-public class DatabaseConnectionTest {
+public class DatabaseConnectionUnitTest {
     private static DatabaseConnection testDB;
     private static Connection connection;
     private static ByteArrayOutputStream errorOutput;

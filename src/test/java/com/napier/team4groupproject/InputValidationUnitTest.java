@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * The {@test InputValidation} contains java unit tests to test that it handles outputs correctly
  */
 
-public class InputValidationTest {
+public class InputValidationUnitTest {
 
     InputValidation inputValidation = new InputValidation();
 
@@ -23,14 +23,14 @@ public class InputValidationTest {
     public void testValidateStringInput_EmptyInput() {
         String userInput = " ";
         String result = inputValidation.validateStringInput(userInput);
-        assertEquals("", result);  // expecting empty string due to validation
+        assertEquals("Field cannot be empty", result);  // expecting empty string due to validation
     }
 
     @Test // Tests string
     public void testValidateStringInput_TooLongInput() {
         String userInput = "This input is definitely more than fifty characters, exceeding the limit.";
         String result = inputValidation.validateStringInput(userInput);
-        assertEquals("", result);  // expecting empty string due to length validation
+        assertEquals("Field cannot be over 50 characters.", result);  // expecting empty string due to length validation
     }
 
     @Test
@@ -59,14 +59,14 @@ public class InputValidationTest {
     public void testValidateIntInput_NonNumericInput() {
         String userInput = "abc";
         String result = inputValidation.validateIntInput(userInput);
-        assertEquals("", result);  // expecting empty string due to non-numeric input
+        assertEquals("Please enter a valid number", result);  // expecting empty string due to non-numeric input
     }
 
     @Test //Test negative integer
     public void testValidateIntInput_NegativeNumber() {
         String userInput = "-3";
         String result = inputValidation.validateIntInput(userInput);
-        assertEquals("", result);  // Expecting empty string due to negative number
+        assertEquals("Sorry please choose a valid number, numbers cannot be negative or 0", result);  // Expecting empty string due to negative number
     }
 
 
