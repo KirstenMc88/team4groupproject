@@ -4,7 +4,7 @@
 
 
 ### Goal in Context
-As a User, I want to be able to view different country reports, so that I can easily see which countries are the most populated within the specified area.
+As a Data Analyst, I want to be able to view different country reports, so that I can easily see which countries are the most populated within the specified area.
 
 
 ### ### Scope
@@ -16,13 +16,13 @@ Primary Task
 
 
 ### Preconditions
-User has access to the application.
+Data Analyst has access to the application.
 
 Database has upto date population data.
 
 
 ### Success End Condition
-Report is produced displaying population data to the user.
+Report is produced displaying population data to the Data Analyst.
 
 
 ### Failed End Condition
@@ -30,21 +30,21 @@ No report is produced.
 
 
 ### Primary Actor
-User
+Data Analyst
 
 
 ### Trigger
-User prompts application for population data of countries in a specific continent.
+Data Analyst prompts application for population data of countries in a specific continent.
 
 
 ## MAIN SUCCESS SCENARIO
-1. User prompts application for population data.
-2. Data is returned to user in the form of a report.
+1. Data Analyst prompts application for population data.
+2. Data is returned to Data Analyst in the form of a report.
 
 
 ## EXTENSIONS
 #### 2. Database doesn't contain population data.
-Application returns error message to user informing them that the population data is not available.
+Application returns error message to Data Analyst informing them that the population data is not available.
 
 
 ## SUB-VARIATIONS

@@ -1,5 +1,5 @@
 @startuml
-actor User as "User"
+actor User as "Data Analyst"
 
 rectangle Database
 
