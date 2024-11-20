@@ -1,6 +1,8 @@
 package com.napier.team4groupproject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * The {@code Utilities} contains methods so that java unit tests and integration tests can be run
@@ -71,6 +73,44 @@ public class Utilities {
                 }
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Call private method
+     *
+     * <p>This method can call a private method.</p>
+     *
+     * @param clazz the class in which the field is
+     * @param instance the instance of the class from which the value is wanted, null if static
+     * @param methodName name of the method being called
+     * @param argTypesReceived the classes of the different arguments to be passed to the method
+     * @param args the arguments to be passed to the method that is being called
+     *
+     * @implNote This is a work in progress and might not work for all methods yet!
+     */
+    public static Object callPrivateMethod(Class<?> clazz, Object instance, String methodName, Class<?>[] argTypesReceived, Object ... args) throws InvocationTargetException {
+        Class<?>[] argTypes = new Class[args.length];
+
+        if(argTypesReceived == null){
+            for (int i = 0; i < args.length; i++) {
+                argTypes[i] = args[i].getClass();
+            }
+        } else {
+            argTypes = argTypesReceived;
+        }
+
+        try {
+            Method method = clazz.getDeclaredMethod(methodName, argTypes);
+            method.setAccessible(true);
+            if (method.getReturnType().equals(Void.TYPE)) {
+                method.invoke(instance, args);
+                return null;
+            } else{
+                return method.invoke(instance, args);
+            }
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
