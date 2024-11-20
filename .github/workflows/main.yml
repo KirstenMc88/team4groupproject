@@ -31,11 +31,19 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Integration Tests
+      - name: Integration Tests & Coverage
         run: |
           docker compose up -d world-db
           mvn -Dtest=**/*IntTest test
           docker compose down
+
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
+          directory: ./target/site/jacoco
+          flags: Integration Tests # optional
+          verbose: true # optional (default = false)
+          slug: KirstenMc88/team4groupproject
 
   build:
     name: Build and Start Using docker compose
