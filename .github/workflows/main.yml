@@ -37,6 +37,7 @@ jobs:
           mvn -Dtest=**/*IntTest test
           docker compose down
 
+      - name: CodeCov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
