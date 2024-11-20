@@ -3,7 +3,6 @@ package com.napier.team4groupproject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +10,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CapitalQueriesTest {
+public class CapitalQueriesIntTest {
     private static DatabaseConnection worldDB; // db connection with actual data
     private static DatabaseConnection nullDB;
     private static ByteArrayOutputStream output; // for capturing system output
