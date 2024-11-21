@@ -1,6 +1,9 @@
 package com.napier.team4groupproject;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The {@code InputValidation} class contains methods to validate user inputs both integers and strings
  */
@@ -78,5 +81,18 @@ public class InputValidation {
 
         // Returns user input
         return userInput;
+    }
+
+    /**
+     * validates user input to list of expected column names
+     * changes input to lower case for matching purposes
+     * @param attribute takes in user defined input
+     * throws illegal Argument exception
+     */
+    public static void validateAttribute(String attribute) {
+        List<String> validAttributes = Arrays.asList("continent", "region", "country","district", "city" );
+        if (attribute != null && !validAttributes.contains(attribute.toLowerCase())) {
+            throw new IllegalArgumentException("Invalid attribute provided: " + attribute);
+        }
     }
 }
