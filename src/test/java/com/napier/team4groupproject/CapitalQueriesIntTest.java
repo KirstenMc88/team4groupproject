@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,6 +81,11 @@ public class CapitalQueriesIntTest {
                     sql, attribute, where, limit
             );
         } catch (InvocationTargetException e) {
+            // unwraps the cause of the InvocationException so it can be properly seen
+            Throwable cause = e.getTargetException();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause; //rethrows tge og exception
+            }
             throw new RuntimeException("Invocation error: " + e.getTargetException().getMessage(), e);
         }
     }
@@ -150,40 +156,70 @@ public class CapitalQueriesIntTest {
             fail("The test should not have thrown an exception: " + e.getMessage());
         }
     }
-    @Disabled("disabled: github issue #99, zube card #113")
+
+    /**
+     * tests what happens if database connection is null
+     * and if correct exception is thrown
+     */
     @Test
     public void testCapitalQueries_nullDatabase() {
         try {
             callCapitalQueries(null, null, null, null);
             fail("Should have thrown an exception.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(output.toString().contains("DatabaseConnection cannot be null"), "Expected an error indicating that the DatabaseConnection is null.");
+        } catch (NullPointerException e) {
+            assertTrue(e.getMessage().contains("DatabaseConnection cannot be null"), "Expected an error indicating that the DatabaseConnection is null.");
         }
     }
 
-    @Disabled("disabled: github issue #100, zube card #132")
+    /**
+     * tests what happens is database connection object is null
+     * and that correct exception is thrown
+     */
     @Test
     public void testCapitalQueries_nullDatabaseConnection() {
         try {
             callCapitalQueries(nullDB, null, null, null);
             fail("Should have thrown an exception.");
-        } catch (Exception e) {
-            assertTrue(output.toString().contains("The connection of the DatabaseConnection object is null"), "Expected an error indicating that the connection of the DatabaseConnection is null.");
+        } catch (NullPointerException e) {
+            assertTrue(e.getMessage().contains("The connection of the DatabaseConnection object is null"), "Expected an error indicating that the connection of the DatabaseConnection is null.");
         }
     }
 
-    @Disabled("disabled: github issue #98, zube card #114")
+    /**
+     * Tests what happens if no attribute is provided this is a valid input
+     * in this case the logic of the class should run the query and show all
+     * capital cities in world
+     */
+    @Test
+    public void testCapitalQueries_noAttributeNoWhere() {
+        try {
+            // Call the method with no filter (null attribute and null where)
+            String result = callCapitalQueries(worldDB, null, null, null);
+
+            // Assert that the result is not null (indicating a valid query execution)
+            assertNotNull(result, "The result should show all in the world when no attribute or where is provided.");
+        } catch (Exception e) {
+            fail("Unexpected exception type thrown: " + e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * test what happens if there is a mismatch between attribute and where,
+     * only when an attribute has been provided
+     * should throw correct exception
+     */
     @Test
     public void testCapitalQueries_attributeWhereMismatch() {
         try {
-            String result = callCapitalQueries(worldDB, exampleContinent, null, null);
-            if (result == null) {
-                fail("The method returned null instead of throwing an IllegalArgumentException.");
-            }
+            callCapitalQueries(worldDB, exampleContinent, null, null);
+            fail("Expected IllegalArgumentException to be thrown when attribute is supplied but where is null.");
         } catch (IllegalArgumentException e) {
-            assertTrue(e.getMessage().contains("attribute & Where must match"), "Expected IllegalArgumentException with a message about attribute and where mismatch.");
+            // Assert that the exception message matches the expected content
+            assertTrue(e.getMessage().contains("attribute & Where must match"),
+                    "Expected IllegalArgumentException with a message about attribute and where mismatch.");
         } catch (Exception e) {
-            fail("Unexpected exception type thrown:" + e.getMessage());
+            fail("Unexpected exception type thrown: " + e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
