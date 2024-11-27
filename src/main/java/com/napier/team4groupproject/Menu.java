@@ -58,7 +58,7 @@ public class Menu {
                     break;
 
                 case "5":
-                    generalInformationMenu();
+                    generalInformationMenu(databaseConnection);
                     break;
 
                 case "6":
@@ -503,7 +503,7 @@ public class Menu {
      * has built in validation
      */
 
-    private static void generalInformationMenu() {
+    private static void generalInformationMenu(DatabaseConnection databaseConnection) {
         boolean exit = false;
 
         while (!exit) {
@@ -519,31 +519,76 @@ public class Menu {
 
             String choice = input.nextLine();
 
+            // local variables to pass parameters into CapitalQueries class
+            String continent = null; // variable to store continent input from user
+            String region = null; // variable to store region input from  user
+            String country = null; // variable to store country input from user
+            String district = null; // variable to store district input from user
+            String city = null; // variable to store city input from user
+
             switch (choice) {
                 case "1":
-                    System.out.println("Placeholder");
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfTheWorld(databaseConnection));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "2":
-                    System.out.println("Placeholder");
+                    // prompts user for continent
+                    System.out.println("Please enter a continent");
+                    continent = input.nextLine();
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfAContinent(databaseConnection, continent));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "3":
-                    System.out.println("Placeholder");
+                    // prompts user for region
+                    System.out.println("Please enter a region");
+                    region = input.nextLine();
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfARegion(databaseConnection, region));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "4":
-                    System.out.println("Placeholder");
+                    // prompts user for country
+                    System.out.println("Please enter a country");
+                    country = input.nextLine();
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfACountry(databaseConnection, country));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "5":
-                    System.out.println("Placeholder");
+                    // prompts user for district
+                    System.out.println("Please enter a district");
+                    district = input.nextLine();
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfADistrict(databaseConnection, district));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
+                    // prompts user for city
+                    System.out.println("Please enter a city");
+                    city = input.nextLine();
+                    try {
+                        System.out.println(GeneralInfoQueries.populationOfACity(databaseConnection, city));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
-
                 case "0":
                     exit = true;
                     break;
