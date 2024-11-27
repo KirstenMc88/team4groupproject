@@ -165,6 +165,8 @@ public class Menu {
 
     private static void cityReportsMenu(DatabaseConnection databaseConnection) throws SQLException {
         boolean exit = false;
+        String userInput;
+        int topX;
 
         while (!exit) {
             System.out.println("\n------City Reports------");
@@ -189,39 +191,83 @@ public class Menu {
                     break;
 
                 case "2":
-                    System.out.println("Placeholder");
+                    System.out.println("Which continent would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println(CityQueries.allCitiesInAContinent(databaseConnection, userInput));
                     break;
 
                 case "3":
-                    System.out.println("Placeholder");
+                    System.out.println("Which region would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println(CityQueries.allCitiesInARegion(databaseConnection, userInput));
                     break;
 
                 case "4":
-                    System.out.println("Placeholder");
+                    System.out.println("Which country would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println(CityQueries.allCitiesInACountry(databaseConnection, userInput));
                     break;
 
                 case "5":
-                    System.out.println("Placeholder");
+                    System.out.println("Which district would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println(CityQueries.allCitiesInADistrict(databaseConnection, userInput));
                     break;
 
                 case "6":
-                    System.out.println("Placeholder");
+                    System.out.println("How many cities would you like to view? ");
+                    topX = input.nextInt();
+                    input.nextLine();
+
+                    System.out.println(CityQueries.allCitiesInTheWorld(databaseConnection, topX));
                     break;
 
                 case "7":
-                    System.out.println("Placeholder");
+                    System.out.println("Which continent would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println("How many cities would you like to view? ");
+                    topX = input.nextInt();
+                    input.nextLine();
+
+                    System.out.println(CityQueries.topXCitiesInAContinent(databaseConnection, userInput, topX));
                     break;
 
                 case "8":
-                    System.out.println("Placeholder");
+                    System.out.println("Which region would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println("How many cities would you like to view? ");
+                    topX = input.nextInt();
+                    input.nextLine();
+
+                    System.out.println(CityQueries.topXCitiesInARegion(databaseConnection, userInput, topX));
                     break;
 
                 case "9":
-                    System.out.println("Placeholder");
+                    System.out.println("Which country would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println("How many cities would you like to view? ");
+                    topX = input.nextInt();
+                    input.nextLine();
+
+                    System.out.println(CityQueries.topXCitiesInACountry(databaseConnection, userInput, topX));
                     break;
 
                 case "10":
-                    System.out.println("Placeholder");
+                    System.out.println("Which district would you like to view? ");
+                    userInput = input.nextLine();
+
+                    System.out.println("How many cities would you like to view? ");
+                    topX = input.nextInt();
+                    input.nextLine();
+
+                    System.out.println(CityQueries.topXCitiesInADistrict(databaseConnection, userInput, topX));
                     break;
 
                 case "0":

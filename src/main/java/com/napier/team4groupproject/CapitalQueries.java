@@ -25,6 +25,28 @@ public class CapitalQueries {
      * @return formatted string of data containing query results or null if exception occurs
      */
     private static String capitalQueries(DatabaseConnection sql, String attribute, String where, Integer limit) {
+
+        // validate whether the database connection is null or not
+        if (sql == null ) {
+            throw new NullPointerException("DatabaseConnection cannot be null");
+        }
+        if ( sql.getCon() == null) {
+            throw new NullPointerException("The connection of the DatabaseConnection object is null");
+        }
+
+
+
+        // validates that either both attribute and where are provided or neither is avoids mismatch
+        if ((attribute == null && where != null) || (attribute != null && where == null)) {
+            throw new IllegalArgumentException("attribute & Where must match");
+        }
+
+        // Validate attribute (if applicable)
+        if (attribute != null) {
+            InputValidation.validateAttribute(attribute);
+        }
+
+
         // builds the base of the query selecting city name, country name and population
         String query = "SELECT city.Name AS Name, country.Name AS Country, city.Population " +
                 "FROM city " +
@@ -46,10 +68,7 @@ public class CapitalQueries {
         // tries to build prepared statement which is closed when query is retrieved
         try (PreparedStatement preparedStatement = sql.getCon().prepareStatement(query)) {
 
-            // validates that either both attribute and where are provided or neither is avoids mismatch
-            if ((attribute == null && where != null) || (attribute != null && where == null)) {
-                throw new IllegalArgumentException("attribute & Where must match (either both null or both not null");
-            }
+
             // if where is provided it is set in prepared statement
             if (where != null) {
                 preparedStatement.setString(1, where);
