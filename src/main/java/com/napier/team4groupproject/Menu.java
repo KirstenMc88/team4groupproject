@@ -30,7 +30,7 @@ public class Menu {
     public static void mainMenu(DatabaseConnection databaseConnection) throws SQLException {
 
         // Check for non-interactive environment
-        if (System.getenv("NON_INTERACTIVE") != null || "true".equalsIgnoreCase(System.getProperty("NON_INTERACTIVE"))) {
+        if (System.getenv("NON_INTERACTIVE") != null || "false".equalsIgnoreCase(System.getProperty("NON_INTERACTIVE"))) {
             System.out.println("Non-interactive mode detected. Skipping menu.");
             return; // Exit the menu immediately
         }
