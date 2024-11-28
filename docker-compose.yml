@@ -1,6 +1,7 @@
 # to run fully in docker:
-# do NOT use the green arrows, it will throw an error because it can't accept user input!
-# instead go to the terminal (in intellij) and run: docker-compose run app
+# do NOT use the green arrows, it will run the non-interactive version because it can't accept user input!
+# either maven package and run the groupproject.jar file found in the target directory
+# or just run it locally using current file App.java
 # this will run it there and user input will work as normal :)
 
 # to run with a local port:
