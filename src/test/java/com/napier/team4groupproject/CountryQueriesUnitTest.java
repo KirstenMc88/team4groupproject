@@ -61,7 +61,7 @@ public class CountryQueriesUnitTest {
     @Test
     public void AllQueries_nullDatabase() {
         try {
-            Object[] args = new Object[]{null, exampleContinent, "Continent", exampleTopX};
+            Object[] args = new Object[]{null, "Continent", exampleContinent, exampleTopX};
             callingAllQueriesMethod(args);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -77,7 +77,7 @@ public class CountryQueriesUnitTest {
     @Test
     public void AllQueries_nullDatabaseConnection() {
         try {
-            Object[] args = new Object[]{nullDB, exampleContinent, "Continent", exampleTopX};
+            Object[] args = new Object[]{nullDB, "Continent", exampleContinent, exampleTopX};
             callingAllQueriesMethod(args);
         } catch (Exception e) {
             fail(e.getMessage());
