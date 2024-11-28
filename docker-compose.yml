@@ -8,19 +8,21 @@
 # then go to App.java and use the green arrow next to the main method
 # this allows the database to stay up independently even after closing the app
 
-version: '3'
-services:
-  # links to app dockerfile
-  app:
-    build: .
-    depends_on:
-      - world-db # ensures that database is started before starting app
-    entrypoint: ["java", "-cp", "app.jar:/tmp/lib/*", "com.napier.team4groupproject.App", "world-db:3306", "30000"]
+  version: '3'
+  services:
+    # links to app dockerfile
+    app:
+      build: .
+      depends_on:
+        - world-db # ensures that database is started before starting app
+      entrypoint: ["java", "-cp", "app.jar:/tmp/lib/*", "com.napier.team4groupproject.App", "world-db:3306", "30000"]
+      environment:
+        NON_INTERACTIVE: "true"
 
-  # links to database dockerfile
-  world-db:
-    build: world-db/.
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - "33060:3306"
+    # links to database dockerfile
+    world-db:
+      build: world-db/.
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      ports:
+        - "33060:3306"
