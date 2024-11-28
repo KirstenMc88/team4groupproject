@@ -73,6 +73,9 @@ jobs:
           mvn package -DskipTests
           docker compose up --abort-on-container-exit
 
+      - name: Run application with simulated input
+        run: echo "0" | docker exec -i $(docker-compose ps -q app) java -cp app.jar:/tmp/lib/* com.napier.team4groupproject.App world-db:3306 30000
+
       - name: Create or Update Release
         if: github.ref == 'refs/heads/team4groupproject/release'
         uses: "marvinpinto/action-automatic-releases@latest"
