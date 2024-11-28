@@ -71,7 +71,7 @@ jobs:
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
-          run: echo "0" | docker compose up --abort-on-container-exit
+          docker compose up --abort-on-container-exit
 
       - name: Create or Update Release
         if: github.ref == 'refs/heads/team4groupproject/release'
