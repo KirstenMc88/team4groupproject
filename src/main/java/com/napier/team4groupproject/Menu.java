@@ -12,6 +12,8 @@ import java.util.Scanner;
  * They can also return to previous menus using 0
  */
 public class Menu {
+
+
     /**
      A {@code Scanner} object to take in a user input form the cosnole
      */
@@ -26,6 +28,13 @@ public class Menu {
      */
 
     public static void mainMenu(DatabaseConnection databaseConnection) throws SQLException {
+
+        // Check for non-interactive environment
+        if (System.getenv("NON_INTERACTIVE") != null || "true".equalsIgnoreCase(System.getProperty("NON_INTERACTIVE"))) {
+            System.out.println("Non-interactive mode detected. Skipping menu.");
+            return; // Exit the menu immediately
+        }
+
         boolean exit = false;
 
         while (!exit) {
