@@ -121,6 +121,11 @@ public class App
             // connects to database
             sql.connect(databaseLocation, databaseDelay);
 
+            // Check for interactive mode
+            if (args.length > 2 && "NON_INTERACTIVE".equalsIgnoreCase(args[2])) {
+                System.setProperty("NON_INTERACTIVE", "true");
+            }
+
             // Calls menu passes DB connection as parameters
             Menu.mainMenu(sql);
 
