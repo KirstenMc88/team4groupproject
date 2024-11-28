@@ -71,8 +71,7 @@ public class CountryQueries {
         }
         // catch any exceptions
         catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
+            return e.getMessage();
         }
     }
 
