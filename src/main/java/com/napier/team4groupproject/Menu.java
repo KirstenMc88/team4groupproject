@@ -62,6 +62,8 @@ public class Menu {
                     break;
 
                 case "6":
+                    System.out.println("\n------Language Report------");
+
                     System.out.println(LanguageQuery.LanguageDistributionInThWorld(databaseConnection));
                     break;
 
