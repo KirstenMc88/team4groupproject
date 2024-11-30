@@ -3,16 +3,19 @@ package com.napier.team4groupproject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Integration tests for CountryQueries class
+ *
+ * <p>This class contains integration tests using JUnit to test that all methods in CountryQueries behave
+ * as expected when interacting with several other classes and methods.</p>
+ */
 public class CountryQueriesIntTest {
     private static DatabaseConnection worldDB;
     private static String output;
-    private static ByteArrayOutputStream printOutput;
     private static String exampleContinent;
     private static String exampleRegion;
     private static Integer exampleTopX;
@@ -29,8 +32,6 @@ public class CountryQueriesIntTest {
         System.setProperty("Environment", "IntegrationTest");
         worldDB = new DatabaseConnection();
         worldDB.connect("localhost:33060", 10000);
-        printOutput = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(printOutput));
         exampleContinent = "Asia";
         exampleRegion = "Caribbean";
         exampleTopX = 3;
@@ -131,7 +132,6 @@ public class CountryQueriesIntTest {
         }
     }
 
-
     /**
      * Testing the AllQueries method, with a negative topX
      *
@@ -187,7 +187,7 @@ public class CountryQueriesIntTest {
     }
 
 
-    //
+    // tests for all other methods
 
 
     /**
@@ -314,6 +314,4 @@ public class CountryQueriesIntTest {
             fail("Unhandled empty ResultSet.");
         }
     }
-
-
 }
