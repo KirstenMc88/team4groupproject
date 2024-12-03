@@ -77,13 +77,16 @@ jobs:
         id: pom-version
         uses: PERES-Richard/maven-get-version-action@v3.0.0
 
+      - name: Print Maven POM project version
+        run: echo "version = ${{ steps.pom-version.outputs.version }}"
+
       - name: Create or Update Release
         if: github.ref == 'refs/heads/feature/automateReleases'
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "${{ steps.project.outputs.version }}"
+          automatic_release_tag: "${{ steps.pom-version.outputs.version }}"
           files: |
             ./target/groupProject.jar
 
