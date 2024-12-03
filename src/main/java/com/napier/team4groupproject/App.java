@@ -121,24 +121,13 @@ public class App
             // connects to database
             sql.connect(databaseLocation, databaseDelay);
 
-            // Displays the result from the countries in the world query
-            System.out.println(CountryQueries.CountriesInTheWorld(sql));
+            // Check for interactive mode
+            if (args.length > 2 && "NON_INTERACTIVE".equalsIgnoreCase(args[2])) {
+                System.setProperty("NON_INTERACTIVE", "true");
+            }
 
-            // displays all cities in the world
-            System.out.println(CityQueries.allCitiesInTheWorld(sql, null));
-
-            //Displays results of All Capital Cities In World Query
-            System.out.println(CapitalQueries.AllCapitals(sql));
-
-            // Display the result from the language query
-            System.out.println(LanguageQuery.LanguageDistributionInThWorld(sql));
-
-            //Displays output result from population distribution queries
-             System.out.println(PopDistributionQueries.ContinentPopulation(sql, "Europe"));
-             System.out.println(PopDistributionQueries.RegionPopulation(sql, "Middle East"));
-             System.out.println(PopDistributionQueries.CountryPopulation(sql, "United States"));
             // Calls menu passes DB connection as parameters
-            // Menu.mainMenu(sql);
+            Menu.mainMenu(sql);
 
             // Disconnect from database
             sql.disconnect();

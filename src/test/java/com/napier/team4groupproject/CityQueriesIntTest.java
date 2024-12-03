@@ -175,42 +175,6 @@ public class CityQueriesIntTest {
     }
 
     /**
-     * Testing the queryResults method, with an invalid column
-     *
-     * <p>This test checks that if an invalid column is passed into the method to be used as a where
-     * filter it handles it appropriately.</p>
-     */
-    @Disabled("disabled: github issue #86, zube card #120")
-    @Test
-    public void queryResults_invalidWhere() {
-        try {
-            CityQueries.queryResults(worldDB, exampleContinent, exampleInvalid, exampleTopX);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertTrue(printOutput.toString().contains("Invalid where filter.")); // or similar string :)
-    }
-
-    /**
-     * Testing the queryResults method, with a topX larger than the amount of rows matching the query
-     *
-     * <p>This test checks that if a topX which is higher than the number of results is passed into the method
-     * it adjusts the header appropriately.</p>
-     */
-    @Disabled("disabled: github issue #88, zube card #122")
-    @Test
-    public void queryResults_tooHighTopX() {
-        try {
-            CityQueries.queryResults(worldDB, exampleDistrict, "District", exampleTooHighTopX);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        // the string is an example of a message that could be displayed, if a different one is used please amend here
-        assertTrue(printOutput.toString().contains(exampleDistrict + " has less than " + exampleTooHighTopX + " cities."));
-        // i'd say still print the output, just point out the fact that its less than the user requested
-    }
-
-    /**
      * Testing the queryResults method, with a negative topX
      *
      * <p>This test checks that if a negative topX is passed into the method it is handled appropriately.
@@ -261,24 +225,6 @@ public class CityQueriesIntTest {
         assertTrue(output.contains("Field cannot be empty"));
     }
 
-    /**
-     * Testing the queryResults method, with an empty queryWhere
-     *
-     * <p>This test checks that if an empty queryWhere is passed into the method it is handled appropriately.
-     * The string used to assert is from the inputValidation class, as calling a validation method would be
-     * the easiest way of handling this.</p>
-     */
-    @Disabled("disabled: github issue #85, zube card #119")
-    @Test
-    public void queryResults_emptyWhere() {
-        try {
-            output = CityQueries.queryResults(worldDB, exampleContinent, "", exampleTopX);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertTrue(output.contains("Field cannot be empty")); // or similar string :)
-    }
-
 
     // tests for the allCitiesInTheWorld method
 
@@ -321,26 +267,6 @@ public class CityQueriesIntTest {
             assertTrue(lines[2].contains("Mumbai (Bombay)"));
             assertTrue(lines[lines.length-1].contains("São Paulo"));
         }
-    }
-
-    /**
-     * Testing the allCitiesInTheWorld method, with a topX larger than the amount of rows matching the query
-     *
-     * <p>This test checks that if a topX which is higher than the number of results is passed into the method
-     * it adjusts the header appropriately.</p>
-     */
-    @Disabled("disabled: github issue #82, zube card #116")
-    @Test
-    public void allCitiesInTheWorld_tooHighTopX() {
-        try {
-            output = CityQueries.allCitiesInTheWorld(worldDB, 4080); // total cities in world is 4079
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        // the string is an example of a message that could be displayed, if a different one is used please amend here
-        assertTrue(printOutput.toString().contains(" There are less than 4080 cities in the world."));
-        // i'd say still print the output, just point out the fact that its less than the user requested
-
     }
 
     /**
