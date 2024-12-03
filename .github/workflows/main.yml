@@ -73,13 +73,41 @@ jobs:
           mvn package -DskipTests
           NON_INTERACTIVE=true docker compose up --abort-on-container-exit
 
-      - name: Create or Update Release
-        if: github.ref == 'refs/heads/release'
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          automatic_release_tag: "latest"
-          files: |
-            ./target/groupProject.jar
+  Release :
+  - name: Get Latest Release Tag
+    if: github.ref == 'refs/heads/release'
+    id: get_latest_release
+    uses: actions/github-script@v6
+    with:
+      script: |
+        const latestRelease = await github.repos.getLatestRelease({
+          owner: context.repo.owner,
+          repo: context.repo.repo
+        });
+        core.setOutput("tag", latestRelease.data.tag_name);
+
+  - name: Determine Next Version
+    if: github.ref == 'refs/heads/release'
+    id: determine_version
+    run: |
+      latest_tag=${{ steps.get_latest_release.outputs.tag }}
+      if [[ $latest_tag =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
+        major=$(echo $latest_tag | cut -d'.' -f1 | cut -c2-)
+        minor=$(echo $latest_tag | cut -d'.' -f2)
+        next_minor=$((minor + 1))
+        next_version="v${major}.${next_minor}"
+      else
+        next_version="v1.0" # Default if no valid tag exists
+      fi
+      echo "next_version=$next_version" >> $GITHUB_ENV
+
+  - name: Create or Update Release
+    if: github.ref == 'refs/heads/release'
+    uses: "marvinpinto/action-automatic-releases@latest"
+    with:
+      repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      prerelease: false
+      automatic_release_tag: "${{ env.next_version }}"
+      files: |
+        ./target/groupProject.jar
 
