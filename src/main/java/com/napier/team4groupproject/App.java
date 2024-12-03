@@ -122,7 +122,7 @@ public class App
             sql.connect(databaseLocation, databaseDelay);
 
             // Calls menu passes DB connection as parameters
-            // Menu.mainMenu(sql);
+            Menu.mainMenu(sql);
 
             // Disconnect from database
             sql.disconnect();
