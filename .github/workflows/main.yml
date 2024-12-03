@@ -72,14 +72,18 @@ jobs:
         run: |
           mvn package -DskipTests
           NON_INTERACTIVE=true docker compose up --abort-on-container-exit
+          
+      - name: get-pom-version
+        id: pom-version
+        uses: PERES-Richard/maven-get-version-action@v3.0.0
 
       - name: Create or Update Release
-        if: github.ref == 'refs/heads/release'
+        if: github.ref == 'refs/heads/feature/automateReleases'
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "latest"
+          automatic_release_tag: "${{ steps.pom-version.outputs.version }}"
           files: |
             ./target/groupProject.jar
 
