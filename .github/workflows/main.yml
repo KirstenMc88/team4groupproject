@@ -100,6 +100,7 @@ jobs:
           fi
           echo "next_version=$next_version" >> $GITHUB_ENV
 
+
       - name: Create or Update Release
         if: github.ref == 'refs/heads/release'
         uses: "marvinpinto/action-automatic-releases@latest"
