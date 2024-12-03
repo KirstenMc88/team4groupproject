@@ -79,9 +79,10 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "latest"
+          automatic_release_tag: "${{ env.next_version }}"
           files: |
             ./target/groupProject.jar
+
 
 
 
