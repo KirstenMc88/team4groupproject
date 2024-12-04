@@ -73,10 +73,10 @@ jobs:
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
-          docker compose up --abort-on-container-exit
+          NON_INTERACTIVE=true docker compose up --abort-on-container-exit
 
       - name: Create or Update Release
-        if: github.ref == 'refs/heads/team4groupproject/release'
+        if: github.ref == 'refs/heads/release'
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -84,4 +84,5 @@ jobs:
           automatic_release_tag: "latest"
           files: |
             ./target/groupProject.jar
+
 

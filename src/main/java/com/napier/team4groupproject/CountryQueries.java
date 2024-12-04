@@ -1,6 +1,7 @@
 package com.napier.team4groupproject;
 
 import java.sql.*;
+import java.util.Objects;
 
 /**
  * The {@code CountryQueries} class provides methods to retrieve and display country reports
@@ -51,8 +52,24 @@ public class CountryQueries {
                 throw new IllegalArgumentException("attribute and whereParameter must either both be null or both not be null.");
             }
 
+            if (limitParameter != null) {
+                String validateLimitParameter = "" + limitParameter;
+                validateLimitParameter = InputValidation.validateIntInput(validateLimitParameter);
+
+                if (!Objects.equals(validateLimitParameter, "" + limitParameter)) {
+                    return validateLimitParameter;
+                }
+            }
+
+
             // if there is a where it is set
             if (whereParameter != null) {
+                String validateWhereParameter = InputValidation.validateStringInput(whereParameter);
+
+                if (!Objects.equals(validateWhereParameter, whereParameter)) {
+                    return validateWhereParameter;
+                }
+
                 preparedStatement.setString(1, whereParameter);
                 // if there is a limit it is set
                 if (limitParameter != null) {
@@ -71,8 +88,7 @@ public class CountryQueries {
         }
         // catch any exceptions
         catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
+            return e.getMessage();
         }
     }
 

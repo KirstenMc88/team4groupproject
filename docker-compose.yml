@@ -1,6 +1,7 @@
 # to run fully in docker:
-# do NOT use the green arrows, it will throw an error because it can't accept user input!
-# instead go to the terminal (in intellij) and run: docker-compose run app
+# do NOT use the green arrows, it will run the non-interactive version because it can't accept user input!
+# either maven package and run the groupproject.jar file found in the target directory
+# or just run it locally using current file App.java
 # this will run it there and user input will work as normal :)
 
 # to run with a local port:
@@ -8,19 +9,21 @@
 # then go to App.java and use the green arrow next to the main method
 # this allows the database to stay up independently even after closing the app
 
-version: '3'
-services:
-  # links to app dockerfile
-  app:
-    build: .
-    depends_on:
-      - world-db # ensures that database is started before starting app
-    entrypoint: ["java", "-cp", "app.jar:/tmp/lib/*", "com.napier.team4groupproject.App", "world-db:3306", "30000"]
+  version: '3'
+  services:
+    # links to app dockerfile
+    app:
+      build: .
+      depends_on:
+        - world-db # ensures that database is started before starting app
+      entrypoint: ["java", "-cp", "app.jar:/tmp/lib/*", "com.napier.team4groupproject.App", "world-db:3306", "30000"]
+      environment:
+        NON_INTERACTIVE: ${NON_INTERACTIVE:-false}
 
-  # links to database dockerfile
-  world-db:
-    build: world-db/.
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - "33060:3306"
+    # links to database dockerfile
+    world-db:
+      build: world-db/.
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      ports:
+        - "33060:3306"
