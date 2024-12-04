@@ -20,7 +20,7 @@ jobs:
 
       - name: CodeCov Unit Tests
         uses: codecov/codecov-action@v2
-        with:
+        with: #tried deleting ap on github
           token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
           directory: ./target/site/jacoco
           flags: Unit Tests # optional
