@@ -25,7 +25,7 @@ jobs:
           directory: ./target/site/jacoco
           flags: Unit Tests # optional
           verbose: true # optional (default = false)
-          slug: KirstenMc88/team4groupproject
+          slug:  SEMteam4groupproject/team4groupproject
 
   IntegrationTests:
     name: Integration Tests
@@ -53,7 +53,9 @@ jobs:
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
-          slug: KirstenMc88/team4groupproject
+          slug: SEMteam4groupproject/team4groupproject
+
+
 
   build:
     name: Build Run in Docker and Deploy Release
